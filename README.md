@@ -79,7 +79,22 @@ Con estos estados, se pueden visualizar en la pantalla diversas expresiones de l
 
 #  3. Diagrama de caja negra/funcional
 
+El siguiente esquema representa el diagrama de caja negra inicial del proyecto. Este diagrama está sujeto a cambios a medida que el proyecto avanza y se implementan optimizaciones o se identifican protocolos adicionales necesarios que actualmente son desconocidos. Dado que el desarrollo es un proceso iterativo, es probable que ajustemos este modelo para adaptarlo mejor a las necesidades emergentes y a los hallazgos obtenidos durante las etapas de prueba y evaluación.
+![WhatsApp Image 2024-04-23 at 9 08 59 PM](https://github.com/unal-edigital1-lab/entrega-1-proyecto-grupo01-2024-1/assets/96506551/6811104d-e412-45b2-9423-a3dc118d13d4)
+
 ## 3.1 Diagrama de Caja Negra
+
+El protocolo I2C, un método de comunicación serial ampliamente adoptado, se emplea en este proyecto para conectar el microcontrolador con varios dispositivos periféricos. Específicamente, se utiliza para la integración del giroscopio y para la comunicación con la pantalla LED de 16x2. La flexibilidad del protocolo I2C también permitirá su futura extensión a otros sensores que se añadirán en las etapas subsiguientes del desarrollo. Esta capacidad de expansión asegura que podemos adaptar y escalar nuestro sistema fácilmente conforme evolucionen nuestras necesidades técnicas.
+
+El protocolo SPI se empleará principalmente para la visualización de imágenes en la Matriz LED 8x8, ya que permite reducir el número de pines necesarios y acelera significativamente la transferencia de datos.
+
+En la sección de Estados, se recibirá el estado actual de la mascota y se procesarán las imágenes correspondientes que serán enviadas al protocolo SPI para su reproducción en la matriz 8x8. Este módulo contendrá todos los dibujos representativos de los distintos estados de la mascota, listos para ser mostrados según sea necesario.
+
+En Calculo de Estados, se realizarán todos los procesor logicos para determinar el estado de la mascota, además allí será donde entren algunas interacciones con sensores como los botones que alimentan o hacen dormir a la mascota, con ello aumentar o disminuir ciertos estados dependiendo las interacciones del usuario.
+
+En el módulo de Cálculo de Estados, se llevarán a cabo todos los procesos lógicos necesarios para determinar el estado actual de la mascota. Además, este será el lugar donde se gestionen diversas interacciones con sensores, como los botones que permiten alimentar o hacer dormir a la mascota. Estas interacciones influirán en el ajuste de ciertos estados, variando según las acciones del usuario.
+
+En el módulo de Memoria, como su nombre indica, se almacenarán los valores relevantes que se deben mostrar al usuario en la pantalla LED 16x2. Esto se realiza con el fin de proporcionar una experiencia más completa y satisfactoria al usuario.
 
 ## 3.2 Diagrama de Flujo
 
