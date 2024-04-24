@@ -66,8 +66,29 @@ El Tamagotchi tendrá una lógica de estados interna que reflejará las diversas
 | Enfermo    | 110     | 6      | La mascota no está saludable, es decir, sufre por hambre, falta de ejercicio y/o juego. |
 |Muerto | 111 | 7 | La mascota murió.
 
+Estos estados fluctuarán en base a las estadísticas individuales de cada atributo de la mascota, proporcionando una experiencia dinámica e interactiva para el usuario. Esta relación entre los atributos de la mascota y sus estados se puede visualizar en la siguiente imagen.
+
+![Estados](./Img/Estados.jpeg)
+
+Con estos estados, se pueden visualizar en la pantalla diversas expresiones de la mascota. Estas expresiones permiten al usuario comprender fácilmente el estado actual de la mascota. Las siguientes ilustraciones proporcionan una representación visual de cada estado, facilitando así la interacción del usuario con la mascota virtual.
+
+![Caras](./Img/Caras.jpeg)
 
 #  3. Diagrama de caja negra/funcional
+
+## 3.1 Diagrama de Flujo
+
+El siguiente diagrama de flujo proporciona una visión detallada de la funcionalidad integral del sistema Tamagotchi. Ilustra la interacción entre los diversos componentes del sistema, así como el procesamiento de las entradas y salidas. Este diagrama es esencial para entender cómo cada componente del sistema contribuye al funcionamiento general del Tamagotchi.
+
+![DiagramaFuncional](./Img/DiagramaFuncional.jpeg)
+
+## 3.2 Diagrama de Moore
+
+El siguiente diagrama de Moore es una representación gráfica de la lógica de estados del Tamagotchi. Este diagrama detalla cómo el estado del Tamagotchi cambia en respuesta a los atributos de la mascota y las acciones del usuario. Es una herramienta valiosa para entender cómo las acciones del usuario y los atributos de la mascota influyen en el estado del Tamagotchi.
+
+![DiagramaMoore](./Img/DiagramaMoore.jpeg)
+
+
 
 
 #  4. Propuesta Inicial de Arquitectura
