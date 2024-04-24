@@ -20,7 +20,7 @@
   - [4.3 Pantalla LCD](#43-pantalla-lcd)
 
 # 1. Objetivo
-Desarrollar un sistema de Tamagotchi en FPGA (Field-Programmable Gate Array) que simule el cuidado de una mascota virtual. El diseño incorporará una lógica de estados para reflejar las diversas necesidades y condiciones de la mascota, junto con mecanismos de interacción a través de un sensor de movimiento (MPU6050) y botones que permitan al usuario cuidar adecuadamente de ella.
+Desarrollar un sistema de Tamagotchi en FPGA (Field-Programmable Gate Array) que simule el cuidado de una mascota virtual. El diseño incorporará una lógica de estados para reflejar las diversas necesidades y condiciones de la mascota, junto con mecanismos de interacción incorporando sensores, botones y sistemas de visualización que permitan al usuario un uso optimo.
 
 # 2. Especificación
 
@@ -29,8 +29,10 @@ La interacción usuario-sistema se realizará mediante los siguientes cuatro bot
 
 - **Reset:** Reestablece el Tamagotchi a un estado inicial conocido al mantener pulsado el botón durante al menos 5 segundos. Este estado inicial simula el despertar de la mascota con salud óptima.
 - **Test:** Activa el modo de prueba al mantener pulsado por al menos 5 segundos, permitiendo al usuario navegar entre los diferentes estados del Tamagotchi con cada pulsación.
-- **Alimentar:** Permite alimentar a la mascota virtual. Cada pulsación de 5 segundos de duración aumenta un valor de "alimentación" en el sistema. Si la alimentación es insuficiente, la mascota virtual puede entrar en un estado de "hambre".
-- **Jugar:** Permite jugar con la mascota virtual. Cada pulsación  de 5 segundos de duración aumenta un valor de "Felicidad" en el sistema. Si la diversión es insuficiente, la mascota virtual puede entrar en un estado de "Tristeza".
+- **Alimentar:** Permite alimentar a la mascota virtual. Cada pulsación aumenta un valor de "alimentación" en el sistema. Si la alimentación es insuficiente, la mascota virtual puede entrar en un estado de "hambre".
+- **Jugar:** Permite jugar con la mascota virtual. Cada pulsación aumenta un valor de "Felicidad" en el sistema. Si la diversión es insuficiente, la mascota virtual puede entrar en un estado de "Tristeza".
+
+- **Cambiar display 16x2:** Permite circular las estadísticas a mostrar en el display LCD 16x2. Cada pulsación cicla entre unas estadísticas a mostrar dando así al usuario el control para ver distintas estadísticas de la mascota virtual.
 
 ## 2.2 Sistema de Sensado
 Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de interacción, se incorporará el sensor de movimiento MPU5050. Con este sensor el Tamagotchi podrá ejercitarse. La mascota tendrá tres formas de ejercitarse:
@@ -39,24 +41,30 @@ Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de i
 - **Estirar:** El usaurio debe girar (movimiento angular en z) para darle la sensación de estirarse al Tamagochi.
  
 Al ejercitarse el Tamagochi obtiene puntos de ejercicio que aportan a su salud. Si el ejercicio es insuficiente, la mascota virtual puede entrar en un estado de "inactividad".
+
+Además se utilizará el sensor de sonido analógico y digital KY038. Se utilizará la salida digital del sensor, permitiendo que al detectar que se "habla" con el Tamagotchi, este "responda" con un buzzer integrando sonidos de distintas frecuencias. Los sonidos variarán dependiendo del estado de la mascota:
+
+- **Feliz:** Cuando la mascota está feliz, el buzzer emitirá un sonido de alta frecuencia.
+- **Triste:** Cuando la mascota está triste, el buzzer emitirá un sonido de baja frecuencia.
+- **Hambriento:** Cuando la mascota tiene hambre, el buzzer emitirá un sonido de frecuencia media.
   
 ## 2.3 Sistema de Visualización
 
-La interfaz de usuario del Tamagotchi se mostrará en una pantalla LCD **CORREGIR/ESPECIFICAR AQUI**. La pantalla mostrará lo siguiente:
-- Estado actual de la mascota: despierta, hambrienta, triste, inactiva, enferma, saludable.
-- Niveles de alimentación, diversión, ejercicio, energia y salud: Indicadores numéricos que representen los niveles actuales de estos parámetros mediante un puntaje.
+Se integrarán dos pantallas para la visualización de elementos del Tamagotchi. La primera es un display de 8x8 que se utilizará para mostrar la mascota virtual y sus distintos estados, proporcionando una representación visual de la mascota y sus emociones. La segunda es una pantalla LCD 16x2 que permitirá la visualización de los valores numéricos de las estadísticas de la mascota virtual. Esta pantalla mostrará información detallada sobre la salud, la felicidad, el hambre y otros aspectos de la mascota, permitiendo al usuario entender mejor las necesidades de su mascota virtual y responder en consecuencia.
 
  ## 2.4 Lógica de estados
 El Tamagotchi tendrá una lógica de estados interna que reflejará las diversas necesidades y condiciones de la mascota. Los seis estados principales son los siguientes:
 
 | Estado     | Binario | Decimal | Descripción                                                                                    |
 | ---------- | ------- | ------ | ---------------------------------------------------------------------------------------------- |
-| Despierto  | 000     | 0      | Estado inicial tras el reinicio. Simula el despertar de la mascota con salud óptima.                               |
-| Saludable  | 001     | 1      | La mascota está en buen estado.                                                                |
+| Ideal  | 000     | 0      | Estado inicial tras el reinicio. Estadisticas optimas.                               |
+| Neutro  | 001     | 1      | La mascota está en buen estado.                                                                |
 | Hambriento | 010     | 2      | La mascota necesita ser alimentada.                                                            |
-| Tristeza   | 011     | 3      | La mascota necesita jugar.                                                                     |
-| Inactivo   | 100     | 4      | La mascota necesita ejercitarse.                                                               |
-| Enfermo    | 101     | 5      | La mascota no está saludable, es decir, sufre por hambre, falta de ejercicio y/o juego. |
+| Tristeza   | 011     | 3      | La mascota se encuentra en mal estado.                                                                  |
+| Agotado   | 100     | 4      | La mascota necesita Descansar.
+| Aburrido  | 101   |   5      | La mascota necesita jugar.
+| Enfermo    | 110     | 6      | La mascota no está saludable, es decir, sufre por hambre, falta de ejercicio y/o juego. |
+|Muerto | 111 | 7 | La mascota murió.
 
 
 #  3. Diagrama de caja negra/funcional
