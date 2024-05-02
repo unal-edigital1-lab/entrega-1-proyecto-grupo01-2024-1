@@ -1,0 +1,16 @@
+Fitter Status : Successful - Thu Apr 25 11:00:41 2024
+Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
+Revision Name : Tamagotchi_G1
+Top-level Entity Name : LCD_Controller
+Family : Cyclone IV E
+Device : EP4CE6E22C8
+Timing Models : Final
+Total logic elements : 69 / 6,272 ( 1 % )
+    Total combinational functions : 54 / 6,272 ( < 1 % )
+    Dedicated logic registers : 56 / 6,272 ( < 1 % )
+Total registers : 56
+Total pins : 12 / 92 ( 13 % )
+Total virtual pins : 0
+Total memory bits : 0 / 276,480 ( 0 % )
+Embedded Multiplier 9-bit elements : 0 / 30 ( 0 % )
+Total PLLs : 0 / 2 ( 0 % )
