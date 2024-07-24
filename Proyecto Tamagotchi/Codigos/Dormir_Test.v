@@ -20,9 +20,9 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 	localparam IDLE = 3'd0;
 	localparam SLEEP = 3'd1;
 	localparam NEUTRAL = 3'd2;
-	localparam TIRED = 3'd4;
-	localparam DEATH = 3'd5;
-	localparam HUNGRY = 3'd6;
+	localparam TIRED = 3'd3;
+	localparam DEATH = 3'd4;
+	localparam HUNGRY = 3'd5;
 	localparam SAD = 3'd6;
 
 	
@@ -125,7 +125,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 						end else if(hunger > 3'd1 ) begin
 							next = HUNGRY;
 						end  else begin
-							next = HUNGRY;
+							next = SAD;
 						end
 				end
 
