@@ -8,10 +8,12 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 	input botonFeed,
 // Salidas
 	output wire sign_IDLE,
+	output wire sign_SLEEP,
 	output wire sign_NEUTRAL,
 	output wire sign_TIRED,
-	output wire sign_SLEEP,
-	output wire sign_DEATH
+	output wire sign_DEATH,
+	output wire sign_HUNGRY,
+	output wire sign_SAD
 	);
 	
 	// Parámetros de la FSM
@@ -20,6 +22,10 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 	localparam NEUTRAL = 3'd2;
 	localparam TIRED = 3'd4;
 	localparam DEATH = 3'd5;
+	localparam HUNGRY = 3'd6;
+	localparam SAD = 3'd6;
+
+	
 	
 	//Registros 
 	reg [2:0] state;
@@ -29,7 +35,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 	reg [$clog2(CONTUNI)-1:0] contTime;
 	//reg en_death;
 	reg [2:0] energy;
-	reg [2:0] Hunger;
+	reg [2:0] hunger;
 	
 	//Valores de Inicio
 	initial begin
@@ -38,7 +44,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 		//en_death <= 'b0;
 		clkms <= 'b0;
 		energy <= 3'd5;
-		Hunger <= 3'd5;
+		hunger <= 3'd5;
 	end
 	
 	//Reset de la máquina de estados
@@ -72,17 +78,19 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 				IDLE: begin 
 					if (botonSleep & energy != 3'd5) begin
 						next = SLEEP;
-					end else if (energy < 3'd5) begin
+					end else if (energy < 3'd5 || hunger < 3'd5) begin
 						next = NEUTRAL;
-					end else if (energy == 3'd5) begin
+					end else if (energy == 3'd5 && hunger == 3'd5) begin
 						next = IDLE;
 					end 
 				end
 				NEUTRAL: begin 
 						if (botonSleep) begin
 							next = SLEEP;
-						end else if(energy <= 3'd2) begin
+						end else if(energy <= 3'd2 && hunger > 3'd2) begin
 							next = TIRED;
+						end else if(hunger <= 3'd2 && energy > 3'd2 ) begin
+							next = HUNGRY;
 						end else begin
 							next = NEUTRAL;
 						end
@@ -90,22 +98,51 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 				TIRED: begin 
 					if (botonSleep) begin
 							next = SLEEP;
-					end else if(energy == 0) begin
-							next = DEATH;
+						end else if(energy < 3'd2 || hunger <= 3'd2) begin
+							next = SAD;
 						end  else begin
 							next = TIRED;
 						end
 				end
+
+				HUNGRY: begin 
+					if (botonSleep) begin
+							next = SLEEP;
+						end else if(hunger < 3'd2 || energy <= 3'd2) begin
+							next = SAD;
+						end else if(hunger > 3'd2) begin
+							next = NEUTRAL;
+						end else begin
+							next = HUNGRY;
+						end
+				end
+
+				SAD: begin 
+					if (botonSleep) begin
+							next = SLEEP;
+						end else if(hunger == 3'd0 || energy == 3'd0) begin
+							next = DEATH;
+						end else if(hunger > 3'd1 ) begin
+							next = HUNGRY;
+						end  else begin
+							next = HUNGRY;
+						end
+				end
+
 				SLEEP: begin 
 					if(botonAwake) begin
-						if(energy < 2) begin
+						if(energy <= 3'd2 && hunger > 3'd2) begin
 							next = TIRED;
-						end else if (energy < 5) begin
+						end else if (energy > 3'd2 && hunger <= 3'd2) begin
+							next = HUNGRY;
+						end else if (energy < 3'd5 && hunger < 3'd5) begin
 							next = NEUTRAL;
 						end
-					end else if (energy == 5) begin
+					end else if (energy == 3'd5 && hunger == 3'd5) begin
 						next = IDLE;
-					end else begin
+					end else if (energy == 3'd5) begin
+						next = NEUTRAL;
+					end  else begin
 						next = SLEEP;
 					end
 				end
@@ -132,6 +169,24 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 		end
 	end
 
+// Incrementador y disminuidor de Hambre
+	always@(posedge clk or posedge rst) begin
+		if(rst)begin
+			hunger <= 3'd5;
+		end else begin
+			if (botonFeed & hunger < 3'd5) begin
+				hunger <= hunger + 1;
+			end else if (state != DEATH) begin
+				if(contTime == Feed-1) begin
+					hunger <= hunger - 1;
+					contTime <= 0;
+				end
+			end 
+			
+
+		end
+	end
+
 // Contador de tiempo en general 
 	always @(posedge clkms or posedge rst) begin
 		if(rst)begin
@@ -142,11 +197,12 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 	end
 
 	assign sign_IDLE = (state == IDLE);  // Update sign_IDLE based on the next state
+	assign sign_SLEEP= (state == SLEEP);  // Update sign_IDLE based on the next state
 	assign sign_NEUTRAL = (state == NEUTRAL);  // Update sign_IDLE based on the next state
 	assign sign_TIRED = (state == TIRED);  // Update sign_IDLE based on the next state
-	assign sign_SLEEP= (state == SLEEP);  // Update sign_IDLE based on the next state
 	assign sign_DEATH= (state == DEATH);  // Update sign_IDLE based on the next state
-
+	assign sign_HUNGRY = (state == HUNGRY);  // Update sign_IDLE based on the next state
+	assign sign_SAD = (state == SAD);  // Update sign_IDLE based
 
 	
 endmodule
