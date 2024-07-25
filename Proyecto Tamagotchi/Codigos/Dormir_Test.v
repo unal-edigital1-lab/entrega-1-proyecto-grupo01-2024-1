@@ -6,6 +6,8 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 	input botonSleep,
 	input botonAwake,
 	input botonFeed,
+	input botonPlay,
+	input giro,
 // Salidas
 	output wire sign_IDLE,
 	output wire sign_SLEEP,

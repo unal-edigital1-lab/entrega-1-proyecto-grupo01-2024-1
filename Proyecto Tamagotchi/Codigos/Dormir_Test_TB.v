@@ -9,6 +9,9 @@ module Dormir_Test_TB;
 	reg BSleep;
 	reg BAwake;
 	reg BFeed;
+	reg BPlay;
+	reg Giro;
+
 	wire SIDLE;
 	wire SSLEEP;
 	wire SNEUTRAL;
@@ -23,6 +26,8 @@ module Dormir_Test_TB;
 		.botonSleep(BSleep),
 		.botonAwake(BAwake),
 		.botonFeed(BFeed),
+		.botonPlay(BPlay),
+		.giro(Giro),
 		.sign_IDLE(SIDLE),
 		.sign_SLEEP(SSLEEP),
 		.sign_NEUTRAL(SNEUTRAL),
