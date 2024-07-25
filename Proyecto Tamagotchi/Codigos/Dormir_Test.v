@@ -17,13 +17,13 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 	);
 	
 	// Parámetros de la FSM
-	localparam IDLE = 3'd0;
-	localparam SLEEP = 3'd1;
-	localparam NEUTRAL = 3'd2;
-	localparam TIRED = 3'd3;
-	localparam DEATH = 3'd4;
-	localparam HUNGRY = 3'd5;
-	localparam SAD = 3'd6;
+	localparam IDLE = 3'd0;    // 0
+	localparam SLEEP = 3'd1;   // 1
+	localparam NEUTRAL = 3'd2; // 2
+	localparam TIRED = 3'd3;   // 3
+	localparam DEATH = 3'd4;   // 4
+	localparam HUNGRY = 3'd5;  // 5
+	localparam SAD = 3'd6;     // 6
 
 	
 	
@@ -91,7 +91,9 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 							next = TIRED;
 						end else if(hunger <= 3'd2 && energy > 3'd2 ) begin
 							next = HUNGRY;
-						end else begin
+						end else if(hunger < 3'd2 && energy < 3'd2 ) begin
+							next = SAD;
+						end  else begin
 							next = NEUTRAL;
 						end
 				end
@@ -122,7 +124,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 							next = SLEEP;
 						end else if(hunger == 3'd0 || energy == 3'd0) begin
 							next = DEATH;
-						end else if(hunger > 3'd1 ) begin
+						end else if(hunger > 3'd1 && energy > 3'd2) begin
 							next = HUNGRY;
 						end  else begin
 							next = SAD;
@@ -130,7 +132,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 				end
 
 				SLEEP: begin 
-					if(botonAwake) begin
+					if(botonAwake || botonFeed) begin
 						if(energy <= 3'd2 && hunger > 3'd2) begin
 							next = TIRED;
 						end else if (energy > 3'd2 && hunger <= 3'd2) begin
@@ -146,6 +148,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 						next = SLEEP;
 					end
 				end
+
 				default: next = DEATH;
 		endcase
 	end
@@ -158,7 +161,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 			if (state == SLEEP & energy < 3'd5 & contTime == Ener-1) begin
 				energy <= energy + 1;
 				contTime <= 0;
-			end else if (state != DEATH) begin
+			end else if (state != DEATH & energy > 0) begin
 				if(contTime == Ener-1) begin
 					energy <= energy - 1;
 					contTime <= 0;
@@ -176,7 +179,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, CO
 		end else begin
 			if (botonFeed & hunger < 3'd5) begin
 				hunger <= hunger + 1;
-			end else if (state != DEATH) begin
+			end else if (state != DEATH & hunger >0 ) begin
 				if(contTime == Feed-1) begin
 					hunger <= hunger - 1;
 					contTime <= 0;
