@@ -19,8 +19,10 @@ module Dormir_Test_TB;
 	wire SDEATH;
 	wire SHUNGRY;
 	wire SSAD;
+	wire SPLAYING;
+	wire SBORED;
 	
-	Dormir_Test #(5,4,4,20) uut(
+	Dormir_Test #(5,4,4,4,20) uut(
 		.clk(clk),
 		.rst(rst),
 		.botonSleep(BSleep),
@@ -34,7 +36,9 @@ module Dormir_Test_TB;
 		.sign_TIRED(STIRED),
 		.sign_DEATH(SDEATH),
 		.sign_HUNGRY(SHUNGRY),
-		.sign_SAD(SSAD)
+		.sign_SAD(SSAD),
+		.sign_PLAYING(SPLAYING),
+		.sign_BORED(SBORED)
 	);
 	
 	always #1 clk = ~clk;
