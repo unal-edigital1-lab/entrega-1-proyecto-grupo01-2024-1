@@ -45,7 +45,7 @@ module Dormir_Test_TB;
 	
 	initial begin
 	clk=0;
-	BSleep = 0; BAwake = 0; BFeed=0;
+	BSleep = 0; BAwake = 0; BFeed=0; ;BPlay=0; Giro=0;
 	rst = 1;
 	#50;
 	rst = 0;
