@@ -53,23 +53,25 @@ Además se utilizará el sensor de sonido analógico y digital KY038. Se utiliza
   
 ## 2.3 Sistema de Visualización
 
-Se integrarán dos pantallas para la visualización de elementos del Tamagotchi.
-- **Display de 8x8** que se utilizará para mostrar la mascota virtual y sus distintos estados, proporcionando una representación visual de la mascota y sus emociones mediante gestos/caras. 
-- **Pantalla LCD 16x2** que permitirá la visualización de los valores numéricos de las estadísticas de la mascota virtual. Esta pantalla mostrará información detallada sobre: (1) alimentación, (2) diversión, (3) energia, (4) salud y (5) felicidad. De forma que el usuario pueda entender mejor las necesidades de su mascota virtual y responder en consecuencia.
+Se empleará una pantalla **Pantalla LCD 16x2** para la visualización de de del Tamagochi. En ella se mostrará lo siguient:
+ - representación visual de la mascota y sus emociones mediante gestos/caras. 
+- los valores numéricos de las estadísticas de la mascota virtual.  (1) alimentación, (2) diversión, (3) energia, (4) salud y (5) felicidad. 
+De esta forma, el usuario podrá entender mejor las necesidades de su mascota virtual y responder en consecuencia.
 
  ## 2.4 Lógica de estados
 El Tamagotchi tendrá una lógica de estados interna que reflejará las diversas necesidades y condiciones de la mascota. Los ocho estados principales son los siguientes:
 
-| Estado     | Binario | Decimal | Descripción                                       |
+| Estado     | Binario | Decimal |Descripción                                       |
 | ---------- | ------- | ------ | -------------------------------------------------- |
-| Ideal  | 000     | 0      | Estado inicial tras el reinicio. Estadisticas optimas. |
-| Neutro  | 001     | 1      | La mascota está en buen estado. |
-| Hambriento | 010     | 2      | La mascota necesita ser alimentada.   |
-| Agotado   | 011     | 3      | La mascota necesita descansar. |
-| Aburrido  | 100   |   4      | La mascota necesita jugar. |
-| Enfermo    | 101     | 5      | La mascota no está saludable. Sus niveles de alimentación y energia están bajos. |
-| Tristeza   | 110     | 6      | La mascota se encuentra en mal estado.  Sus niveles de alimentación, energia y diversión están bajos. |
-|Muerto | 111 | 7 | La mascota murió.
+| Ideal  | 0000     | 0      | Estado inicial tras reset. Estadisticas optimas. |
+| Neutro  | 0001     | 1      | La mascota está en buen estado. |
+| Agotado   | 0010     | 2      | La mascota necesita dormir para descansar. |
+| Durmido   | 0011     | 3      | La mascota está dormida. |
+| Hambriento | 0100     | 4      | La mascota necesita ser alimentada.  |
+| Triste   | 0101     | 5      | La mascota se encuentra en mal estado.  Sus niveles de alimentación, energia y diversión están bajos. |
+| Jugando  | 0110   |   6      | La mascota está jugando. |
+| Aburrido  | 0111   |   7      | La mascota necesita jugar. |
+|Muerto | 1000 | 8 | La mascota murió.|
 
 Estos estados fluctuarán en base a las estadísticas individuales de cada indicador de la mascota, proporcionando una experiencia dinámica e interactiva para el usuario. Para cada estado se visualizará en la matrix 8x8 diversas expresiones de la mascota.
 

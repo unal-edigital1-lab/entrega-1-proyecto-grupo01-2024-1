@@ -20,18 +20,17 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	output wire sign_BORED
 	);
 	
+
 	// Parámetros de la FSM
 	localparam IDLE = 4'd0;    // 0
-	localparam SLEEP = 4'd1;   // 1
-	localparam NEUTRAL = 4'd2; // 2
-	localparam TIRED = 4'd3;   // 3
-	localparam DEATH = 4'd4;   // 4
-	localparam HUNGRY = 4'd5;  // 5
-	localparam SAD = 4'd6;     // 6
-	localparam PLAYING = 4'd7; // 7
-	localparam BORED = 4'd8;   // 8
-
-	
+	localparam NEUTRAL = 4'd1; // 1
+	localparam TIRED = 4'd2;   // 2
+	localparam SLEEP = 4'd3;   // 3
+	localparam HUNGRY = 4'd4;  // 4
+	localparam SAD = 4'd5;     // 5
+	localparam PLAYING = 4'd6; // 6
+	localparam BORED = 4'd7;   // 7
+	localparam DEATH = 4'd8;   // 8
 	
 	//Registros 
 	reg [3:0] state;
