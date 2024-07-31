@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-07-31T15:36:10.423Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="mGQXf_Z8WUH-N9vY2Z_M" version="24.5.3" type="device" pages="7">
+<mxfile host="Electron" modified="2024-07-31T15:35:19.304Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="W23_ZiGoehe73l6fn2g1" version="24.5.3" type="device" pages="7">
   <diagram id="H1KeENud-5TNCWEgmdoL" name="Cajas Negras ">
-    <mxGraphModel dx="3329" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3914" dy="843" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -630,34 +630,34 @@
         <mxCell id="R-vy2kDC-5QT63skhCHJ-154" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="R-vy2kDC-5QT63skhCHJ-100">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="385" y="170" as="sourcePoint" />
-            <mxPoint x="510" y="170" as="targetPoint" />
+            <mxPoint x="530" y="170" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-155" value="Hunger [2:0]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="R-vy2kDC-5QT63skhCHJ-154">
           <mxGeometry x="0.0526" y="-3" relative="1" as="geometry">
-            <mxPoint x="-11" y="-3" as="offset" />
+            <mxPoint x="-41" y="-3" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-158" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="R-vy2kDC-5QT63skhCHJ-100">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="385" y="210" as="sourcePoint" />
-            <mxPoint x="510" y="210" as="targetPoint" />
+            <mxPoint x="530" y="210" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-159" value="Energy [2:0]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="R-vy2kDC-5QT63skhCHJ-158">
           <mxGeometry x="0.0526" y="-3" relative="1" as="geometry">
-            <mxPoint x="-11" y="-3" as="offset" />
+            <mxPoint x="-41" y="-3" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-161" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="R-vy2kDC-5QT63skhCHJ-100">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="385" y="250" as="sourcePoint" />
-            <mxPoint x="510" y="250" as="targetPoint" />
+            <mxPoint x="530" y="250" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-162" value="&amp;nbsp;Entertainment [2:0]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="R-vy2kDC-5QT63skhCHJ-161">
           <mxGeometry x="0.0526" y="-3" relative="1" as="geometry">
-            <mxPoint x="-11" y="-3" as="offset" />
+            <mxPoint x="-21" y="-3" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-105" value="Sensores" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
@@ -713,12 +713,12 @@
         <mxCell id="R-vy2kDC-5QT63skhCHJ-152" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="R-vy2kDC-5QT63skhCHJ-101">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="-1240" y="1510" as="sourcePoint" />
-            <mxPoint x="-1180" y="1350" as="targetPoint" />
+            <mxPoint x="-1160" y="1350" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-153" value="STATE [3:0]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="R-vy2kDC-5QT63skhCHJ-152">
           <mxGeometry x="0.0526" y="-3" relative="1" as="geometry">
-            <mxPoint x="-16" y="-3" as="offset" />
+            <mxPoint y="-3" as="offset" />
           </mxGeometry>
         </mxCell>
       </root>
