@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-08-01T16:53:08.335Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="KVkKtbwnwrWUc3nQ9gZF" version="24.5.3" type="device" pages="7">
+<mxfile host="Electron" modified="2024-08-01T17:02:46.296Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="1TIiH69BG02icLh96lwL" version="24.5.3" type="device" pages="7">
   <diagram id="H1KeENud-5TNCWEgmdoL" name="Cajas Negras ">
-    <mxGraphModel dx="3914" dy="843" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3491" dy="581" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -602,12 +602,12 @@
             <mxPoint x="285" y="360" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="R-vy2kDC-5QT63skhCHJ-141" value="Giro" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="R-vy2kDC-5QT63skhCHJ-140" vertex="1" connectable="0">
+        <mxCell id="R-vy2kDC-5QT63skhCHJ-141" value="UltraS" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="R-vy2kDC-5QT63skhCHJ-140" vertex="1" connectable="0">
           <mxGeometry x="0.0747" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="R-vy2kDC-5QT63skhCHJ-133" value="Giroscopio Controller" style="swimlane;whiteSpace=wrap;html=1;" parent="R-vy2kDC-5QT63skhCHJ-100" vertex="1">
+        <mxCell id="R-vy2kDC-5QT63skhCHJ-133" value="Ultrasound Controller" style="swimlane;whiteSpace=wrap;html=1;" parent="R-vy2kDC-5QT63skhCHJ-100" vertex="1">
           <mxGeometry x="185" y="440" width="200" height="220" as="geometry" />
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-147" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="R-vy2kDC-5QT63skhCHJ-100" source="R-vy2kDC-5QT63skhCHJ-143" edge="1">
@@ -663,7 +663,7 @@
         <mxCell id="R-vy2kDC-5QT63skhCHJ-105" value="Sensores" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-1690" y="1960" width="360" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="R-vy2kDC-5QT63skhCHJ-108" value="Giroscopio&lt;br&gt;MPU 6050" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" parent="R-vy2kDC-5QT63skhCHJ-105" vertex="1" collapsed="1">
+        <mxCell id="R-vy2kDC-5QT63skhCHJ-108" value="Sensor Ultrasónico&lt;br&gt;HC-SR04" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" parent="R-vy2kDC-5QT63skhCHJ-105" vertex="1" collapsed="1">
           <mxGeometry x="195" y="60" width="140" height="40" as="geometry">
             <mxRectangle x="10" y="70" width="140" height="80" as="alternateBounds" />
           </mxGeometry>
