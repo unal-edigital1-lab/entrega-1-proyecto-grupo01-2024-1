@@ -34,19 +34,14 @@ La interacción usuario-sistema se realizará mediante los siguientes cinco boto
 
 - **Reset:** Reestablece el Tamagotchi a un estado inicial conocido al mantener pulsado el botón durante al menos 5 segundos. Este estado inicial simula el despertar de la mascota con salud óptima.
 - **Test:** Activa el modo de prueba al mantener pulsado por al menos 5 segundos, permitiendo al usuario navegar entre los diferentes estados del Tamagotchi con cada pulsación.
-- **Alimentar:** Permite alimentar a la mascota virtual. Cada pulsación aumenta un valor de "alimentación" en el sistema. Si la alimentación es insuficiente, la mascota virtual puede entrar en un estado de hambre.
-- **Jugar/Dormir:** Una pulsación activa el modo juego, el cual permite a la mascota aumentar su estadística de "Diversión" en el sistema. Por otra parte, mantener pulsado por al menos 5 segundos activa el modo dormir que permite a la mascota aumentar su estadística de "Energia".
-- **Cambiar display 16x2:** Permite circular las estadísticas a mostrar en el display LCD 16x2. Cada pulsación cicla entre unas estadísticas a mostrar dando así al usuario el control para ver distintas estadísticas de la mascota virtual.
+- **Alimentar:** Permite alimentar a la mascota virtual. Cada pulsación aumenta un valor de "Hunger" en el sistema. Si la alimentación es insuficiente, la mascota virtual puede entrar en un estado de hambre.
+- **Jugar:** Una pulsación activa el modo juego, el cual permite a la mascota aumentar su estadística de "Entertainment" en el sistema. 
+- **Dormir:**  Una pulsación de este botón activa el modo dormir que permite a la mascota aumentar su estadística de "Energy".
 
 ## 2.2 Sistema de Sensado
-Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de interacción, se incorporará el sensor de movimiento MPU5050. Con este sensor el Tamagotchi podrá jugar. La mascota tendrá tres formas de jugar:
-- **Caminar:** El usuario debe desplazarse (movimiento lineal en x) para darle la sensación de caminar al Tamagochi.
-- **Levantar pesas:** El usuario debe levantar y bajar sus brazos (movimiento lineal en y) para darle la sensación de levantar pesas al Tamagochi.
-- **Estirar:** El usaurio debe girar (movimiento angular en z) para darle la sensación de estirarse al Tamagochi.
+Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de interacción, se incorporará el sensor de ultra sonido HC-SR04. Con este sensor el Tamagotchi podrá jugar con el usuario. La mascota jugará mientra el usuario se encuentre a una distancia de 1m del tamagotchi.
  
-
-Además se utilizará el sensor de sonido analógico y digital KY038. Se utilizará la salida digital del sensor, permitiendo que al detectar que se "habla" con el Tamagotchi, este "responda" con un buzzer integrando sonidos de distintas frecuencias. Los sonidos variarán dependiendo del estado de la mascota:
-
+Además se utilizará el sensor de sonido analógico y digital KY038. Se utilizará la salida digital del sensor, permitiendo que al detectar un ruido del usuario, el tamagotchi se despierte. El Tamagotchi, puede interactuar con el usuario mediante un buzzer manifestando diferentes sonidos dependiendo de como se esté sintiendo.
 - **Feliz:** Cuando la mascota está feliz, el buzzer emitirá un sonido de alta frecuencia.
 - **Triste:** Cuando la mascota está triste, el buzzer emitirá un sonido de baja frecuencia.
 - **Hambriento:** Cuando la mascota tiene hambre, el buzzer emitirá un sonido de frecuencia media.
@@ -54,24 +49,23 @@ Además se utilizará el sensor de sonido analógico y digital KY038. Se utiliza
 ## 2.3 Sistema de Visualización
 
 Se empleará una pantalla **Pantalla LCD 16x2** para la visualización de de del Tamagochi. En ella se mostrará lo siguient:
- - representación visual de la mascota y sus emociones mediante gestos/caras. 
-- los valores numéricos de las estadísticas de la mascota virtual.  (1) alimentación, (2) diversión, (3) energia, (4) salud y (5) felicidad. 
-De esta forma, el usuario podrá entender mejor las necesidades de su mascota virtual y responder en consecuencia.
+ - Representación visual de la mascota y sus emociones mediante gestos/caras. 
+- Los valores numéricos junto con íconos de las estadísticas de la mascota virtual.  (1) Hunger, (2) Entertainment, y (3) Energy. De esta forma, el usuario podrá entender mejor las necesidades de su mascota virtual y responder en consecuencia.
 
  ## 2.4 Lógica de estados
 El Tamagotchi tendrá una lógica de estados interna que reflejará las diversas necesidades y condiciones de la mascota. Los ocho estados principales son los siguientes:
 
 | Estado     | Binario | Decimal |Descripción                                       |
 | ---------- | ------- | ------ | -------------------------------------------------- |
-| Ideal  | 0000     | 0      | Estado inicial tras reset. Estadisticas optimas. |
-| Neutro  | 0001     | 1      | La mascota está en buen estado. |
-| Agotado   | 0010     | 2      | La mascota necesita dormir para descansar. |
-| Durmido   | 0011     | 3      | La mascota está dormida. |
-| Hambriento | 0100     | 4      | La mascota necesita ser alimentada.  |
-| Triste   | 0101     | 5      | La mascota se encuentra en mal estado.  Sus niveles de alimentación, energia y diversión están bajos. |
-| Jugando  | 0110   |   6      | La mascota está jugando. |
-| Aburrido  | 0111   |   7      | La mascota necesita jugar. |
-|Muerto | 1000 | 8 | La mascota murió.|
+| IDLE  | 0000     | 0      | Estado inicial tras reset. Estadisticas optimas. |
+| NEUTRAL  | 0001     | 1      | La mascota está en buen estado. |
+| TIRED   | 0010     | 2      | La mascota necesita dormir para descansar. |
+| SLEEP   | 0011     | 3      | La mascota está dormida. |
+| HUNGRY | 0100     | 4      | La mascota necesita ser alimentada.  |
+| SAD   | 0101     | 5      | La mascota se encuentra en mal estado.  Sus niveles de alimentación, energia y diversión están bajos. |
+| PLAYING  | 0110   |   6      | La mascota está jugando. |
+| BORED  | 0111   |   7      | La mascota necesita jugar. |
+| DEAD | 1000 | 8 | La mascota murió.|
 
 Estos estados fluctuarán en base a las estadísticas individuales de cada indicador de la mascota, proporcionando una experiencia dinámica e interactiva para el usuario. Para cada estado se visualizará en la matrix 8x8 diversas expresiones de la mascota.
 

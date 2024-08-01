@@ -1,0 +1,16 @@
+**** module/scope: button
+     Flip-Flops   : 21
+     Logic Gates  : 101
+     ADDER[16]: 1 units
+     EQUALITY[16]: 1 units
+     MUX[2]: 16 slices
+     LOG[13]: 1 unaccounted
+     LOG[14]: 1 unaccounted
+**** TOTALS
+     Flip-Flops   : 21
+     Logic Gates  : 101
+     ADDER[16]: 1 units
+     EQUALITY[16]: 1 units
+     MUX[2]: 16 slices
+     LOG[13]: 1 unaccounted
+     LOG[14]: 1 unaccounted
