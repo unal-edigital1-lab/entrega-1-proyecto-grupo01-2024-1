@@ -20,18 +20,17 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	output wire sign_BORED
 	);
 	
+
 	// Parámetros de la FSM
 	localparam IDLE = 4'd0;    // 0
-	localparam SLEEP = 4'd1;   // 1
-	localparam NEUTRAL = 4'd2; // 2
-	localparam TIRED = 4'd3;   // 3
-	localparam DEATH = 4'd4;   // 4
-	localparam HUNGRY = 4'd5;  // 5
-	localparam SAD = 4'd6;     // 6
-	localparam PLAYING = 4'd7; // 7
-	localparam BORED = 4'd8;   // 8
-
-	
+	localparam NEUTRAL = 4'd1; // 1
+	localparam TIRED = 4'd2;   // 2
+	localparam SLEEP = 4'd3;   // 3
+	localparam HUNGRY = 4'd4;  // 4
+	localparam SAD = 4'd5;     // 5
+	localparam PLAYING = 4'd6; // 6
+	localparam BORED = 4'd7;   // 7
+	localparam DEATH = 4'd8;   // 8
 	
 	//Registros 
 	reg [3:0] state;
@@ -270,15 +269,15 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
         end
 	end
 
-	assign sign_IDLE = (state == IDLE);  // Update sign_IDLE based on the next state
-	assign sign_SLEEP= (state == SLEEP);  // Update sign_IDLE based on the next state
-	assign sign_NEUTRAL = (state == NEUTRAL);  // Update sign_IDLE based on the next state
-	assign sign_TIRED = (state == TIRED);  // Update sign_IDLE based on the next state
-	assign sign_DEATH= (state == DEATH);  // Update sign_IDLE based on the next state
-	assign sign_HUNGRY = (state == HUNGRY);  // Update sign_IDLE based on the next state
-	assign sign_SAD = (state == SAD);  // Update sign_IDLE based
-	assign sign_PLAYING = (state == PLAYING);  // Update sign_IDLE based on the next state
-	assign sign_BORED = (state == BORED);  // Update sign_IDLE based on the next state
+	assign sign_IDLE = (state == IDLE);  
+	assign sign_SLEEP= (state == SLEEP);  
+	assign sign_NEUTRAL = (state == NEUTRAL);  
+	assign sign_TIRED = (state == TIRED);  
+	assign sign_DEATH= (state == DEATH);  
+	assign sign_HUNGRY = (state == HUNGRY);  
+	assign sign_SAD = (state == SAD);  
+	assign sign_PLAYING = (state == PLAYING);  
+	assign sign_BORED = (state == BORED);  
 
 	
 endmodule
