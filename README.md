@@ -21,16 +21,16 @@
     - [3.4.2 Sensor de Movimiento](#342-sensor-de-movimiento)
     - [3.4.3  Sensor de Sonido y Buzzer](#343--sensor-de-sonido-y-buzzer)
     - [3.4.5 Pantalla LCD 16x2](#345-pantalla-lcd-16x2)
-- [4. Especificaciones de Diseño Detalladas](#4-especificaciones-de-diseño-detalladas)
+- [4. Especificaciones Detalladas de Diseño](#4-especificaciones-detalladas-de-diseño)
   - [4.1 Modos de Operación](#41-modos-de-operación)
     - [4.1.1 Modo Test](#411-modo-test)
     - [4.1.2 Modo Normal](#412-modo-normal)
-- [4.2 Estados y Transiciones](#42-estados-y-transiciones)
-  - [4.2.1 Estados](#421-estados)
-  - [4.2.2 Transiciones](#422-transiciones)
+  - [4.2 Estados y Transiciones](#42-estados-y-transiciones)
+    - [4.2.1 Estados](#421-estados)
+    - [4.2.2 Transiciones](#422-transiciones)
 
 # 1. Objetivo
-Desarrollar un sistema de Tamagotchi en FPGA (Field-Programmable Gate Array) que simule el cuidado de una mascota virtual. El diseño incorporará una lógica de estados para reflejar las diversas necesidades y condiciones de la mascota, junto con sensores, botones y sistemas de visualización que permitan al usuario interactuar con la mascota virtual.
+Desarrollar un sistema de Tamagotchi en FPGA (Field-Programmable Gate Array) que simule el cuidado de una mascota virtual. El diseño incorporará una lógica de estados para reflejar las diversas necesidades y condiciones de la mascota, junto con mecanismos de interacción, tales como sensores, botones y sistema de visualización, los cuales permitan al usuario interactuar con la mascota virtual.
 
 # 2. Descripción General
 
@@ -112,7 +112,7 @@ Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se
 Se utilizará una pantalla LCD 16x2 para mostrar las estadísticas de la mascota virtual. La pantalla se conectará al FPGA mediante protocolo SPI. El FPGA enviará los datos de las estadísticas a la pantalla para que se muestren en el formato correspondiente.
 
 
-#  4. Especificaciones de Diseño Detalladas
+#  4. Especificaciones Detalladas de Diseño 
 
 ## 4.1 Modos de Operación
 
@@ -124,9 +124,9 @@ DESCRIBIR COMO SERIA LA MODALIDAD DE TEST
 
 DESCRIBIR COMO FUNCUINA EL TAMAGOTCHI
 
-# 4.2 Estados y Transiciones
+## 4.2 Estados y Transiciones
 
-## 4.2.1 Estados 
+### 4.2.1 Estados 
 El Tamagotchi tendrá una lógica de estados interna que reflejará las diversas necesidades y condiciones de la mascota. Los ocho estados principales son los siguientes:
 
 | Estado     | Binario | Decimal |Descripción                                       |
@@ -145,7 +145,7 @@ Estos estados fluctuarán en base a los niveles de cada indicador de la mascota,
 
 ![Caras](./figs/indicadores_y_caras.png)
 
-## 4.2.2 Transiciones 
+### 4.2.2 Transiciones 
 
 **Temporizadores**
 DESCRIBIR LOS CONTADORES QUE HAY Y DESCRIBIR QUE HACEN
