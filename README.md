@@ -8,23 +8,29 @@
 
 **TABLA DE CONTENIDO**
 - [1. Objetivo](#1-objetivo)
-- [2. Especificación](#2-especificación)
+- [2. Descripción General](#2-descripción-general)
   - [2.1  Botones Mínimos](#21--botones-mínimos)
   - [2.2 Sistema de Sensado](#22-sistema-de-sensado)
   - [2.3 Sistema de Visualización](#23-sistema-de-visualización)
-  - [2.4 Lógica de estados](#24-lógica-de-estados)
-- [3. Arquitectura del Sistema](#3-Arquitectura-del-Sistema)
+- [3. Arquitectura del Sistema](#3-arquitectura-del-sistema)
   - [3.1 Diagrama de Caja Negra](#31-diagrama-de-caja-negra)
   - [3.2 Diagrama de Flujo](#32-diagrama-de-flujo)
   - [3.3 Diagrama de Moore](#33-diagrama-de-moore)
-- [4. Propuesta Inicial de Arquitectura](#4-propuesta-inicial-de-arquitectura)
-  - [4.1 Botones](#41-botones)
-  - [4.2 Sensor de Movimiento](#42-sensor-de-movimiento)
-  - [4.3  Sensor de Sonido y Buzzer](#43--sensor-de-sonido-y-buzzer)
-  - [4.5 Pantalla LCD 16x2](#45-pantalla-lcd-16x2)
+  - [3.4 Descripción de Componentes](#34-descripción-de-componentes)
+    - [3.4.1 Botones](#341-botones)
+    - [3.4.2 Sensor de Movimiento](#342-sensor-de-movimiento)
+    - [3.4.3  Sensor de Sonido y Buzzer](#343--sensor-de-sonido-y-buzzer)
+    - [3.4.5 Pantalla LCD 16x2](#345-pantalla-lcd-16x2)
+- [4. Especificaciones de Diseño Detalladas](#4-especificaciones-de-diseño-detalladas)
+  - [4.1 Modos de Operación](#41-modos-de-operación)
+    - [4.1.1 Modo Test](#411-modo-test)
+    - [4.1.2 Modo Normal](#412-modo-normal)
+- [4.2 Estados y Transiciones](#42-estados-y-transiciones)
+  - [4.2.1 Estados](#421-estados)
+  - [4.2.2 Transiciones](#422-transiciones)
 
 # 1. Objetivo
-Desarrollar un sistema de Tamagotchi en FPGA (Field-Programmable Gate Array) que simule el cuidado de una mascota virtual. El diseño incorporará una lógica de estados para reflejar las diversas necesidades y condiciones de la mascota, junto con mecanismos de interacción incorporando sensores, botones y sistemas de visualización que permitan al usuario interactuar con la mascota virtual.
+Desarrollar un sistema de Tamagotchi en FPGA (Field-Programmable Gate Array) que simule el cuidado de una mascota virtual. El diseño incorporará una lógica de estados para reflejar las diversas necesidades y condiciones de la mascota, junto con sensores, botones y sistemas de visualización que permitan al usuario interactuar con la mascota virtual.
 
 # 2. Descripción General
 
@@ -38,15 +44,20 @@ La interacción usuario-sistema se realizará mediante los siguientes cinco boto
 - **Dormir:**  Una pulsación de este botón activa el modo dormir que permite a la mascota aumentar su estadística de "Energy".
 
 ## 2.2 Sistema de Sensado
-Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de interacción, se incorporará el sensor de ultra sonido HC-SR04. Con este sensor el Tamagotchi podrá jugar con el usuario,la mascota jugará mientras el usuario se encuentre a una distancia de 50cm del Tamagotchi.
+Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de interacción, se incorporará lo siguiente:
+
+- **sensor de ultra sonido HC-SR04:** con este sensor el Tamagotchi podrá jugar con el usuario, la mascota jugará mientras el usuario se encuentre a una distancia de 50cm del Tamagotchi.
  
-Además se utilizará el sensor de sonido analógico y digital KY038. Se utilizará la salida digital del sensor, permitiendo que al detectar un ruido del usuario, el Tamagotchi se despierte. El Tamagotchi, puede interactuar con el usuario mediante un buzzer manifestando diferentes sonidos dependiendo de como se esté sintiendo. Cada estado del Tamagotchi emitirá una cantidad de pulsos auditivos diferentes. 
+- **sensor de sonido analógico y digital KY038:** se utilizará la salida digital del sensor, permitiendo que al detectar un ruido del usuario, el Tamagotchi se despierte.
+- **buzzer:** el Tamagotchi podrá interactuar con el usuario mediante un buzzer manifestando diferentes sonidos dependiendo de como se esté sintiendo. Cada estado del Tamagotchi emitirá una cantidad de pulsos auditivos diferentes. 
 
 ## 2.3 Sistema de Visualización
 
 Se empleará una pantalla **Pantalla LCD 16x2** para la visualización del Tamagochi. En ella se mostrará lo siguiente:
  - Representación visual de la mascota y sus emociones mediante gestos/caras. 
-- Los valores numéricos junto con íconos de las estadísticas de la mascota virtual.  (1) Hunger, (2) Entertainment, y (3) Energy. De esta forma, el usuario podrá entender mejor las necesidades de su mascota virtual y responder en consecuencia.
+- Los valores numéricos junto con íconos de las estadísticas de la mascota virtual.  (1) Hunger, (2) Entertainment, y (3) Energy. 
+
+De esta forma, el usuario podrá entender mejor las necesidades de su mascota virtual y responder en consecuencia.
 
 
 #  3. Arquitectura del Sistema
@@ -130,7 +141,7 @@ El Tamagotchi tendrá una lógica de estados interna que reflejará las diversas
 | BORED  | 0111   |   7      | La mascota necesita jugar. |
 | DEAD | 1000 | 8 | La mascota murió.|
 
-Estos estados fluctuarán en base a las estadísticas individuales de cada indicador de la mascota, proporcionando una experiencia dinámica e interactiva para el usuario. Para cada estado se visualizará en la pantalla LCD 16x2 diversas expresiones de la mascota.
+Estos estados fluctuarán en base a los niveles de cada indicador de la mascota, proporcionando una experiencia dinámica e interactiva para el usuario. Por cada estado se visualizará en la pantalla LCD 16x2 diversas expresiones de la mascota.
 
 ![Caras](./figs/indicadores_y_caras.png)
 
