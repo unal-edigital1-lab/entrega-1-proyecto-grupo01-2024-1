@@ -89,7 +89,7 @@ El siguiente diagrama de flujo proporciona una visión detallada de la funcional
 
 El siguiente diagrama de Moore es una representación gráfica de la lógica de estados del Tamagotchi. Este diagrama detalla cómo el estado del Tamagotchi cambia en respuesta a los indicadores de la mascota y las acciones del usuario. 
 
-![DiagramaMoore](./figs/Diagrama_de_Moore_Tamagotchi.png)
+![DiagramaMoore](./figs/Diagrama_de_Moore_Tamagotchi_NEW.png)
 
 ## 3.4 Descripción de Componentes
 
