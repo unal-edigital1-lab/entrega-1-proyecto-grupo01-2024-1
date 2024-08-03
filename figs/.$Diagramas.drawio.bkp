@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-08-01T17:09:48.499Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="Us1rMdrKPONI7rwvEh1g" version="24.5.3" type="device" pages="7">
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5" pages="7">
   <diagram id="H1KeENud-5TNCWEgmdoL" name="Cajas Negras ">
-    <mxGraphModel dx="3491" dy="581" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3914" dy="843" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -421,8 +421,8 @@
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-21" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-1330" y="620" as="sourcePoint" />
-            <mxPoint x="-1330" y="520" as="targetPoint" />
+            <mxPoint x="-1370" y="620" as="sourcePoint" />
+            <mxPoint x="-1370" y="520" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-22" value="Sensor de Audio&lt;br&gt;Módulo Micrófono" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="R-vy2kDC-5QT63skhCHJ-21" vertex="1" connectable="0">
@@ -432,8 +432,8 @@
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-23" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-1220" y="620" as="sourcePoint" />
-            <mxPoint x="-1220" y="520" as="targetPoint" />
+            <mxPoint x="-1275" y="620" as="sourcePoint" />
+            <mxPoint x="-1275" y="520" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-24" value="Sensor Ultrasónico&lt;br&gt;HC-SR04" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="R-vy2kDC-5QT63skhCHJ-23" vertex="1" connectable="0">
@@ -442,7 +442,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-32" value="Botones" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-1910" y="1250" width="200" height="330" as="geometry" />
+          <mxGeometry x="-1910" y="1250" width="200" height="370" as="geometry" />
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-33" value="Button Test" style="swimlane;whiteSpace=wrap;html=1;" parent="R-vy2kDC-5QT63skhCHJ-32" vertex="1" collapsed="1">
           <mxGeometry x="40" y="40" width="120" height="30" as="geometry">
@@ -486,7 +486,7 @@
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-37" value="Button Sleep" style="swimlane;whiteSpace=wrap;html=1;" parent="R-vy2kDC-5QT63skhCHJ-32" vertex="1" collapsed="1">
           <mxGeometry x="40" y="270" width="120" height="30" as="geometry">
-            <mxRectangle x="20" y="60" width="130" height="100" as="alternateBounds" />
+            <mxRectangle x="40" y="270" width="130" height="100" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-44" value="Módulo &lt;br&gt;Presionar 5seg" style="swimlane;whiteSpace=wrap;html=1;startSize=30;" parent="1" vertex="1">
@@ -500,7 +500,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-100" value="FPGA Altera Ciclone IV" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-1690" y="1230" width="910" height="680" as="geometry" />
+          <mxGeometry x="-1690" y="1230" width="910" height="690" as="geometry" />
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-101" value="FSM Tamagotchi" style="swimlane;whiteSpace=wrap;html=1;" parent="R-vy2kDC-5QT63skhCHJ-100" vertex="1">
           <mxGeometry x="230" y="40" width="155" height="320" as="geometry">
@@ -660,8 +660,21 @@
             <mxPoint x="-11" y="-3" as="offset" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="_yok4jMimDgA20RSttqi-1" value="" style="endArrow=classic;html=1;rounded=0;" parent="R-vy2kDC-5QT63skhCHJ-100" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="110" y="480" as="sourcePoint" />
+            <mxPoint x="185" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_yok4jMimDgA20RSttqi-2" value="Button Play" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="_yok4jMimDgA20RSttqi-1" vertex="1" connectable="0">
+          <mxGeometry x="-0.06" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-105" value="Sensores" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-1690" y="1960" width="360" height="130" as="geometry" />
+          <mxGeometry x="-1690" y="1960" width="730" height="130" as="geometry">
+            <mxRectangle x="-1690" y="1960" width="90" height="30" as="alternateBounds" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-108" value="Sensor Ultrasónico&lt;br&gt;HC-SR04" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" parent="R-vy2kDC-5QT63skhCHJ-105" vertex="1" collapsed="1">
           <mxGeometry x="195" y="60" width="140" height="40" as="geometry">
@@ -673,10 +686,15 @@
             <mxRectangle x="25" y="134" width="140" height="66" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="bPIdmD3P6JnmIl9LDJPT-2" value="Giroscopio&lt;br&gt;MPU 6050" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" vertex="1" collapsed="1" parent="R-vy2kDC-5QT63skhCHJ-105">
+          <mxGeometry x="480" y="60" width="140" height="40" as="geometry">
+            <mxRectangle x="10" y="70" width="140" height="80" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="R-vy2kDC-5QT63skhCHJ-138" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.643;entryY=-0.1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="R-vy2kDC-5QT63skhCHJ-133" target="R-vy2kDC-5QT63skhCHJ-108" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="79V7KSy2KatlHl136Zvh-3" value="Trig" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="R-vy2kDC-5QT63skhCHJ-138">
+        <mxCell id="79V7KSy2KatlHl136Zvh-3" value="Trig" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="R-vy2kDC-5QT63skhCHJ-138" vertex="1" connectable="0">
           <mxGeometry x="-0.3098" relative="1" as="geometry">
             <mxPoint y="7" as="offset" />
           </mxGeometry>
@@ -710,13 +728,13 @@
             <mxPoint x="-16" y="-3" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="79V7KSy2KatlHl136Zvh-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.393;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="R-vy2kDC-5QT63skhCHJ-108">
+        <mxCell id="79V7KSy2KatlHl136Zvh-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.393;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="R-vy2kDC-5QT63skhCHJ-108" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-1395" y="1900" as="sourcePoint" />
             <mxPoint x="-1440" y="1890" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="79V7KSy2KatlHl136Zvh-5" value="Echo" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="79V7KSy2KatlHl136Zvh-4">
+        <mxCell id="79V7KSy2KatlHl136Zvh-5" value="Echo" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="79V7KSy2KatlHl136Zvh-4" vertex="1" connectable="0">
           <mxGeometry x="-0.3098" relative="1" as="geometry">
             <mxPoint y="-35" as="offset" />
           </mxGeometry>
