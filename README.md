@@ -63,7 +63,7 @@ De esta forma, el usuario podrá entender mejor las necesidades de su mascota vi
 #  3. Arquitectura del Sistema
 
 El siguiente esquema representa el diagrama de caja negra inicial del proyecto. Este diagrama está sujeto a cambios a medida que el proyecto avanza y se implementan optimizaciones o se identifican protocolos adicionales necesarios que actualmente son desconocidos. Dado que el desarrollo es un proceso iterativo, es probable que ajustemos este modelo para adaptarlo mejor a las necesidades emergentes y a los hallazgos obtenidos durante las etapas de prueba y evaluación.
-![WhatsApp Image 2024-04-23 at 9 08 59 PM](https://github.com/unal-edigital1-lab/entrega-1-proyecto-grupo01-2024-1/assets/96506551/6811104d-e412-45b2-9423-a3dc118d13d4)
+![DiagramadeCajaNegra](./figs/Diagrama%20de%20Caja%20Negra.png)
 
 ## 3.1 Diagrama de Caja Negra
 
@@ -95,11 +95,11 @@ El siguiente diagrama de Moore es una representación gráfica de la lógica de 
 
 ### 3.4.1 Botones
 
-Se propone utilizar pulsadores como interfaz de interacción con los botones del Tamagotchi. Estos pulsadores estarán conectados a entradas del FPGA, permitiendo al sistema detectar las pulsaciones del usuario. Se utilizarán resistencias de pull-up para garantizar un estado definido en las entradas cuando no se estén pulsando los botones.
+Se propone utilizar pulsadores como interfaz de interacción con los botones del Tamagotchi. Estos pulsadores estarán conectados a entradas del FPGA, permitiendo al sistema detectar las pulsaciones del usuario. Se utilizarán resistencias de pull-up para garantizar un estado definido en las entradas cuando no se estén pulsando los botones. Además se hará una descripción de hardware para mitigar el rebote mecánico de los botones mediante el módulo anti-rebote.
 
-### 3.4.2 Sensor de Movimiento
+### 3.4.2 Sensor de Movimiento (Giroscopio)
 
-El sensor de movimiento MPU6050 se conectará al FPGA mediante la interfaz I2C. El FPGA leerá los datos del sensor, incluyendo la aceleración y el giroscopio, para determinar el movimiento del usuario. Estos datos se procesarán para determinar si el usuario está caminando, levantando pesas o estirando, en base a los patrones de movimiento detectados. Por lo que, en la descripción de hardware con vHDL se implementaran dos modulos uno para la comunicacion I2C y otro para el procesamiento de datos del giroscopio. Los dos módulos VHDL se integrarán en un sistema completo que gestione la comunicación con el sensor MPU6050, procese sus datos y determine el movimiento del usuario. La salida del módulo de procesamiento de datos se utilizará para actualizar el estado del Tamagotchi.
+El sensor de movimiento MPU6050 se conectará al FPGA mediante la interfaz I2C. La FPGA leerá los datos del sensor, incluyendo la aceleración y el giroscopio, para determinar el movimiento del usuario. Estos datos se procesarán para determinar si el usuario está "jugando" con el Tamagotchi. Por lo que, en la descripción de hardware con vHDL se implementaran dos modulos uno para la comunicacion I2C y otro para el procesamiento de datos del giroscopio. Los dos módulos VHDL se integrarán en un sistema completo que gestione la comunicación con el sensor MPU6050, procese sus datos y determine el movimiento del usuario. La salida del módulo de procesamiento de datos se utilizará para actualizar el estado del Tamagotchi y aumentar el nivel de "entertainment"
 
 ### 3.4.3  Sensor de Sonido y Buzzer
 Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se propone un módulo VHDL que gestione la interacción con estos componentes. Este módulo será responsable de:
@@ -118,11 +118,27 @@ Se utilizará una pantalla LCD 16x2 para mostrar las estadísticas de la mascota
 
 ### 4.1.1 Modo Test
 
-DESCRIBIR COMO SERIA LA MODALIDAD DE TEST
+El modo test se activa al presionar por 5 segundos el botón de test, posterior a esto cada vez que se pulse el botón de test, se hará una transición por todos los estados del Tamagotchi. Estos cambios se deberán ver reflejados en pantalla mediante las caras ilustradas y mediante los niveles mostrados.
 
 ### 4.1.2 Modo Normal
 
-DESCRIBIR COMO FUNCUINA EL TAMAGOTCHI
+La funcionalidad regular del Tamagotchi es la siguiente:
+
+* Recién se enciende la FPGA y se carga la descripción de hardware el Tamagotchi entra a su estado inicial e ideal llamado "IDLE". En este estado, el Tamagotchi tiene todos sus indicadores al máximo, es decir "hunger = 5", "entertainment = 5" y "energy=5". Este estado inicial se puede visualizar en pantalla mediante una carita feliz. 
+
+* Posteriormente y con el avance del tiempo, los indicadores van  ir disminuyendo de a 1 punto de tal manera que cuando ya no están todos en 5 el Tamagotchi entra a un estado denominado "NEUTRAL". Este estado se presenta siempre que todos los niveles sean mayores a 2.
+
+* Desde el estado anterior, el Tamagotchi puede cambiar a tres estados los cuales se dan cuando uno de los tres indicadores (hunger, entertainment o energy) se encuentra en un nivel menor o igual a 2. Los estados a los que puede entrar son: 
+
+  * "BORED" cuando el nivel de "entertainment" es el  único indicador que está por debajo de 2. Se muestra una cara representando aburrimiento.
+
+  * "TIRED" cuando el nivel de "energy" es el  único indicador que está por debajo de 2. Se muestra una cara representando somnolencia.
+
+  * "HUNGRY" cuando el nivel de "hunger" es el único indicador que está por debajo de 2. Se muestra una cara representando hambre.
+
+* Dado el caso en que mas de un nivel esté por debajo de 2 se entra a un estado denominado "SAD" en el cual el Tamagotchi muestra una cara triste e indica a el usuario que debe hacer algo para aumentar el nivel de los indicadores.
+
+* Si el Tamagotchi se encuentra en el estado "SAD" lo suficiente para que un indicador llegue a 0. Este pasa el estado denominado "DEATH" , en el cual el Tamagotchi muere y donde ya el usuario no puede interactuar con el mismo. La única manera para sacar al Tamagotchi de este estado es mediante la pulsación del botón de reset el cual regresa al Tamagotchi al estado de "IDLE".
 
 ## 4.2 Estados y Transiciones
 
