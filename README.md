@@ -192,6 +192,9 @@ El usuario interactúa con el Tamagotchi mediante los botones "Feed", "Sleep", "
 * El botón test, hace que el Tamagotchi entre al modo test descrito anteriormente.
 
 **Sistema de Niveles o Puntos**
-DESCRIBIR EL SISTEMA DE NIVELES
+
+El sistema de niveles o puntos se ilustra en la siguiente figura:
+
+![Indicadores](./figs/Indicadores.png)
 
 
