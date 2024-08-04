@@ -63,7 +63,7 @@ De esta forma, el usuario podrá entender mejor las necesidades de su mascota vi
 #  3. Arquitectura del Sistema
 
 El siguiente esquema representa el diagrama de caja negra inicial del proyecto. Este diagrama está sujeto a cambios a medida que el proyecto avanza y se implementan optimizaciones o se identifican protocolos adicionales necesarios que actualmente son desconocidos. Dado que el desarrollo es un proceso iterativo, es probable que ajustemos este modelo para adaptarlo mejor a las necesidades emergentes y a los hallazgos obtenidos durante las etapas de prueba y evaluación.
-![DiagramadeCajaNegra](./figs/Diagrama%20de%20Caja%20Negra.png)
+![DiagramadeCajaNegra](./figs/Diagrama_Caja_Negra.png)
 
 ## 3.1 Diagrama de Caja Negra
 
@@ -76,6 +76,8 @@ En Calculo de Estados, se realizarán todos los procesor logicos para determinar
 En el módulo de Cálculo de Estados, se llevarán a cabo todos los procesos lógicos necesarios para determinar el estado actual de la mascota. Además, este será el lugar donde se gestionen diversas interacciones con sensores, como los botones que permiten alimentar o hacer dormir a la mascota. Estas interacciones influirán en el ajuste de ciertos estados, variando según las acciones del usuario.
 
 En el módulo de Memoria, como su nombre indica, se almacenarán los valores relevantes que se deben mostrar al usuario en la pantalla LED 16x2. Esto se realiza con el fin de proporcionar una experiencia más completa y satisfactoria al usuario.
+
+![DiagramaFuncional](./figs/diagrama_arquitectura.png)
 
 ## 3.2 Diagrama de Flujo
 
