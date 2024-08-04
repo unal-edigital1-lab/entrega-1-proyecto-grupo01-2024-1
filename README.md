@@ -18,7 +18,7 @@
   - [3.3 Diagrama de Moore](#33-diagrama-de-moore)
   - [3.4 Descripción de Componentes](#34-descripción-de-componentes)
     - [3.4.1 Botones](#341-botones)
-    - [3.4.2 Sensor de Movimiento](#342-sensor-de-movimiento)
+    - [3.4.2 Sensor de Movimiento (Giroscopio)](#342-sensor-de-movimiento-giroscopio)
     - [3.4.3  Sensor de Sonido y Buzzer](#343--sensor-de-sonido-y-buzzer)
     - [3.4.5 Pantalla LCD 16x2](#345-pantalla-lcd-16x2)
 - [4. Especificaciones Detalladas de Diseño](#4-especificaciones-detalladas-de-diseño)
@@ -69,8 +69,6 @@ El siguiente esquema representa el diagrama de caja negra inicial del proyecto. 
 
 El protocolo I2C, un método de comunicación serial ampliamente adoptado, se emplea en este proyecto para conectar el microcontrolador con varios dispositivos periféricos. Específicamente, se utiliza para la integración del giroscopio y para la comunicación con la pantalla LED de 16x2. La flexibilidad del protocolo I2C también permitirá su futura extensión a otros sensores que se añadirán en las etapas subsiguientes del desarrollo. Esta capacidad de expansión asegura que podemos adaptar y escalar nuestro sistema fácilmente conforme evolucionen nuestras necesidades técnicas.
 
-El protocolo SPI se empleará principalmente para la visualización de imágenes en la Matriz LED 8x8, ya que permite reducir el número de pines necesarios y acelera significativamente la transferencia de datos.
-
 En la sección de Estados, se recibirá el estado actual de la mascota y se procesarán las imágenes correspondientes que serán enviadas al protocolo SPI para su reproducción en la matriz 8x8. Este módulo contendrá todos los dibujos representativos de los distintos estados de la mascota, listos para ser mostrados según sea necesario.
 
 En Calculo de Estados, se realizarán todos los procesor logicos para determinar el estado de la mascota, además allí será donde entren algunas interacciones con sensores como los botones que alimentan o hacen dormir a la mascota, con ello aumentar o disminuir ciertos estados dependiendo las interacciones del usuario.
@@ -89,7 +87,7 @@ El siguiente diagrama de flujo proporciona una visión detallada de la funcional
 
 El siguiente diagrama de Moore es una representación gráfica de la lógica de estados del Tamagotchi. Este diagrama detalla cómo el estado del Tamagotchi cambia en respuesta a los indicadores de la mascota y las acciones del usuario. 
 
-![DiagramaMoore](./figs/Diagrama_de_Moore_Tamagotchi_NEW.png)
+![DiagramaMoore](./figs/Diagrama_de_Moore_Tamagotchi.png)
 
 ## 3.4 Descripción de Componentes
 
@@ -102,11 +100,11 @@ Se propone utilizar pulsadores como interfaz de interacción con los botones del
 El sensor de movimiento MPU6050 se conectará al FPGA mediante la interfaz I2C. La FPGA leerá los datos del sensor, incluyendo la aceleración y el giroscopio, para determinar el movimiento del usuario. Estos datos se procesarán para determinar si el usuario está "jugando" con el Tamagotchi. Por lo que, en la descripción de hardware con vHDL se implementaran dos modulos uno para la comunicacion I2C y otro para el procesamiento de datos del giroscopio. Los dos módulos VHDL se integrarán en un sistema completo que gestione la comunicación con el sensor MPU6050, procese sus datos y determine el movimiento del usuario. La salida del módulo de procesamiento de datos se utilizará para actualizar el estado del Tamagotchi y aumentar el nivel de "entertainment"
 
 ### 3.4.3  Sensor de Sonido y Buzzer
-Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se propone un módulo VHDL que gestione la interacción con estos componentes. Este módulo será responsable de:
+Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se propone un módulo que gestione la interacción con estos componentes. Este módulo será responsable de:
 
-1. Lectura del sensor de sonido: Leer la señal digital del sensor KY038 para detectar la presencia o ausencia de sonido.
+1. Lectura del sensor de sonido (micrófono): Leer la señal digital del sensor KY038 para detectar la presencia o ausencia de sonido.
 
-2. Control del buzzer: Generar una señal que permita "interactuar" con el Tamagotchi, dando diferente numero de pulsaciones para diferenciar el estado de animo del mismo.
+2. Control del buzzer: Generar una señal que permita "interactuar" con el Tamagotchi, la cual variará en frecuencia de acuerdo al estado de animo del mismo.
    
 ### 3.4.5 Pantalla LCD 16x2
 Se utilizará una pantalla LCD 16x2 para mostrar las estadísticas de la mascota virtual. La pantalla se conectará al FPGA mediante protocolo SPI. El FPGA enviará los datos de las estadísticas a la pantalla para que se muestren en el formato correspondiente.

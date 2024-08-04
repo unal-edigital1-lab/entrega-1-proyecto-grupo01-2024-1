@@ -32,4 +32,5 @@ simulation/
 modelsim/
 quartus/
 
-*.bak
+#otros
+*.bkp
