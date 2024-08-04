@@ -106,7 +106,7 @@ Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se
 
 1. Lectura del sensor de sonido: Leer la señal digital del sensor KY038 para detectar la presencia o ausencia de sonido.
 
-2. Control del buzzer: Generar una señal de onda cuadrada de la frecuencia adecuada en función del estado de la mascota virtual (feliz, triste o hambriento). Asi como, controlar la duración del sonido emitido por el buzzer.
+2. Control del buzzer: Generar una señal que permita "interactuar" con el Tamagotchi, dando diferente numero de pulsaciones para diferenciar el estado de animo del mismo.
    
 ### 3.4.5 Pantalla LCD 16x2
 Se utilizará una pantalla LCD 16x2 para mostrar las estadísticas de la mascota virtual. La pantalla se conectará al FPGA mediante protocolo SPI. El FPGA enviará los datos de las estadísticas a la pantalla para que se muestren en el formato correspondiente.
