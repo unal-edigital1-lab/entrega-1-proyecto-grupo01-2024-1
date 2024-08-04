@@ -49,7 +49,10 @@ Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de i
 - **sensor de ultra sonido HC-SR04:** con este sensor el Tamagotchi podrá jugar con el usuario, la mascota jugará mientras el usuario se encuentre a una distancia de 50cm del Tamagotchi.
  
 - **sensor de sonido analógico y digital KY038:** se utilizará la salida digital del sensor, permitiendo que al detectar un ruido del usuario, el Tamagotchi se despierte.
+
 - **buzzer:** el Tamagotchi podrá interactuar con el usuario mediante un buzzer manifestando diferentes sonidos dependiendo de como se esté sintiendo. Cada estado del Tamagotchi emitirá una cantidad de pulsos auditivos diferentes. 
+
+-**giroscopio (mpu6050):**  se incorporará el sensor de movimiento MPU5050. Con este sensor el Tamagotchi simulará que camina cuando el usuario se desplace (movimiento lineal en x).
 
 ## 2.3 Sistema de Visualización
 
@@ -62,21 +65,12 @@ De esta forma, el usuario podrá entender mejor las necesidades de su mascota vi
 
 #  3. Arquitectura del Sistema
 
-El siguiente esquema representa el diagrama de caja negra inicial del proyecto. Este diagrama está sujeto a cambios a medida que el proyecto avanza y se implementan optimizaciones o se identifican protocolos adicionales necesarios que actualmente son desconocidos. Dado que el desarrollo es un proceso iterativo, es probable que ajustemos este modelo para adaptarlo mejor a las necesidades emergentes y a los hallazgos obtenidos durante las etapas de prueba y evaluación.
+El siguiente esquema representa el diagrama de caja negra inicial del proyecto. 
 ![DiagramadeCajaNegra](./figs/Diagrama_Caja_Negra.png)
 
 ## 3.1 Diagrama de Caja Negra
 
-El protocolo I2C, un método de comunicación serial ampliamente adoptado, se emplea en este proyecto para conectar el microcontrolador con varios dispositivos periféricos. Específicamente, se utiliza para la integración del giroscopio y para la comunicación con la pantalla LED de 16x2. La flexibilidad del protocolo I2C también permitirá su futura extensión a otros sensores que se añadirán en las etapas subsiguientes del desarrollo. Esta capacidad de expansión asegura que podemos adaptar y escalar nuestro sistema fácilmente conforme evolucionen nuestras necesidades técnicas.
-
-En la sección de Estados, se recibirá el estado actual de la mascota y se procesarán las imágenes correspondientes que serán enviadas al protocolo SPI para su reproducción en la matriz 8x8. Este módulo contendrá todos los dibujos representativos de los distintos estados de la mascota, listos para ser mostrados según sea necesario.
-
-En Calculo de Estados, se realizarán todos los procesor logicos para determinar el estado de la mascota, además allí será donde entren algunas interacciones con sensores como los botones que alimentan o hacen dormir a la mascota, con ello aumentar o disminuir ciertos estados dependiendo las interacciones del usuario.
-
-En el módulo de Cálculo de Estados, se llevarán a cabo todos los procesos lógicos necesarios para determinar el estado actual de la mascota. Además, este será el lugar donde se gestionen diversas interacciones con sensores, como los botones que permiten alimentar o hacer dormir a la mascota. Estas interacciones influirán en el ajuste de ciertos estados, variando según las acciones del usuario.
-
-En el módulo de Memoria, como su nombre indica, se almacenarán los valores relevantes que se deben mostrar al usuario en la pantalla LED 16x2. Esto se realiza con el fin de proporcionar una experiencia más completa y satisfactoria al usuario.
-
+Este diagrama presenta la arquitectura del Tamagotchi. Dado que el desarrollo es un proceso iterativo, es probable que ajustemos este modelo para adaptarlo mejor a las necesidades emergentes y a los hallazgos obtenidos durante las etapas de pruebas e integración.
 ![DiagramaFuncional](./figs/diagrama_arquitectura.png)
 
 ## 3.2 Diagrama de Flujo
@@ -99,7 +93,7 @@ Se propone utilizar pulsadores como interfaz de interacción con los botones del
 
 ### 3.4.2 Sensor de Movimiento (Giroscopio)
 
-El sensor de movimiento MPU6050 se conectará al FPGA mediante la interfaz I2C. La FPGA leerá los datos del sensor, incluyendo la aceleración y el giroscopio, para determinar el movimiento del usuario. Estos datos se procesarán para determinar si el usuario está "jugando" con el Tamagotchi. Por lo que, en la descripción de hardware con vHDL se implementaran dos modulos uno para la comunicacion I2C y otro para el procesamiento de datos del giroscopio. Los dos módulos VHDL se integrarán en un sistema completo que gestione la comunicación con el sensor MPU6050, procese sus datos y determine el movimiento del usuario. La salida del módulo de procesamiento de datos se utilizará para actualizar el estado del Tamagotchi y aumentar el nivel de "entertainment"
+El sensor de movimiento MPU6050 se conectará al FPGA mediante la interfaz I2C. La FPGA proporcionará el bus SCL al sensor y leerá los datos del sensor desde el bus SDA, para determinar el movimiento del usuario. Estos datos se procesarán para determinar si el usuario está "jugando" con el Tamagotchi. Por lo que, en la descripción de hardware se implementaran dos modulos uno para la comunicacion I2C (I2C master) y otro para el procesamiento de datos del giroscopio (girscopio controller). La salida del módulo de procesamiento de datos se utilizará para actualizar el estado del Tamagotchi y aumentar el nivel de "entertainment".
 
 ### 3.4.3  Sensor de Sonido y Buzzer
 Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se propone un módulo que gestione la interacción con estos componentes. Este módulo será responsable de:
@@ -109,7 +103,7 @@ Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se
 2. Control del buzzer: Generar una señal que permita "interactuar" con el Tamagotchi, la cual variará en frecuencia de acuerdo al estado de animo del mismo.
    
 ### 3.4.5 Pantalla LCD 16x2
-Se utilizará una pantalla LCD 16x2 para mostrar las estadísticas de la mascota virtual. La pantalla se conectará al FPGA mediante protocolo SPI. El FPGA enviará los datos de las estadísticas a la pantalla para que se muestren en el formato correspondiente.
+Se utilizará una pantalla LCD 16x2 para mostrar la mascota virtual y los puntajes de las estadisticas. Para ello, se implementará un modulo de LCD controller que reciba el estado actual de la mascota y sus puntajes y se encargue de enviarle a la pantalla las señales correspondientes de rs, rw, enable y data para lograr la visualización deseada. 
 
 
 #  4. Especificaciones Detalladas de Diseño 
