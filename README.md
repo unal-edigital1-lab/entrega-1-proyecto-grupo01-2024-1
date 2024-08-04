@@ -52,11 +52,11 @@ Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de i
 
 - **buzzer:** el Tamagotchi podrá interactuar con el usuario mediante un buzzer manifestando diferentes sonidos dependiendo de como se esté sintiendo. Cada estado del Tamagotchi emitirá una cantidad de pulsos auditivos diferentes. 
 
--**giroscopio (mpu6050):**  se incorporará el sensor de movimiento MPU5050. Con este sensor el Tamagotchi simulará que camina cuando el usuario se desplace (movimiento lineal en x).
+- **giroscopio (mpu6050):**  se incorporará el sensor de movimiento MPU5050. Con este sensor el Tamagotchi simulará que camina cuando el usuario se desplace (movimiento lineal en x).
 
 ## 2.3 Sistema de Visualización
 
-Se empleará una pantalla **Pantalla LCD 16x2** para la visualización del Tamagochi. En ella se mostrará lo siguiente:
+Se empleará una pantalla **LCD 16x2** para la visualización del Tamagochi. En ella se mostrará lo siguiente:
  - Representación visual de la mascota y sus emociones mediante gestos/caras. 
 - Los valores numéricos junto con íconos de las estadísticas de la mascota virtual.  (1) Hunger, (2) Entertainment, y (3) Energy. 
 
