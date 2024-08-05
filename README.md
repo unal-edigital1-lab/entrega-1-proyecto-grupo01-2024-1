@@ -101,6 +101,29 @@ Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se
 1. Lectura del sensor de sonido (micrófono): Leer la señal digital del sensor KY038 para detectar la presencia o ausencia de sonido.
 
 2. Control del buzzer: Generar una señal que permita "interactuar" con el Tamagotchi, la cual variará en frecuencia de acuerdo al estado de animo del mismo.
+
+### 3.4.4 Sensor Ultrasónico HC-SR04
+
+El HC-SR04 es un sensor de ultrasonido ampliamente utilizado para medir distancias. Funciona emitiendo un pulso de sonido ultrasonico y midiendo el tiempo que tarda en rebotar en un objeto y regresar al sensor.
+
+#### Señales
+- **Transmisor (Trigger)**: Emite pulsos de ultrasonido a 40 kHz.
+- **Receptor (Echo)**: Recibe los pulsos reflejados.
+- **Circuito de control**: Procesa la señal y proporciona una salida en forma de pulso de duración proporcional a la distancia medida.
+
+#### Especificaciones
+- **Rango de medición**: 2 cm a 400 cm.
+- **Precisión**: ± 3 mm.
+- **Ángulo de detección**: 15 grados aproximadamente.
+- **Tensión de operación**: 5V DC.
+- **Corriente de operación**: 15 mA.
+
+#### Funcionamiento
+1. Se envía un pulso de 10 microsegundos al pin Trigger.
+2. El sensor emite un pulso de ultrasonido.
+3. El pulso rebota en un objeto y es recibido por el receptor.
+4. El sensor emite un pulso en el pin Echo cuya duración es proporcional al tiempo que tardó el pulso en regresar.
+5. La distancia se calcula con la fórmula: `Distancia = (Tiempo de retorno / 2) * Velocidad del sonido`.
    
 ### 3.4.5 Pantalla LCD 16x2
 Se utilizará una pantalla LCD 16x2 para mostrar la mascota virtual y los puntajes de las estadisticas. Para ello, se implementará un modulo de LCD controller que reciba el estado actual de la mascota y sus puntajes y se encargue de enviarle a la pantalla las señales correspondientes de rs, rw, enable y data para lograr la visualización deseada. 
