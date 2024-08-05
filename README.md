@@ -77,7 +77,7 @@ Este diagrama presenta la arquitectura del Tamagotchi. Dado que el desarrollo es
 
 El siguiente diagrama de flujo proporciona una visión detallada de la funcionalidad integral del sistema Tamagotchi. Ilustra la interacción entre los diversos componentes del sistema, así como el procesamiento de las entradas y salidas. Este diagrama es esencial para entender cómo cada componente del sistema contribuye al funcionamiento general del Tamagotchi.
 
-![DiagramaFuncional](./figs/Diagrama_de_Flujo_Tamagotchi.png)
+![DiagramaFuncional](figs/DiagramaFlujo.png)
 
 ## 3.3 Diagrama de Moore
 
