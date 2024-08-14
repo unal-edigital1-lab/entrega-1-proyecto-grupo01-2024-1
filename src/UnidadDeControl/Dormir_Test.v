@@ -115,7 +115,9 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 							next = SLEEP;
 						end else if(energy < 3'd2 || hunger <= 3'd2 || entertainment <= 3'd2) begin
 							next = SAD;
-						end  else begin
+						end else if(hunger == 3'd0 || energy == 3'd0 || entertainment == 3'd0) begin
+							next = DEATH;
+						end else begin
 							next = TIRED;
 						end
 				end
@@ -125,6 +127,8 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 							next = SLEEP;
 						end else if(!botonSleep && botonPlay) begin
 							next = PLAYING;
+						end else if(hunger == 3'd0 || energy == 3'd0 || entertainment == 3'd0) begin
+							next = DEATH;
 						end else if(hunger < 3'd2 || energy <= 3'd2 || entertainment <= 3'd2) begin
 							next = SAD;
 						end else if(hunger > 3'd2) begin
@@ -139,6 +143,8 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 							next = SLEEP;
 						end else if(!botonSleep && botonPlay) begin
 							next = PLAYING;
+						end  else if(hunger == 3'd0 || energy == 3'd0 || entertainment == 3'd0) begin
+							next = DEATH;
 						end else if(entertainment < 3'd2 || hunger <= 3'd2 || energy <= 3'd2) begin
 							next = SAD;
 						end  else begin
