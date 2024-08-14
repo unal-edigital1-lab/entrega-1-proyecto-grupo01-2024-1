@@ -1,5 +1,5 @@
 `timescale 1ms/1us
-`include "/home/samarinbe/Desktop/Ingeniería Electrónica UN/3. Tercer Semestre/Electrónica Digital 1/entrega-1-proyecto-grupo01-2024-1/Proyecto Tamagotchi/Codigos/Dormir_Test.v"
+`include "/home/samarinbe/Desktop/Ingeniería Electrónica UN/3. Tercer Semestre/Electrónica Digital 1/entrega-1-proyecto-grupo01-2024-1/src/UnidadDeControl/Dormir_Test.v"
 
 
 module Dormir_Test_TB;
@@ -11,6 +11,8 @@ module Dormir_Test_TB;
 	reg BFeed;
 	reg BPlay;
 	reg Giro;
+	reg BTest;
+	reg [3:0] PulseTest;
 
 	wire SIDLE;
 	wire SSLEEP;
@@ -30,6 +32,8 @@ module Dormir_Test_TB;
 		.botonFeed(BFeed),
 		.botonPlay(BPlay),
 		.giro(Giro),
+		.botonTest(BTest),
+        .pulseTest(PulseTest),
 		.sign_IDLE(SIDLE),
 		.sign_SLEEP(SSLEEP),
 		.sign_NEUTRAL(SNEUTRAL),
@@ -45,7 +49,7 @@ module Dormir_Test_TB;
 	
 	initial begin
 	clk=0;
-	BSleep = 0; BAwake = 0; BFeed=0; ;BPlay=0; Giro=0;
+	BSleep = 0; BAwake = 0; BFeed=0; BPlay=0; Giro=0; BTest=0; PulseTest=0;
 	rst = 1;
 	#50;
 	rst = 0;

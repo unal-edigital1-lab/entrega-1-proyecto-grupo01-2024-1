@@ -226,47 +226,47 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 				end
 
 				TEST: begin
-					if(pulseTest == 4d'1) begin
+					if(pulseTest == 4'd1) begin
 						energy = 3'd5;
 						hunger = 3'd5;
 						entertainment = 3'd5;
                         next = IDLE;
-					end else if (pulseTest == 4d'2) begin
+					end else if (pulseTest == 4'd2) begin
 						energy = 3'd4;
                         hunger = 3'd4;
                         entertainment = 3'd4;
                         next = NEUTRAL;
-					end else if (pulseTest == 4d'3) begin
+					end else if (pulseTest == 4'd3) begin
 						energy = 3'd2;
                         hunger = 3'd5;
                         entertainment = 3'd5;
                         next = TIRED;
-					end else if (pulseTest == 4d'4) begin
+					end else if (pulseTest == 4'd4) begin
 						energy = 3'd2;
                         hunger = 3'd5;
                         entertainment = 3'd5;
                         next = SLEEP;
-					end else if (pulseTest == 4d'5) begin
+					end else if (pulseTest == 4'd5) begin
 						energy = 3'd5;
                         hunger = 3'd2;
                         entertainment = 3'd5;
                         next = HUNGRY;
-					end else if (pulseTest == 4d'6) begin
+					end else if (pulseTest == 4'd6) begin
 						energy = 3'd2;
                         hunger = 3'd2;
                         entertainment = 3'd5;
                         next = SAD;
-					end else if (pulseTest == 4d'7) begin
+					end else if (pulseTest == 4'd7) begin
 						energy = 3'd5;
                         hunger = 3'd5;
                         entertainment = 3'd2;
                         next = PLAYING;
-					end else if (pulseTest == 4d'8) begin
+					end else if (pulseTest == 4'd8) begin
 						energy = 3'd5;
                         hunger = 3'd5;
                         entertainment = 3'd2;
                         next = BORED;
-					end else if (pulseTest == 4d'9) begin
+					end else if (pulseTest == 4'd9) begin
 						energy = 3'd0;
                         hunger = 3'd0;
                         entertainment = 3'd0;
