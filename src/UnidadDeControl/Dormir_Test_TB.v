@@ -54,6 +54,11 @@ module Dormir_Test_TB;
 	#50;
 	rst = 0;
 	#250;
+	BTest = 1; PulseTest = 4'd5;
+	#2;
+	BTest = 0;
+
+	/*
 	BSleep = 1;
 	#103;
 	BFeed = 1;
@@ -78,14 +83,14 @@ module Dormir_Test_TB;
 	#2;
 	rst = 0;
 	
-	//#10 BSleep = 1; BAwake = 0;
-	//#10 BSleep =0; BAwake = 1;
-	//#10 BAwake =0;
-	//#10 BAwake =1;
-	//#10 BAwake =0;
-	//#10 BSleep = 1;
-	//#10 BSleep =0;
-	
+	#10 BSleep = 1; BAwake = 0;
+	#10 BSleep =0; BAwake = 1;
+	#10 BAwake =0;
+	#10 BAwake =1;
+	#10 BAwake =0;
+	#10 BSleep = 1;
+	#10 BSleep =0;
+	*/
 	end
 
 initial begin:TEST_CASE
