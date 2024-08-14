@@ -8,6 +8,8 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	input botonFeed,
 	input botonPlay,
 	input giro,
+	input botonTest,
+	input [3:0] pulseTest,
 // Salidas
 	output wire sign_IDLE,
 	output wire sign_SLEEP,
@@ -31,6 +33,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	localparam PLAYING = 4'd6; // 6
 	localparam BORED = 4'd7;   // 7
 	localparam DEATH = 4'd8;   // 8
+	localparam TEST = 4'd9;    // 9
 	
 	//Registros 
 	reg [3:0] state;
@@ -89,7 +92,9 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 						next = PLAYING;
 					end else if (energy < 3'd5 || hunger < 3'd5 || entertainment < 3'd5) begin
 						next = NEUTRAL;
-					end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
+					end else if(botonTest) begin
+                        next = TEST;
+                    end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
 						next = IDLE;
 					end 
 				end
@@ -98,7 +103,9 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 							next = SLEEP;
 						end else if(!botonSleep && botonPlay) begin
 							next = PLAYING;
-						end else if(energy <= 3'd2 && hunger > 3'd2 && entertainment > 3'd2) begin
+						end else if(botonTest) begin
+                        	next = TEST;
+                    	end else if(energy <= 3'd2 && hunger > 3'd2 && entertainment > 3'd2) begin
 							next = TIRED;
 						end else if(hunger <= 3'd2 && energy > 3'd2 && entertainment > 3'd2) begin
 							next = HUNGRY;
@@ -113,7 +120,9 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 				TIRED: begin 
 					if (botonSleep) begin
 							next = SLEEP;
-						end else if(energy < 3'd2 || hunger <= 3'd2 || entertainment <= 3'd2) begin
+						end else if(botonTest) begin
+                        	next = TEST;
+                    	end else if(energy < 3'd2 || hunger <= 3'd2 || entertainment <= 3'd2) begin
 							next = SAD;
 						end else if(hunger == 3'd0 || energy == 3'd0 || entertainment == 3'd0) begin
 							next = DEATH;
@@ -127,7 +136,9 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 							next = SLEEP;
 						end else if(!botonSleep && botonPlay) begin
 							next = PLAYING;
-						end else if(hunger == 3'd0 || energy == 3'd0 || entertainment == 3'd0) begin
+						end else if(botonTest) begin
+                        	next = TEST;
+                    	end else if(hunger == 3'd0 || energy == 3'd0 || entertainment == 3'd0) begin
 							next = DEATH;
 						end else if(hunger < 3'd2 || energy <= 3'd2 || entertainment <= 3'd2) begin
 							next = SAD;
@@ -143,7 +154,9 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 							next = SLEEP;
 						end else if(!botonSleep && botonPlay) begin
 							next = PLAYING;
-						end  else if(hunger == 3'd0 || energy == 3'd0 || entertainment == 3'd0) begin
+						end else if(botonTest) begin
+                        	next = TEST;
+                    	end else if(hunger == 3'd0 || energy == 3'd0 || entertainment == 3'd0) begin
 							next = DEATH;
 						end else if(entertainment < 3'd2 || hunger <= 3'd2 || energy <= 3'd2) begin
 							next = SAD;
@@ -157,7 +170,9 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 							next = SLEEP;
 						end else if(!botonSleep && botonPlay) begin
 							next = PLAYING;
-						end else if(hunger == 3'd0 || energy == 3'd0 || entertainment == 3'd0) begin
+						end else if(botonTest) begin
+                        	next = TEST;
+                    	end else if(hunger == 3'd0 || energy == 3'd0 || entertainment == 3'd0) begin
 							next = DEATH;
 						end else if(hunger > 3'd1 && energy > 3'd2 && entertainment > 3'd2) begin
 							next = HUNGRY;
@@ -177,7 +192,9 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 						end else if (energy < 3'd5 && hunger < 3'd5 && entertainment < 3'd5) begin
 							next = NEUTRAL;
 						end
-					end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
+					end else if(botonTest) begin
+                        	next = TEST;
+                    end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
 						next = IDLE;
 					end else if (entertainment == 3'd5) begin
 						next = NEUTRAL;
@@ -197,13 +214,66 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 						end else if (energy < 3'd5 && hunger < 3'd5 && entertainment < 3'd5) begin
 							next = NEUTRAL;
 						end
-					end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
+					end else if(botonTest) begin
+                        	next = TEST;
+                    end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
 						next = IDLE;
 					end else if (energy == 3'd5) begin
 						next = NEUTRAL;
 					end  else begin
 						next = SLEEP;
 					end
+				end
+
+				TEST: begin
+					if(pulseTest == 4d'1) begin
+						energy = 3'd5;
+						hunger = 3'd5;
+						entertainment = 3'd5;
+                        next = IDLE;
+					end else if (pulseTest == 4d'2) begin
+						energy = 3'd4;
+                        hunger = 3'd4;
+                        entertainment = 3'd4;
+                        next = NEUTRAL;
+					end else if (pulseTest == 4d'3) begin
+						energy = 3'd2;
+                        hunger = 3'd5;
+                        entertainment = 3'd5;
+                        next = TIRED;
+					end else if (pulseTest == 4d'4) begin
+						energy = 3'd2;
+                        hunger = 3'd5;
+                        entertainment = 3'd5;
+                        next = SLEEP;
+					end else if (pulseTest == 4d'5) begin
+						energy = 3'd5;
+                        hunger = 3'd2;
+                        entertainment = 3'd5;
+                        next = HUNGRY;
+					end else if (pulseTest == 4d'6) begin
+						energy = 3'd2;
+                        hunger = 3'd2;
+                        entertainment = 3'd5;
+                        next = SAD;
+					end else if (pulseTest == 4d'7) begin
+						energy = 3'd5;
+                        hunger = 3'd5;
+                        entertainment = 3'd2;
+                        next = PLAYING;
+					end else if (pulseTest == 4d'8) begin
+						energy = 3'd5;
+                        hunger = 3'd5;
+                        entertainment = 3'd2;
+                        next = BORED;
+					end else if (pulseTest == 4d'9) begin
+						energy = 3'd0;
+                        hunger = 3'd0;
+                        entertainment = 3'd0;
+                        next = DEATH;
+					end else begin
+                        next = TEST;
+                    end
 				end
 
 				default: next = DEATH;
