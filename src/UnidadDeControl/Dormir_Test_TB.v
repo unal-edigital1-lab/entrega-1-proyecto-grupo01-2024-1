@@ -54,7 +54,7 @@ module Dormir_Test_TB;
 	#50;
 	rst = 0;
 	#250;
-	BTest = 1; PulseTest = 4'd5;
+	BTest = 1; PulseTest = 4'd9;
 	#2;
 	BTest = 0;
 

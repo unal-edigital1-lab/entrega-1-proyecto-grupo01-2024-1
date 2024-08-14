@@ -111,7 +111,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 							next = HUNGRY;
 						end else if(entertainment <= 3'd2 && energy > 3'd2 && hunger > 3'd2) begin
 							next = BORED;
-						end else if(hunger < 3'd2 && energy < 3'd2 && entertainment < 3'd2) begin
+						end else if((hunger < 3'd2 && energy < 3'd2) || (entertainment < 3'd2 && energy < 3'd2) || (hunger < 3'd2 && entertainment < 3'd2)) begin
 							next = SAD;
 						end  else begin
 							next = NEUTRAL;
