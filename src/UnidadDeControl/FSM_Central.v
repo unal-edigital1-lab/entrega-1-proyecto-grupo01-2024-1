@@ -1,5 +1,5 @@
 // Dormir 
-module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, Entert= 20000, CONTUNI = 200000)(
+module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, Entert= 20000, CONTUNI = 200000)(
 // Entradas
 	input clk,
 	input rst,

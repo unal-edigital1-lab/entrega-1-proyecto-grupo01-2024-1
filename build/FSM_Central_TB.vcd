@@ -1,5 +1,5 @@
 $date
-	Thu Aug 15 07:04:14 2024
+	Thu Aug 15 07:17:33 2024
 $end
 $version
 	Icarus Verilog
@@ -7,7 +7,7 @@ $end
 $timescale
 	1us
 $end
-$scope module Dormir_Test_TB $end
+$scope module FSM_Central_TB $end
 $scope module uut $end
 $var wire 1 ! botonAwake $end
 $var wire 1 " botonFeed $end

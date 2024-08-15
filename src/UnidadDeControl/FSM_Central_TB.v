@@ -1,8 +1,8 @@
 `timescale 1ms/1us
-`include "/home/samarinbe/Desktop/Ingeniería Electrónica UN/3. Tercer Semestre/Electrónica Digital 1/entrega-1-proyecto-grupo01-2024-1/src/UnidadDeControl/Dormir_Test.v"
+`include "/home/samarinbe/Desktop/Ingeniería Electrónica UN/3. Tercer Semestre/Electrónica Digital 1/entrega-1-proyecto-grupo01-2024-1/src/UnidadDeControl/FSM_Central.v"
 
 
-module Dormir_Test_TB;
+module FSM_Central_TB;
 
 	reg clk;
 	reg rst;
@@ -29,7 +29,7 @@ module Dormir_Test_TB;
 	wire [2:0] hunger;
 	wire [2:0] entertainment;
 	
-	Dormir_Test #(5,4,4,4,20) uut(
+	FSM_Central #(5,4,4,4,20) uut(
 		.clk(clk),
 		.rst(rst),
 		.botonSleep(BSleep),
@@ -105,11 +105,9 @@ module Dormir_Test_TB;
 	end
 
 initial begin:TEST_CASE
-    $dumpfile("Dormir_Test_TB.vcd");
+    $dumpfile("FSM_Central_TB.vcd");
 	$dumpvars(-1, uut);
 	#1000 $finish; 
 end
 
-	
-	
 endmodule
