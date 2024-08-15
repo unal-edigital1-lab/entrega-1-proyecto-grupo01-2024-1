@@ -1,9 +1,10 @@
-module bttnTest #(parameter COUNT_MAX = 25000000,FiveSegs = 10);
+module bttnTest #(parameter COUNT_MAX = 25000000,FiveSegs = 10)(
     // Declaración de entradas y salidas
-    input botonTest;
-    input clk;
-    input rst;
-    output reg btnTest;
+    input botonTest,
+    input clk,
+    input rst,
+    output reg btnTest
+);
 
     reg [$clog2(COUNT_MAX)-1:0] counter;
     reg [3:0] contmsegs;
