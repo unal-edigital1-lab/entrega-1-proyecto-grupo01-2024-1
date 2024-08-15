@@ -14,7 +14,7 @@ module Dormir_Test_TB;
 	reg BTest;
 	reg [3:0] PulseTest;
 
-	wire SIDLE;
+	/*wire SIDLE;
 	wire SSLEEP;
 	wire SNEUTRAL;
 	wire STIRED;
@@ -23,6 +23,7 @@ module Dormir_Test_TB;
 	wire SSAD;
 	wire SPLAYING;
 	wire SBORED;
+	*/
 	wire [3:0] state;
 	wire [2:0] energy;
 	wire [2:0] hunger;
@@ -38,6 +39,7 @@ module Dormir_Test_TB;
 		.giro(Giro),
 		.botonTest(BTest),
         .pulseTest(PulseTest),
+		/*
 		.sign_IDLE(SIDLE),
 		.sign_SLEEP(SSLEEP),
 		.sign_NEUTRAL(SNEUTRAL),
@@ -47,6 +49,7 @@ module Dormir_Test_TB;
 		.sign_SAD(SSAD),
 		.sign_PLAYING(SPLAYING),
 		.sign_BORED(SBORED),
+		*/
 		.state(state),
 		.energy(energy),
 		.hunger(hunger),

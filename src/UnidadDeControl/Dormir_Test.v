@@ -11,7 +11,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	input botonTest,
 	input [3:0] pulseTest,
 // Salidas
-	output wire sign_IDLE,
+	/*output wire sign_IDLE,
 	output wire sign_SLEEP,
 	output wire sign_NEUTRAL,
 	output wire sign_TIRED,
@@ -20,6 +20,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	output wire sign_SAD,
 	output wire sign_PLAYING,
 	output wire sign_BORED,
+	*/
 	output reg [3:0] state,
 	output reg [2:0] energy,
 	output reg [2:0] hunger,
@@ -345,7 +346,7 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
             contTime <= contTime+1;
         end
 	end
-
+/*
 	assign sign_IDLE = (state == IDLE);  
 	assign sign_SLEEP= (state == SLEEP);  
 	assign sign_NEUTRAL = (state == NEUTRAL);  
@@ -355,6 +356,6 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	assign sign_SAD = (state == SAD);  
 	assign sign_PLAYING = (state == PLAYING);  
 	assign sign_BORED = (state == BORED);  
-
+*/
 	
 endmodule
