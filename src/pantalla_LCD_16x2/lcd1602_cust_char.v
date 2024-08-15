@@ -1,12 +1,12 @@
-module lcd1602_cust_char_v2 #(parameter num_commands = 3, 
+module lcd1602_cust_char #(parameter num_commands = 3, 
                                       num_data_all = 48,  
                                       row_char_data = 8, 
                                       num_cgram_addrs = 6,
-                                      num_states = 4,
+                                      num_states = 9,
                                       COUNT_MAX = 800000)(
     input clk,            
     input reset,
-    input [1:0] state,          
+    input [$clog2(num_states) - 1:0] state,          
     output reg rs,        
     output reg rw,
     output enable,    
@@ -83,7 +83,7 @@ initial begin
    data <= 'b0;
    rw <= 0;
    rs <= 0;
-   $readmemb("C:/Users/Maria Alejandra/Documents/ElectronicaDigital/TAMAGOCHI/QuartusLCD/caras.txt", data_memory);
+   $readmemb("C:/Users/Maria Alejandra/Documents/ElectronicaDigital/TAMAGOCHI/QUARTUS/QuartusLCD/caras.txt", data_memory);
 
    config_memory[0] <= LINES2_MATRIX5x8_MODE8bit;
    config_memory[1] <= DISPON_CURSOROFF;
@@ -156,7 +156,7 @@ always @(posedge clk_16ms) begin
 		data <= 'b0;
 		rs <= 'b0;
         last_state_done <= 'b0;
-		$readmemb("C:/Users/Maria Alejandra/Documents/ElectronicaDigital/TAMAGOCHI/QuartusLCD/caras.txt", data_memory);
+		$readmemb("C:/Users/Maria Alejandra/Documents/ElectronicaDigital/TAMAGOCHI/QUARTUS/QuartusLCD/caras.txt", data_memory);
     end else begin
         case (next)
             IDLE: begin
@@ -175,7 +175,7 @@ always @(posedge clk_16ms) begin
             INIT_CONFIG: begin
                 rs <= 'b0;
                 command_counter <= command_counter + 1;
-					 data <= config_memory[command_counter];
+				data <= config_memory[command_counter];
                 if (command_counter == num_commands - 1) begin
                     create_char_task <= SET_CGRAM_ADDR;
                     init_config_executed <= 1'b1;
