@@ -19,7 +19,11 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	output wire sign_HUNGRY,
 	output wire sign_SAD,
 	output wire sign_PLAYING,
-	output wire sign_BORED
+	output wire sign_BORED,
+	output reg [3:0] state,
+	output reg [2:0] energy,
+	output reg [2:0] hunger,
+	output reg [2:0] entertainment
 	);
 	
 
@@ -36,15 +40,12 @@ module Dormir_Test#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	localparam TEST = 4'd9;    // 9
 	
 	//Registros 
-	reg [3:0] state;
+	//reg [3:0] state;
 	reg [3:0] next;
 	reg clkms;
 	reg [$clog2(COUNT_MAX)-1:0] counter;
 	reg [$clog2(CONTUNI)-1:0] contTime;
 	//reg en_death;
-	reg [2:0] energy;
-	reg [2:0] hunger;
-	reg [2:0] entertainment;
 	
 	//Valores de Inicio
 	initial begin

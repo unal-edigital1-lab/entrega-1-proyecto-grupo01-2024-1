@@ -23,6 +23,10 @@ module Dormir_Test_TB;
 	wire SSAD;
 	wire SPLAYING;
 	wire SBORED;
+	wire [3:0] state;
+	wire [2:0] energy;
+	wire [2:0] hunger;
+	wire [2:0] entertainment;
 	
 	Dormir_Test #(5,4,4,4,20) uut(
 		.clk(clk),
@@ -42,7 +46,11 @@ module Dormir_Test_TB;
 		.sign_HUNGRY(SHUNGRY),
 		.sign_SAD(SSAD),
 		.sign_PLAYING(SPLAYING),
-		.sign_BORED(SBORED)
+		.sign_BORED(SBORED),
+		.state(state),
+		.energy(energy),
+		.hunger(hunger),
+		.entertainment(entertainment)
 	);
 	
 	always #1 clk = ~clk;
@@ -54,7 +62,7 @@ module Dormir_Test_TB;
 	#50;
 	rst = 0;
 	#250;
-	BTest = 1; PulseTest = 4'd9;
+	BTest = 1; PulseTest = 4'd5;
 	#2;
 	BTest = 0;
 
