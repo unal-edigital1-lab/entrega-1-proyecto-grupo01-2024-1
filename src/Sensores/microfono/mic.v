@@ -2,19 +2,22 @@ module mic #(parameter COUNT_MAX = 25000000) (
     input mic,
     input clk,
     input rst,
-    output reg buzzer
+    output reg buzzer,
+    output reg signal_awake
 );
 
 localparam LISTENING = 2'd0; // 0
 localparam WAITING = 2'd1;   // 1
-localparam SPEAKING = 2'd2   // 2
+localparam SPEAKING = 2'd2;   // 2
 
 reg [2:0] state;
 reg [2:0] next;
 
 reg [$clog2(COUNT_MAX)-1:0] counter;
-reg [3:0] contmsegs;
+reg [4:0] contmsegs;
 reg clkmseg;
+
+reg prev_mic;
 
 initial begin
 		state <= LISTENING;
@@ -30,33 +33,43 @@ always @(posedge clk or posedge rst) begin
     end
 end
 
-
 // Máquina de Estados , general: Cambio entre estados
 always @(*) begin
     case (state)
         LISTENING: begin
-
-        end
-        WAITING: begin
-
-        end
-        SPEAKING: begin
-            if (contmsegs==5) begin
-                buzzer <= 1;
-            end else if (contmsegs==6) begin
-                buzzer <= 0;
-            end else if (contmsegs==7) begin
-                buzzer <= 1;
-            end else if (contmsegs==8) begin
-                buzzer <= 0;
-            end else if (contmsegs==9) begin
-                buzzer <= 1;
-            end else if (contmsegs==10) begin
-                buzzer <= 0;
+            if (mic && prev_mic == 0) begin
+                next = WAITING;
                 contmsegs <= 0;
+                signal_awake <= 1;
             end
         end
+        WAITING: begin
+            next = SPEAKING;
+            signal_awake <= 0;
+        end
+        SPEAKING: begin
+            if (contmsegs < 2) begin
+                buzzer <= 1;
+            end else if (contmsegs < 4) begin
+                buzzer <= 0;
+            end else if (contmsegs < 6) begin
+                buzzer <= 1;
+            end else if (contmsegs < 8) begin
+                buzzer <= 0;
+            end else if (contmsegs < 10) begin
+                buzzer <= 1;
+            end else if (contmsegs < 12) begin
+                buzzer <= 0;
+            end else begin
+                buzzer <= 0;
+                next = LISTENING;
+            end
+        end
+        default: begin
+            buzzer = 0;
+        end
     endcase
+    prev_mic <= mic;
 end
 
 
@@ -84,36 +97,6 @@ end
             contmsegs <= contmsegs+1;
         end
 	end
-
-
-
-
-/*always @(posedge clk or posedge rst) begin
-    if (rst) begin
-        buzzer <= 0;
-    end else begin
-        if (mic) begin
-            contmsegs <= 0;
-            if (contmsegs==5) begin
-                buzzer <= 1;
-            end else if (contmsegs==6) begin
-                buzzer <= 0;
-            end else if (contmsegs==7) begin
-                buzzer <= 1;
-            end else if (contmsegs==8) begin
-                buzzer <= 0;
-            end else if (contmsegs==9) begin
-                buzzer <= 1;
-            end else if (contmsegs==10) begin
-                buzzer <= 0;
-                contmsegs <= 0;
-            end
-        end
-    end
-end
-*/
-
-
 
 
 endmodule
