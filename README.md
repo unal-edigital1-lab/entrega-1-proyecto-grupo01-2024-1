@@ -52,11 +52,11 @@ Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de i
 
 - **buzzer:** el Tamagotchi podrá interactuar con el usuario mediante un buzzer manifestando diferentes sonidos dependiendo de como se esté sintiendo. Cada estado del Tamagotchi emitirá una cantidad de pulsos auditivos diferentes. 
 
--**giroscopio (mpu6050):**  se incorporará el sensor de movimiento MPU5050. Con este sensor el Tamagotchi simulará que camina cuando el usuario se desplace (movimiento lineal en x).
+- **giroscopio (mpu6050):**  se incorporará el sensor de movimiento MPU5050. Con este sensor el Tamagotchi simulará que camina cuando el usuario se desplace (movimiento lineal en x).
 
 ## 2.3 Sistema de Visualización
 
-Se empleará una pantalla **Pantalla LCD 16x2** para la visualización del Tamagochi. En ella se mostrará lo siguiente:
+Se empleará una pantalla **LCD 16x2** para la visualización del Tamagochi. En ella se mostrará lo siguiente:
  - Representación visual de la mascota y sus emociones mediante gestos/caras. 
 - Los valores numéricos junto con íconos de las estadísticas de la mascota virtual.  (1) Hunger, (2) Entertainment, y (3) Energy. 
 
@@ -77,7 +77,7 @@ Este diagrama presenta la arquitectura del Tamagotchi. Dado que el desarrollo es
 
 El siguiente diagrama de flujo proporciona una visión detallada de la funcionalidad integral del sistema Tamagotchi. Ilustra la interacción entre los diversos componentes del sistema, así como el procesamiento de las entradas y salidas. Este diagrama es esencial para entender cómo cada componente del sistema contribuye al funcionamiento general del Tamagotchi.
 
-![DiagramaFuncional](./figs/Diagrama_de_Flujo_Tamagotchi.png)
+![DiagramaFuncional](figs/DiagramaFlujo.png)
 
 ## 3.3 Diagrama de Moore
 
@@ -94,6 +94,7 @@ Se propone utilizar pulsadores como interfaz de interacción con los botones del
 ### 3.4.2 Sensor de Movimiento (Giroscopio)
 
 El sensor de movimiento MPU6050 se conectará al FPGA mediante la interfaz I2C. La FPGA proporcionará el bus SCL al sensor y leerá los datos del sensor desde el bus SDA, para determinar el movimiento del usuario. Estos datos se procesarán para determinar si el usuario está "jugando" con el Tamagotchi. Por lo que, en la descripción de hardware se implementaran dos modulos uno para la comunicacion I2C (I2C master) y otro para el procesamiento de datos del giroscopio (girscopio controller). La salida del módulo de procesamiento de datos se utilizará para actualizar el estado del Tamagotchi y aumentar el nivel de "entertainment".
+![Giro](./figs/Giroscopio.jpg)
 
 ### 3.4.3  Sensor de Sonido y Buzzer
 Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se propone un módulo que gestione la interacción con estos componentes. Este módulo será responsable de:
@@ -101,9 +102,35 @@ Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se
 1. Lectura del sensor de sonido (micrófono): Leer la señal digital del sensor KY038 para detectar la presencia o ausencia de sonido.
 
 2. Control del buzzer: Generar una señal que permita "interactuar" con el Tamagotchi, la cual variará en frecuencia de acuerdo al estado de animo del mismo.
+![Mic](./figs/Mic.jpg)
+
+### 3.4.4 Sensor Ultrasónico HC-SR04
+
+El HC-SR04 es un sensor de ultrasonido ampliamente utilizado para medir distancias. Funciona emitiendo un pulso de sonido ultrasonico y midiendo el tiempo que tarda en rebotar en un objeto y regresar al sensor.
+
+#### Señales
+- **Transmisor (Trigger)**: Emite pulsos de ultrasonido a 40 kHz.
+- **Receptor (Echo)**: Recibe los pulsos reflejados.
+- **Circuito de control**: Procesa la señal y proporciona una salida en forma de pulso de duración proporcional a la distancia medida.
+
+#### Especificaciones
+- **Rango de medición**: 2 cm a 400 cm.
+- **Precisión**: ± 3 mm.
+- **Ángulo de detección**: 15 grados aproximadamente.
+- **Tensión de operación**: 5V DC.
+- **Corriente de operación**: 15 mA.
+
+#### Funcionamiento
+1. Se envía un pulso de 10 microsegundos al pin Trigger.
+2. El sensor emite un pulso de ultrasonido.
+3. El pulso rebota en un objeto y es recibido por el receptor.
+4. El sensor emite un pulso en el pin Echo cuya duración es proporcional al tiempo que tardó el pulso en regresar.
+5. La distancia se calcula con la fórmula: `Distancia = (Tiempo de retorno / 2) * Velocidad del sonido`.
+![HC-S04](./figs/HC-SR04.jpg)
    
 ### 3.4.5 Pantalla LCD 16x2
-Se utilizará una pantalla LCD 16x2 para mostrar la mascota virtual y los puntajes de las estadisticas. Para ello, se implementará un modulo de LCD controller que reciba el estado actual de la mascota y sus puntajes y se encargue de enviarle a la pantalla las señales correspondientes de rs, rw, enable y data para lograr la visualización deseada. 
+Se utilizará una pantalla LCD 16x2 para mostrar la mascota virtual y los puntajes de las estadisticas. Para ello, se implementará un modulo de LCD controller que reciba el estado actual de la mascota y sus puntajes y se encargue de enviarle a la pantalla las señales correspondientes de rs, rw, enable y data para lograr la visualización deseada.
+![LCD](./figs/LCD16x2.jpg) 
 
 
 #  4. Especificaciones Detalladas de Diseño 
@@ -161,7 +188,7 @@ Como se describió de manera detallada en el apartado anterior, el Tamagotchi te
 
 Estos estados fluctuarán en base a los niveles de cada indicador de la mascota, proporcionando una experiencia dinámica e interactiva para el usuario. Por cada estado se visualizará en la pantalla LCD 16x2 diversas expresiones de la mascota.
 
-![Caras](figs/caras_mascota.png)
+![Caras](figs/caras_mascotas_2.png)
 
 ### 4.2.2 Transiciones 
 
