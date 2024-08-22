@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at FSM_Central.v(72): always construct contains both blocking and non-blocking assignments File: /home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/src/UnidadDeControl/FSM_Central.v Line: 72
+Warning (10268): Verilog HDL information at ultrasonido.v(110): always construct contains both blocking and non-blocking assignments File: /home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/src/Sensores/ultrasonido/ultrasonido.v Line: 110
