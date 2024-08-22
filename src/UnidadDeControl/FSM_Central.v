@@ -40,6 +40,7 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	localparam DEATH = 4'd8;   // 8
 	localparam TEST = 4'd9;    // 9
 	
+	
 	//Registros 
 	//reg [3:0] state;
 	reg [3:0] next;
