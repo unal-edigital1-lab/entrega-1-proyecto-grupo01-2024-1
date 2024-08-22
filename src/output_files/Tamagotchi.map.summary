@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Thu Aug 22 06:22:14 2024
+Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
+Revision Name : Tamagotchi
+Top-level Entity Name : ultrasonido
+Family : Cyclone IV E
+Total logic elements : 15
+    Total combinational functions : 15
+    Dedicated logic registers : 10
+Total registers : 10
+Total pins : 6
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

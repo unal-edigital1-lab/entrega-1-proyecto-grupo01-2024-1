@@ -8,9 +8,9 @@ module ultrasonido (
 );
 
 
-localparam DISTANCIA_MINIMA = 50; // Distancia mínima en centímetros (1 metro = 100 cm)
+localparam DISTANCIA_MINIMA = 100; // Distancia mínima en centímetros (1 metro = 100 cm)
 //localparam T_CLK =  20 * 0.00000002; // Período del clock en usegundos (50 MHz)
-localparam T_CLK =  2; // Período del clock en usegundos (50 kHz)
+localparam T_CLK =  0.00002; // Período del clock en usegundos (50 kHz)
 
 
 reg [15:0] cuenta_echo;     // Contador para medir el tiempo de eco
@@ -29,11 +29,6 @@ localparam WAIT_FOR_ECHO = 3'd2;
 localparam MEASURE_DISTANCE = 3'd3;
 localparam OPERATION = 3'd4;
 reg [9:0] contador;
-
-initial begin
-		estado <= IDLE;
-		next_estado <= IDLE;
-	end
 
 // Máquina de estados
 always @(posedge clk or posedge reset_n) begin
@@ -93,7 +88,7 @@ end
 
 // Divisor de frecuencia
 
-always @(posedge clk or posedge reset_n) begin
+always @(posedge clk or negedge reset_n) begin
         if (reset_n) begin
             contador <= 0;
             clk_out <= 0;
@@ -109,11 +104,12 @@ end
 
 always @(posedge clk or posedge reset_n) begin
     if (reset_n) begin 
-        count <= 0;
+        estado <= IDLE;
     end else begin
         case(estado)
             IDLE: begin
-                count <= 0;
+                count = 0;
+                
             end
 
             START: begin
@@ -131,11 +127,11 @@ always @(posedge clk or posedge reset_n) begin
 
             OPERATION: begin
                 count = count + 1;
-                distancia_cm <= (cuenta_echo+1) * T_CLK * (V_SONIDO/200000); // multiplicado por 100 para convertir a centímetros
+                distancia_cm <= (cuenta_echo+1) * T_CLK * (V_SONIDO/2); // multiplicado por 100 para convertir a centímetros
                     if (distancia_cm >= DISTANCIA_MINIMA) begin
-                        led = 1'b1;
-                    end else begin
                         led = 1'b0;
+                    end else begin
+                        led = 1'b1;
                     end                          
             end
 
@@ -145,9 +141,10 @@ always @(posedge clk or posedge reset_n) begin
     end
 end
 
-always @(posedge clk_out) begin
+always @(posedge clk_out or negedge clk_out) begin
+
     if (estado == MEASURE_DISTANCE) begin
-        cuenta_echo <= cuenta_echo + 1;
+        cuenta_echo = cuenta_echo + 1;
     end
 
 end
