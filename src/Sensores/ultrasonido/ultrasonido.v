@@ -131,8 +131,8 @@ always @(posedge clk or posedge reset_n) begin
 
             OPERATION: begin
                 count = count + 1;
-                distancia_cm <= (cuenta_echo+1) * T_CLK * (V_SONIDO/200000); // multiplicado por 100 para convertir a centímetros
-                    if (distancia_cm >= DISTANCIA_MINIMA) begin
+                 // multiplicado por 100 para convertir a centímetros
+                    if (cuenta_echo >= 145) begin
                         led = 1'b1;
                     end else begin
                         led = 1'b0;
@@ -148,9 +148,9 @@ end
 always @(posedge clk_out) begin
     if (estado == MEASURE_DISTANCE) begin
         cuenta_echo <= cuenta_echo + 1;
-    end
-
 end
+end
+
 
 
 // Lógica para controlar el LED
@@ -164,10 +164,10 @@ end
 end*/
 
 // Contador para medir el eco
-always @(posedge clk or posedge reset_n) begin
+/*always @(posedge clk or posedge reset_n) begin
     if (reset_n) begin
         cuenta_echo <= 16'd0;
     end
-end
+end*/
 
 endmodule
