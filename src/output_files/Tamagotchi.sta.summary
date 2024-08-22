@@ -2,40 +2,112 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
+Type  : Slow 1200mV 85C Model Setup 'botonAwake'
+Slack : -5.676
+TNS   : -19.065
+
+Type  : Slow 1200mV 85C Model Setup 'clkms'
+Slack : -5.165
+TNS   : -87.134
+
 Type  : Slow 1200mV 85C Model Setup 'clk'
-Slack : -0.794
-TNS   : -5.990
+Slack : -4.375
+TNS   : -78.745
+
+Type  : Slow 1200mV 85C Model Hold 'botonAwake'
+Slack : -0.280
+TNS   : -0.280
 
 Type  : Slow 1200mV 85C Model Hold 'clk'
-Slack : 0.454
+Slack : 0.485
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'clkms'
+Slack : 0.511
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -17.870
+TNS   : -47.610
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'botonAwake'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clkms'
+Slack : -1.487
+TNS   : -26.766
+
+Type  : Slow 1200mV 0C Model Setup 'botonAwake'
+Slack : -5.435
+TNS   : -18.425
+
+Type  : Slow 1200mV 0C Model Setup 'clkms'
+Slack : -4.751
+TNS   : -79.799
 
 Type  : Slow 1200mV 0C Model Setup 'clk'
-Slack : -0.643
-TNS   : -4.590
+Slack : -4.054
+TNS   : -70.722
+
+Type  : Slow 1200mV 0C Model Hold 'botonAwake'
+Slack : -0.289
+TNS   : -0.289
 
 Type  : Slow 1200mV 0C Model Hold 'clk'
-Slack : 0.402
+Slack : 0.430
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'clkms'
+Slack : 0.469
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -17.870
+TNS   : -47.610
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'botonAwake'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clkms'
+Slack : -1.487
+TNS   : -26.766
+
+Type  : Fast 1200mV 0C Model Setup 'botonAwake'
+Slack : -1.766
+TNS   : -5.926
+
+Type  : Fast 1200mV 0C Model Setup 'clkms'
+Slack : -1.695
+TNS   : -28.116
 
 Type  : Fast 1200mV 0C Model Setup 'clk'
-Slack : 0.214
-TNS   : 0.000
+Slack : -1.389
+TNS   : -18.533
+
+Type  : Fast 1200mV 0C Model Hold 'botonAwake'
+Slack : -0.427
+TNS   : -1.028
 
 Type  : Fast 1200mV 0C Model Hold 'clk'
-Slack : 0.187
+Slack : 0.201
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'clkms'
+Slack : 0.205
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -13.650
+TNS   : -34.088
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'botonAwake'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clkms'
+Slack : -1.000
+TNS   : -18.000
 
 ------------------------------------------------------------

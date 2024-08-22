@@ -266,7 +266,7 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 			end else if (state != DEATH & energy > 0) begin
 				if(contTime == Ener-1) begin
 					energy <= energy - 1;
-					contTime <= 0;
+				contTime <= 0;
 				end
 			end else if (state == TEST) begin
 				case (pulseTest)
@@ -399,10 +399,64 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	always @(posedge clkms or posedge rst) begin
 		if(rst)begin
 			contTime <= 0;
-		end else begin
+		end /*else if (state == SLEEP)begin 
+			if(energy < 3'd5 && contTime == Ener-1) begin
+				contTime <= 0;
+			end
+		end else if (state != DEATH & energy > 0) begin
+				if(contTime == Ener-1) begin
+					contTime <= 0;
+				end
+		end else if (state != DEATH & hunger >0 ) begin
+				if(contTime == Feed-1) begin
+					contTime <= 0;
+				end
+		end if (state == PLAYING) begin 
+			if(entertainment < 3'd5 & contTime == Entert-1) begin
+				contTime <= 0;
+			end
+			end else if (state != DEATH & entertainment > 0) begin
+				if(contTime == Entert-1) begin
+					contTime <= 0;
+				end
+		end */else begin
             contTime <= contTime+1;
         end
 	end
+/*
+// Contador de tiempo en general 
+always @(posedge clkms or posedge rst) begin
+    if (rst) begin
+        contTime <= 0;
+    end else begin
+        if (state == SLEEP) begin 
+            if (energy < 3'd5 && contTime == Ener-1) begin
+                contTime <= 0;
+            end else begin
+                contTime <= contTime + 1;
+            end
+        end else if (state == PLAYING) begin 
+            if (entertainment < 3'd5 && contTime == Entert-1) begin
+                contTime <= 0;
+            end else begin
+                contTime <= contTime + 1;
+            end
+        end else if (state != DEATH) begin
+            if (energy > 0 && contTime == Ener-1) begin
+                contTime <= 0;
+            end else if (hunger > 0 && contTime == Feed-1) begin
+                contTime <= 0;
+            end else if (entertainment > 0 && contTime == Entert-1) begin
+                contTime <= 0;
+            end else begin
+                contTime <= contTime + 1;
+            end
+        end else begin
+            contTime <= contTime + 1;
+        end
+    end
+end
+*/
 /*
 	assign sign_IDLE = (state == IDLE);  
 	assign sign_SLEEP= (state == SLEEP);  

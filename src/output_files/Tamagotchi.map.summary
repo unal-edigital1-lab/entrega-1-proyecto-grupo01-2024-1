@@ -1,14 +1,14 @@
-Analysis & Synthesis Status : Failed - Thu Aug 22 07:36:03 2024
+Analysis & Synthesis Status : Successful - Thu Aug 22 09:16:52 2024
 Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 Revision Name : Tamagotchi
 Top-level Entity Name : FSM_Central
 Family : Cyclone IV E
-Total logic elements : N/A until Partition Merge
-    Total combinational functions : N/A until Partition Merge
-    Dedicated logic registers : N/A until Partition Merge
-Total registers : N/A until Partition Merge
-Total pins : N/A until Partition Merge
-Total virtual pins : N/A until Partition Merge
-Total memory bits : N/A until Partition Merge
-Embedded Multiplier 9-bit elements : N/A until Partition Merge
-Total PLLs : N/A until Partition Merge
+Total logic elements : 236
+    Total combinational functions : 236
+    Dedicated logic registers : 48
+Total registers : 48
+Total pins : 25
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
