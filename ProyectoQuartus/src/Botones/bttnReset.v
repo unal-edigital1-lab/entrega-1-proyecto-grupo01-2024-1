@@ -2,7 +2,6 @@ module bttnReset #(parameter COUNT_MAX = 25000000, FiveSegs = 10)(
     // Declaración de entradas y salidas
     input botonReset,
     input clk,
-    input rst,
     output reg btnRst
 );
 
@@ -24,12 +23,9 @@ initial begin
 end
 
 //Reset de la máquina de estados
-always @(posedge clk or posedge rst) begin
-    if (rst) begin
-        state <= PRESSING;
-    end else begin
-        state <= next;
-    end
+always @(posedge clk) begin
+     state <= next;
+
 end
 
 always @(*) begin
@@ -56,7 +52,7 @@ always @(*) begin
 end
 
 // Máquina de Estados , general: Cambio entre estados
-always @(posedge clk or posedge rst) begin
+always @(posedge clk) begin
     case(next)
         PRESSING: begin
             btnRst <= 0;
@@ -84,25 +80,20 @@ end
 
 
 // Divisor de frecuencia , a reloj en s
-always @(posedge clk or posedge rst) begin
-if(rst)begin
-    clkmseg <=0;
-    counter <=0;
-end else begin
+always @(posedge clk) begin
+
 	if (counter == COUNT_MAX-1) begin
 		 clkmseg <= ~clkmseg;
 		 counter <= 0;
-		 end else begin
+	end else begin
 			  counter = counter +1;
     end
 end
-end
+
 
 // Contador de tiempo en general 
-always @(posedge clkmseg or posedge rst) begin
-if(rst)begin
-    contmsegs <= 0;
-end else if (flag_contmsegs) begin
+always @(posedge clkmseg) begin
+if (flag_contmsegs) begin
 	 contmsegs <= 0;
 end else begin
     contmsegs <= contmsegs+1;
