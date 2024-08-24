@@ -37,7 +37,7 @@ initial begin
 
 // Máquina de estados
 always @(posedge clk or posedge reset_n) begin
-    if (reset_n) begin
+    if (reset_n==0) begin
         estado <= IDLE;
     end else begin
         estado <= next_estado;
@@ -94,7 +94,7 @@ end
 // Divisor de frecuencia
 
 always @(posedge clk or posedge reset_n) begin
-        if (reset_n) begin
+        if (reset_n==0) begin
             contador <= 0;
             clk_out <= 0;
         end else begin
@@ -108,7 +108,7 @@ always @(posedge clk or posedge reset_n) begin
 end
 
 always @(posedge clk or posedge reset_n) begin
-    if (reset_n) begin 
+    if (reset_n==0) begin 
         count <= 0;
     end else begin
         case(estado)
@@ -117,6 +117,7 @@ always @(posedge clk or posedge reset_n) begin
             end
 
             START: begin
+                cuenta_echo = 0;
                 trigger = 1;
                 count = count + 1;
 
@@ -131,7 +132,7 @@ always @(posedge clk or posedge reset_n) begin
             OPERATION: begin
                 count = count + 1;
                  // multiplicado por 100 para convertir a centímetros
-                    if (cuenta_echo >= 40) begin
+                    if (cuenta_echo >= 145) begin
                         led = 1'b1;
                     end else begin
                         led = 1'b0;
@@ -147,9 +148,7 @@ end
 always @(posedge clk_out) begin
     if (estado == MEASURE_DISTANCE) begin
         cuenta_echo <= cuenta_echo + 1;
-	end else if (estado == START) begin
-			cuenta_echo = 0;
-	end
+end
 end
 
 
