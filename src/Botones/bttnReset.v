@@ -16,6 +16,8 @@ reg [$clog2(COUNT_MAX)-1:0] counter;
 reg [3:0] contmsegs;
 reg clkmseg;
 
+reg flag_contmsegs;
+
 initial begin
     state <= PRESSING;
     next <= PRESSING;
@@ -30,15 +32,11 @@ always @(posedge clk or posedge rst) begin
     end
 end
 
-// Máquina de Estados , general: Cambio entre estados
-always @(posedge clk or posedge rst) begin
-    case(state)
+always @(*) begin
+	case(state)
         PRESSING: begin
-            btnRst <= 0;
             if (botonReset) begin
                 next <= WAITING;
-                counter <= 0;
-                contmsegs <= 0;
             end else begin
                 next <= PRESSING;
             end
@@ -47,12 +45,37 @@ always @(posedge clk or posedge rst) begin
             if (!botonReset) begin
                 next <= PRESSING;
             end else begin
-                if (contmsegs < FiveSegs) begin
+                if (contmsegs <= FiveSegs) begin
                     next <= WAITING;
                 end else begin
-                    btnRst <= 1;
-                    contmsegs <= 0;
                     next <= PRESSING;
+                end
+            end
+        end
+    endcase
+end
+
+// Máquina de Estados , general: Cambio entre estados
+always @(posedge clk or posedge rst) begin
+    case(next)
+        PRESSING: begin
+            btnRst <= 0;
+            if (botonReset) begin
+					 flag_contmsegs <= 1'b1;
+                //contmsegs <= 'b0;
+			  end else begin
+					flag_contmsegs <= 1'b0;
+			  end
+        end
+        WAITING: begin
+            if (botonReset) begin
+                if (contmsegs == FiveSegs) begin
+                    btnRst <= 1;
+                    //contmsegs <= 'b0;
+						  flag_contmsegs <= 1'b1;
+                //contmsegs <= 'b0;
+					end else begin
+						flag_contmsegs <= 1'b0;
                 end
             end
         end
@@ -66,11 +89,11 @@ if(rst)begin
     clkmseg <=0;
     counter <=0;
 end else begin
-if (counter == COUNT_MAX-1) begin
-    clkmseg <= ~clkmseg;
-    counter <= 0;
-    end else begin
-        counter = counter +1;
+	if (counter == COUNT_MAX-1) begin
+		 clkmseg <= ~clkmseg;
+		 counter <= 0;
+		 end else begin
+			  counter = counter +1;
     end
 end
 end
@@ -79,11 +102,14 @@ end
 always @(posedge clkmseg or posedge rst) begin
 if(rst)begin
     contmsegs <= 0;
+end else if (flag_contmsegs) begin
+	 contmsegs <= 0;
 end else begin
     contmsegs <= contmsegs+1;
 end
 end
 
+//assign contmsegs = (flag_contmsegs)? 'b0 : contmsegs;
 
 
 endmodule
