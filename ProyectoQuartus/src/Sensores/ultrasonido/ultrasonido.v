@@ -16,11 +16,11 @@ localparam T_CLK =  2; // Período del clock en usegundos (50 kHz)
 reg [15:0] cuenta_echo;     // Contador para medir el tiempo de eco
 reg [15:0] distancia_cm;    // Distancia calculada en centímetros
 reg [3:0] estado, next_estado; 
-reg [1:0]clk_out; // Estados actuales y próximos
+reg clk_out; // Estados actuales y próximos
 
 
 localparam V_SONIDO = 34300; // Velocidad del sonido en el aire a 20°C en metros por segundo
-localparam DIVISOR = 1000;
+localparam DIVISOR = 100;
 
 // Definición de la máquina de estados
 localparam IDLE = 3'd0;
@@ -33,6 +33,8 @@ reg [9:0] contador;
 initial begin
 		estado <= IDLE;
 		next_estado <= IDLE;
+        contador <= 0;
+        cuenta_echo <= 0;
 	end
 
 // Máquina de estados
@@ -44,7 +46,7 @@ always @(posedge clk) begin
     end
 end
 
-reg [3:0] count;
+reg [9:0] count;
 
 // Lógica de la máquina de estados
 always @(*) begin
@@ -57,7 +59,7 @@ always @(*) begin
             end
         end
         START: begin
-            if (count == 10) begin // 499 en escenario fisico
+            if (count == 499) begin // 499 en escenario fisico
                 next_estado = WAIT_FOR_ECHO;
             end else begin
                 next_estado = START;
@@ -105,7 +107,10 @@ always @(posedge clk) begin
                 contador <= contador + 1;
             end
         end
-end
+end;
+
+// Definición de la máquina de estados
+localparam IDLE = 3'd0;
 
 always @(posedge clk) begin
     if (reset_n==0) begin 
@@ -132,7 +137,7 @@ always @(posedge clk) begin
             OPERATION: begin
                 count = count + 1;
                  // multiplicado por 100 para convertir a centímetros
-                    if (cuenta_echo >= 100) begin
+                    if (cuenta_echo >= 1000) begin
                         led = 1'b1;
                     end else begin
                         led = 1'b0;
@@ -148,8 +153,7 @@ end
 always @(posedge clk_out) begin
     if (estado == MEASURE_DISTANCE) begin
         cuenta_echo <= cuenta_echo + 1;
-	end 
-	if (estado == START) begin
+    end else if (estado==START)begin
 		cuenta_echo <= 0;
 	end
 end
