@@ -1,8 +1,8 @@
 module bttnReset #(parameter COUNT_MAX = 25000000, FiveSegs = 10)(
     // Declaración de entradas y salidas
-    input botonReset,
+    input btnRst_in,
     input clk,
-    output reg btnRst
+    output reg btnRst_out
 );
 
 localparam PRESSING = 2'd0; // 0
@@ -31,14 +31,14 @@ end
 always @(*) begin
 	case(state)
         PRESSING: begin
-            if (botonReset) begin
+            if (btnRst_in) begin
                 next <= WAITING;
             end else begin
                 next <= PRESSING;
             end
         end
         WAITING: begin
-            if (!botonReset) begin
+            if (!btnRst_in) begin
                 next <= PRESSING;
             end else begin
                 if (contmsegs <= FiveSegs) begin
@@ -55,8 +55,8 @@ end
 always @(posedge clk) begin
     case(next)
         PRESSING: begin
-            btnRst <= 0;
-            if (botonReset) begin
+            btnRst_out <= 0;
+            if (btnRst_in) begin
 					 flag_contmsegs <= 1'b1;
                 //contmsegs <= 'b0;
 			  end else begin
@@ -64,15 +64,13 @@ always @(posedge clk) begin
 			  end
         end
         WAITING: begin
-            if (botonReset) begin
+            if (btnRst_in) begin
                 if (contmsegs == FiveSegs) begin
-                    btnRst <= 1;
+                    btnRst_out <= 1;
                     //contmsegs <= 'b0;
 						  flag_contmsegs <= 1'b1;
                 //contmsegs <= 'b0;
-					end else begin
-						flag_contmsegs <= 1'b0;
-                end
+					end 
             end
         end
     endcase
