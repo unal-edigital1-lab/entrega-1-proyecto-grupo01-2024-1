@@ -107,10 +107,9 @@ always @(posedge clk) begin
                 contador <= contador + 1;
             end
         end
-end;
+end
 
-// Definición de la máquina de estados
-localparam IDLE = 3'd0;
+
 
 always @(posedge clk) begin
     if (reset_n==0) begin 
