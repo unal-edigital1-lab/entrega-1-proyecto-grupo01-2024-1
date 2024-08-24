@@ -34,3 +34,6 @@ quartus/
 
 #otros
 *.bkp
+*.out
+*.vcd
+figs/.$Diagramas.drawio.bkp
