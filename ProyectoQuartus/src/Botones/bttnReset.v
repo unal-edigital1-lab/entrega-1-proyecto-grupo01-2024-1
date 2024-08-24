@@ -11,9 +11,9 @@ localparam WAITING = 2'd1;   // 1
 reg [3:0] state;
 reg [3:0] next;
 
-reg [$clog2(COUNT_MAX)-1:0] counter;
-reg [3:0] contmsegs;
-reg clkmseg;
+reg [$clog2(COUNT_MAX)-1:0] counter = 0;
+reg [3:0] contmsegs = 0;
+reg clkmseg = 0;
 
 reg flag_contmsegs;
 
