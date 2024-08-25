@@ -11,16 +11,6 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	input botonTest,
 	input [3:0] pulseTest,
 // Salidas
-	/*output wire sign_IDLE,
-	output wire sign_SLEEP,
-	output wire sign_NEUTRAL,
-	output wire sign_TIRED,
-	output wire sign_DEATH,
-	output wire sign_HUNGRY,
-	output wire sign_SAD,
-	output wire sign_PLAYING,
-	output wire sign_BORED,
-	*/
 	output reg [3:0] state,
 	output reg [2:0] energy,
 	output reg [2:0] hunger,
@@ -46,14 +36,13 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	reg [3:0] next;
 	reg clkms;
 	reg [$clog2(COUNT_MAX)-1:0] counter;
-	reg [$clog2(CONTUNI)-1:0] contTime;
-	//reg en_death;
+	//reg [$clog2(CONTUNI)-1:0] contTime;
+	reg [$clog2(CONTUNI)-1:0] contTimeEnergy, contTimeHunger, contTimeEntertainment;
 	
 	//Valores de Inicio
 	initial begin
 		state <= IDLE;
 		next <= IDLE;
-		//en_death <= 'b0;
 		clkms <= 'b0;
 		energy <= 3'd5;
 		hunger <= 3'd5;
@@ -229,245 +218,172 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 				end
 
 				TEST: begin
-					if(pulseTest == 4'd1) begin
+					if (!botonTest) begin
+						if(pulseTest == 4'd1) begin
+						//energy = 3'd5;
+						//hunger = 3'd5;
+						//entertainment = 3'd5;
                         next = IDLE;
 					end else if (pulseTest == 4'd2) begin
+						//energy = 3'd4;
+						//hunger = 3'd4;
+						//entertainment = 3'd4;
                         next = NEUTRAL;
 					end else if (pulseTest == 4'd3) begin
+						//energy = 3'd2;
+						//hunger = 3'd5;
+						//entertainment = 3'd5;
                         next = TIRED;
 					end else if (pulseTest == 4'd4) begin
+						//energy = 3'd2;
+						//hunger = 3'd5;
+						//entertainment = 3'd5;
                         next = SLEEP;
 					end else if (pulseTest == 4'd5) begin
+						//energy = 3'd5;
+						//hunger = 3'd2;
+						//entertainment = 3'd5;
                         next = HUNGRY;
 					end else if (pulseTest == 4'd6) begin
+						//energy = 3'd2;
+						//hunger = 3'd2;
+						//entertainment = 3'd5;
                         next = SAD;
 					end else if (pulseTest == 4'd7) begin
+						//energy = 3'd5;
+						//hunger = 3'd5;
+						//entertainment = 3'd2;
                         next = PLAYING;
 					end else if (pulseTest == 4'd8) begin
+						//energy = 3'd5;
+						//hunger = 3'd5;
+						//entertainment = 3'd2;
                         next = BORED;
 					end else if (pulseTest == 4'd9) begin
+						//energy = 3'd0;
+						//hunger = 3'd0;
+						//entertainment = 3'd0;
                         next = DEATH;
 					end else begin
                         next = TEST;
                     end
+            end else begin
+                next = TEST;
+            end
+					
 				end
 
 				default: next = DEATH;
 		endcase
 	end
 
+
 // Incrementador y disminuidor de energía
-	always@(posedge clk or posedge rst) begin
-		if(rst)begin
-			energy <= 3'd5;
-		end else begin
-			if (state == SLEEP & energy < 3'd5 & contTime == Ener-1) begin
-				energy <= energy + 1;
-				contTime <= 0;
-			end else if (state != DEATH & energy > 0) begin
-				if(contTime == Ener-1) begin
-					energy <= energy - 1;
-				contTime <= 0;
-				end
-			end else if (state == TEST) begin
-				case (pulseTest)
-					4'd1: begin
-						energy <= 3'd5;
-					end
-					4'd2: begin
-						energy <= 3'd4;
-					end
-					4'd3: begin
-						energy <= 3'd2;
-					end
-					4'd4: begin
-						energy <= 3'd2;
-					end
-					4'd5: begin
-						energy <= 3'd5;
-					end
-					4'd6: begin
-						energy <= 3'd2;
-					end
-					4'd7: begin
-						energy <= 3'd5;
-					end
-					4'd8: begin
-						energy <= 3'd5;
-					end
-					4'd9: begin
-						energy <= 3'd0;
-					end
-			endcase
-			end
-		end
-	end
-
-// Incrementador y disminuidor de Hambre
-	always@(posedge clk or posedge rst) begin
-		if(rst)begin
-			hunger <= 3'd5;
-		end else begin
-			if (botonFeed & hunger < 3'd5) begin
-				hunger <= hunger + 1;
-			end else if (state != DEATH & hunger >0 ) begin
-				if(contTime == Feed-1) begin
-					hunger <= hunger - 1;
-					contTime <= 0;
-				end
-			end else if (state == TEST) begin
-				case (pulseTest)
-					4'd1: begin
-						hunger <= 3'd5;
-					end
-					4'd2: begin
-						hunger <= 3'd4;
-					end
-					4'd3: begin
-						hunger <= 3'd5;
-					end
-					4'd4: begin
-						hunger <= 3'd5;
-					end
-					4'd5: begin
-						hunger <= 3'd2;
-					end
-					4'd6: begin
-						hunger <= 3'd2;
-					end
-					4'd7: begin
-						hunger <= 3'd5;
-					end
-					4'd8: begin
-						hunger <= 3'd5;
-					end
-					4'd9: begin
-						hunger <= 3'd0;
-					end
-			endcase
-			end 
-		end
-	end
-
-// Incrementador y disminuidor de entretenimiento
-	always@(posedge clk or posedge rst) begin
-		if(rst)begin
-			entertainment <= 3'd5;
-		end else begin
-			if (state == PLAYING & entertainment < 3'd5 & contTime == Entert-1) begin
-				entertainment <= entertainment + 1;
-				contTime <= 0;
-			end else if (state != DEATH & entertainment > 0) begin
-				if(contTime == Entert-1) begin
-					entertainment <= entertainment - 1;
-					contTime <= 0;
-				end
-			end else if (state == TEST) begin
-				case (pulseTest)
-					4'd1: begin
-						entertainment <= 3'd5;
-					end
-					4'd2: begin
-						entertainment <= 3'd4;
-					end
-					4'd3: begin
-						entertainment <= 3'd5;
-					end
-					4'd4: begin
-						entertainment <= 3'd5;
-					end
-					4'd5: begin
-						entertainment <= 3'd5;
-					end
-					4'd6: begin
-						entertainment <= 3'd5;
-					end
-					4'd7: begin
-						entertainment <= 3'd2;
-					end
-					4'd8: begin
-						entertainment <= 3'd2;
-					end
-					4'd9: begin
-						entertainment <= 3'd0;
-					end
-			endcase
-			end  
-		end
-	end
-
-// Contador de tiempo en general 
-	always @(posedge clkms or posedge rst) begin
-		if(rst)begin
-			contTime <= 0;
-		end /*else if (state == SLEEP)begin 
-			if(energy < 3'd5 && contTime == Ener-1) begin
-				contTime <= 0;
-			end
-		end else if (state != DEATH & energy > 0) begin
-				if(contTime == Ener-1) begin
-					contTime <= 0;
-				end
-		end else if (state != DEATH & hunger >0 ) begin
-				if(contTime == Feed-1) begin
-					contTime <= 0;
-				end
-		end if (state == PLAYING) begin 
-			if(entertainment < 3'd5 & contTime == Entert-1) begin
-				contTime <= 0;
-			end
-			end else if (state != DEATH & entertainment > 0) begin
-				if(contTime == Entert-1) begin
-					contTime <= 0;
-				end
-		end */else begin
-            contTime <= contTime+1;
-        end
-	end
-/*
-// Contador de tiempo en general 
 always @(posedge clkms or posedge rst) begin
     if (rst) begin
-        contTime <= 0;
+        energy <= 3'd5;
+        contTimeEnergy <= 0;
     end else begin
-        if (state == SLEEP) begin 
-            if (energy < 3'd5 && contTime == Ener-1) begin
-                contTime <= 0;
+        if (state == TEST) begin
+            case (pulseTest)
+                4'd1: energy <= 3'd5;
+                4'd2: energy <= 3'd4;
+                4'd3: energy <= 3'd2;
+                4'd4: energy <= 3'd2;
+                4'd5: energy <= 3'd5;
+                4'd6: energy <= 3'd2;
+                4'd7: energy <= 3'd5;
+                4'd8: energy <= 3'd5;
+                4'd9: energy <= 3'd0;
+            endcase
+            contTimeEnergy <= 0;
+        end else if (state == SLEEP && energy < 3'd5 && contTimeEnergy == Ener-1) begin
+            energy <= energy + 1;
+            contTimeEnergy <= 0;
+        end else if (state != DEATH && energy > 0) begin
+            if (contTimeEnergy == Ener-1) begin
+                energy <= energy - 1;
+                contTimeEnergy <= 0;
             end else begin
-                contTime <= contTime + 1;
+                contTimeEnergy <= contTimeEnergy + 1;
             end
-        end else if (state == PLAYING) begin 
-            if (entertainment < 3'd5 && contTime == Entert-1) begin
-                contTime <= 0;
-            end else begin
-                contTime <= contTime + 1;
-            end
-        end else if (state != DEATH) begin
-            if (energy > 0 && contTime == Ener-1) begin
-                contTime <= 0;
-            end else if (hunger > 0 && contTime == Feed-1) begin
-                contTime <= 0;
-            end else if (entertainment > 0 && contTime == Entert-1) begin
-                contTime <= 0;
-            end else begin
-                contTime <= contTime + 1;
-            end
-        end else begin
-            contTime <= contTime + 1;
         end
     end
 end
-*/
-/*
-	assign sign_IDLE = (state == IDLE);  
-	assign sign_SLEEP= (state == SLEEP);  
-	assign sign_NEUTRAL = (state == NEUTRAL);  
-	assign sign_TIRED = (state == TIRED);  
-	assign sign_DEATH= (state == DEATH);  
-	assign sign_HUNGRY = (state == HUNGRY);  
-	assign sign_SAD = (state == SAD);  
-	assign sign_PLAYING = (state == PLAYING);  
-	assign sign_BORED = (state == BORED);  
-*/
-	
+
+// Incrementador y disminuidor de Hambre
+always @(posedge clkms or posedge rst) begin
+    if (rst) begin
+        hunger <= 3'd5;
+        contTimeHunger <= 0;
+    end else begin
+        if (state == TEST) begin
+            case (pulseTest)
+                4'd1: hunger <= 3'd5;
+                4'd2: hunger <= 3'd4;
+                4'd3: hunger <= 3'd5;
+                4'd4: hunger <= 3'd5;
+                4'd5: hunger <= 3'd2;
+                4'd6: hunger <= 3'd2;
+                4'd7: hunger <= 3'd5;
+                4'd8: hunger <= 3'd5;
+                4'd9: hunger <= 3'd0;
+            endcase
+            contTimeHunger <= 0;
+        end else if (botonFeed && hunger < 3'd5) begin
+            hunger <= hunger + 1;
+            contTimeHunger <= 0;
+        end else if (state != DEATH && hunger > 0) begin
+            if (contTimeHunger == Feed-1) begin
+                hunger <= hunger - 1;
+                contTimeHunger <= 0;
+            end else begin
+                contTimeHunger <= contTimeHunger + 1;
+            end
+        end
+    end
+end
+
+// Incrementador y disminuidor de entretenimiento
+always @(posedge clkms or posedge rst) begin
+    if (rst) begin
+        entertainment <= 3'd5;
+        contTimeEntertainment <= 0;
+    end else begin
+        if (state == TEST) begin
+            case (pulseTest)
+                4'd1: entertainment <= 3'd5;
+                4'd2: entertainment <= 3'd4;
+                4'd3: entertainment <= 3'd5;
+                4'd4: entertainment <= 3'd5;
+                4'd5: entertainment <= 3'd5;
+                4'd6: entertainment <= 3'd5;
+                4'd7: entertainment <= 3'd2;
+                4'd8: entertainment <= 3'd2;
+                4'd9: entertainment <= 3'd0;
+            endcase
+            contTimeEntertainment <= 0;
+        end else if (state == PLAYING && entertainment < 3'd5 && contTimeEntertainment == Entert-1) begin
+            entertainment <= entertainment + 1;
+            contTimeEntertainment <= 0;
+        end else if (state != DEATH && entertainment > 0) begin
+            if (contTimeEntertainment == Entert-1) begin
+                entertainment <= entertainment - 1;
+                contTimeEntertainment <= 0;
+            end else begin
+                contTimeEntertainment <= contTimeEntertainment + 1;
+            end
+        end
+    end
+end
+
+/*// Contador de tiempo en general 
+	always @(posedge clkms or posedge rst) begin
+		if(rst)begin
+			contTime <= 0;
+		end else begin
+            contTime <= contTime+1;
+        end
+	end*/
+
 endmodule

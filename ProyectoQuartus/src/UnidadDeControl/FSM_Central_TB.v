@@ -1,5 +1,5 @@
 `timescale 1ms/1us
-`include "/home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/src/UnidadDeControl/FSM_Central.v"
+`include "/home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/ProyectoQuartus/src/UnidadDeControl/FSM_Central.v"
 
 
 module FSM_Central_TB;
@@ -65,8 +65,8 @@ module FSM_Central_TB;
 	#50;
 	rst = 0;
 	#150;
-	BTest = 1; PulseTest = 4'd5;
-	#10;
+	BTest = 1; PulseTest = 4'd9;
+	#20;
 	BTest = 0;
 
 	/*
