@@ -13,8 +13,6 @@ localparam SPEAKING = 2'd2;   // 2
 reg [2:0] state;
 reg [2:0] next;
 
-reg flag = 0;
-
 reg [$clog2(COUNT_MAX)-1:0] counter;
 reg [4:0] contmsegs;
 reg clkmseg;
@@ -39,16 +37,15 @@ end
 always @(*) begin
     case (state)
         LISTENING: begin
-            if (mic  && prev_mic == 0) begin
+            if (mic && prev_mic == 0) begin
                 next = WAITING;
-                flag <= 1;
+                contmsegs <= 0;
                 signal_awake <= 1;
             end
         end
         WAITING: begin
             next = SPEAKING;
             signal_awake <= 0;
-				flag <= 0;
         end
         SPEAKING: begin
             if (contmsegs < 2) begin
@@ -96,8 +93,6 @@ end
 	always @(posedge clkmseg or posedge rst) begin
 		if(rst)begin
 			contmsegs <= 0;
-		end else if(flag) begin
-		contmsegs <= 0;
 		end else begin
             contmsegs <= contmsegs+1;
         end

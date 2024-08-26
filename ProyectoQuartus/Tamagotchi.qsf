@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE6E22C8
-set_global_assignment -name TOP_LEVEL_ENTITY FSM_Central
+set_global_assignment -name TOP_LEVEL_ENTITY mic
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 23.1STD.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "05:49:37  AGOSTO 22, 2024"
 set_global_assignment -name LAST_QUARTUS_VERSION "23.1std.0 Lite Edition"
@@ -57,15 +57,14 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_location_assignment PIN_68 -to boton
 set_location_assignment PIN_23 -to clk
-set_location_assignment PIN_58 -to echo
-set_location_assignment PIN_80 -to led
-set_location_assignment PIN_91 -to reset_n
-set_location_assignment PIN_54 -to trigger
+set_global_assignment -name VERILOG_FILE src/Sensores/microfono/mic.v
+set_global_assignment -name VERILOG_FILE src/UnidadDeControl/FSM_Central.v
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_global_assignment -name VERILOG_FILE UnidadDeControl/FSM_Central.v
+set_location_assignment PIN_141 -to buzzer
+set_location_assignment PIN_28 -to mic
+set_location_assignment PIN_90 -to rst
+set_location_assignment PIN_74 -to signal_awake
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_global_assignment -name SOURCE_FILE Tamagotchi.qsf
