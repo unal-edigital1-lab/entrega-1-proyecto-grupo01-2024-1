@@ -146,7 +146,7 @@ always @(posedge clk) begin
             OPERATION: begin
                 count = count + 1;
                  // multiplicado por 100 para convertir a centímetros
-                    if (cuenta_echo >= 346000) begin
+                    if (cuenta_echo >= 73000) begin
                         led = 1'b1;
                     end else begin
                         led = 1'b0;

@@ -96,7 +96,7 @@ GND+                         : 24        :        :                   :         
 GND+                         : 25        :        :                   :         : 2         :                
 VCCIO2                       : 26        : power  :                   : 2.5V    : 2         :                
 GND                          : 27        : gnd    :                   :         :           :                
-mic                          : 28        : input  : 2.5 V             :         : 2         : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : 28        :        :                   :         : 2         :                
 VCCINT                       : 29        : power  :                   : 1.2V    :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 30        :        :                   :         : 2         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 31        :        :                   :         : 2         :                
@@ -126,7 +126,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : 54        :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : 55        :        :                   :         : 4         :                
 VCCIO4                       : 56        : power  :                   : 2.5V    : 4         :                
 GND                          : 57        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : 58        :        :                   :         : 4         :                
+mic                          : 58        : input  : 2.5 V             :         : 4         : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : 59        :        :                   :         : 4         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : 60        :        :                   :         : 4         :                
 VCCINT                       : 61        : power  :                   : 1.2V    :           :                
@@ -158,8 +158,8 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : 86        :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : 87        :        :                   :         : 5         :                
 GND+                         : 88        :        :                   :         : 5         :                
 GND+                         : 89        :        :                   :         : 5         :                
-rst                          : 90        : input  : 2.5 V             :         : 6         : Y              
-GND+                         : 91        :        :                   :         : 6         :                
+GND+                         : 90        :        :                   :         : 6         :                
+rst                          : 91        : input  : 2.5 V             :         : 6         : Y              
 CONF_DONE                    : 92        :        :                   :         : 6         :                
 VCCIO6                       : 93        : power  :                   : 2.5V    : 6         :                
 MSEL0                        : 94        :        :                   :         : 6         :                
