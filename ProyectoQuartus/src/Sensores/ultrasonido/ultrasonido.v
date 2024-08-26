@@ -9,12 +9,13 @@ module ultrasonido (
 
 
 localparam DISTANCIA_MINIMA = 50; // Distancia mínima en centímetros (1 metro = 100 cm)
-//localparam T_CLK =  20 * 0.00000002; // Período del clock en usegundos (50 MHz)
+//localparam T_CLK =  20 * 0.00000002; // Período del clock en usegundos (50 MHz) 2*10^-8
 localparam T_CLK =  2; // Período del clock en usegundos (50 kHz)
 
 
-reg [15:0] cuenta_echo;     // Contador para medir el tiempo de eco
-reg [15:0] distancia_cm;    // Distancia calculada en centímetros
+reg [21:0] cuenta_echo;     // Contador para medir el tiempo de eco
+reg [21:0] max_echo;
+//reg [15:0] distancia_cm;    // Distancia calculada en centímetros
 reg [3:0] estado, next_estado; 
 reg clk_out; // Estados actuales y próximos
 
@@ -28,12 +29,12 @@ localparam START = 3'd1;
 localparam WAIT_FOR_ECHO = 3'd2;
 localparam MEASURE_DISTANCE = 3'd3;
 localparam OPERATION = 3'd4;
-reg [9:0] contador;
+//reg [9:0] contador;
 
 initial begin
 		estado <= IDLE;
 		next_estado <= IDLE;
-        contador <= 0;
+        //contador <= 0;
         cuenta_echo <= 0;
 	end
 
@@ -69,6 +70,8 @@ always @(*) begin
             if (echo) begin
                 next_estado = MEASURE_DISTANCE;
                 
+            end else if (max_echo >= 900000) begin
+                next_estado = IDLE;
             end else begin
                 next_estado = WAIT_FOR_ECHO;
             end
@@ -95,7 +98,7 @@ end
 
 // Divisor de frecuencia
 
-always @(posedge clk) begin
+/*always @(posedge clk) begin
         if (reset_n==0) begin
             contador <= 0;
             clk_out <= 0;
@@ -107,9 +110,9 @@ always @(posedge clk) begin
                 contador <= contador + 1;
             end
         end
-end
+end;*/
 
-
+// Definición de la máquina de estados
 
 always @(posedge clk) begin
     if (reset_n==0) begin 
@@ -118,25 +121,32 @@ always @(posedge clk) begin
         case(estado)
             IDLE: begin
                 count <= 0;
+                cuenta_echo <= 0;
             end
 
             START: begin
                 
                 trigger = 1;
                 count = count + 1;
-
+                max_echo = 0;
             end
-               
             WAIT_FOR_ECHO: begin  
-                distancia_cm = 0;
+                //distancia_cm = 0;
                 trigger = 0;
                 count = 0;
+                max_echo = max_echo +1;
+            end
+
+            MEASURE_DISTANCE: begin
+                
+                cuenta_echo <= cuenta_echo + 1;
+                
             end
 
             OPERATION: begin
                 count = count + 1;
                  // multiplicado por 100 para convertir a centímetros
-                    if (cuenta_echo >= 1000) begin
+                    if (cuenta_echo >= 346000) begin
                         led = 1'b1;
                     end else begin
                         led = 1'b0;
@@ -149,31 +159,19 @@ always @(posedge clk) begin
     end
 end
 
-always @(posedge clk_out) begin
+/*always @(posedge clk_out) begin
     if (estado == MEASURE_DISTANCE) begin
         cuenta_echo <= cuenta_echo + 1;
     end else if (estado==START)begin
 		cuenta_echo <= 0;
 	end
-end
-
-
-
-// Lógica para controlar el LED
-/*always @(posedge clk or posedge reset_n) begin
-    distancia_cm <= (cuenta_echo+1) * T_CLK * (V_SONIDO/2); // multiplicado por 100 para convertir a centímetros
-    if (distancia_cm >= DISTANCIA_MINIMA) begin
-        led = 1'b0;
-    end else begin
-        led = 1'b1;
-    end
 end*/
 
-// Contador para medir el eco
-/*always @(posedge clk or posedge reset_n) begin
-    if (reset_n) begin
-        cuenta_echo <= 16'd0;
-    end
-end*/
+//distancia_cm <= (cuenta_echo+1) * T_CLK * (V_SONIDO/2); // multiplicado por 100 para convertir a centímetros
+// 50 --> 146000
+//100 --> 292000
+// 25 --> 73000
+// 10 --> 30000
+//450 --> 1314000
 
 endmodule
