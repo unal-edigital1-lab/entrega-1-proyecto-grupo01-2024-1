@@ -23,10 +23,13 @@ module Tamagotchi (
     output reg [7:0] data
 	 */
 	output [0:6] sseg,
+	output [3:0] led4,
 	output wire [3:0] An
+	
 );
 
 wire [3:0] state;
+//assign led4 =pulseTest;
 FSM_Central InstFSM(
 		.clk(clk),
 		.rst(rst),
@@ -36,7 +39,7 @@ FSM_Central InstFSM(
 		.botonPlay(BPlay),
 		.giro(Giro),
 		.botonTest(BTest),
-      .pulseTest(PulseTest),
+      .pulseTest(9),
 		/*
 		.sign_IDLE(SIDLE),
 		.sign_SLEEP(SSLEEP),
@@ -48,7 +51,8 @@ FSM_Central InstFSM(
 		.sign_PLAYING(SPLAYING),
 		.sign_BORED(SBORED),
 		*/
-		.state(state)
+		.state(state),
+		.led4(led4)
 		//.energy(energy),
 		//.hunger(hunger),
 		//.entertainment(entertainment)

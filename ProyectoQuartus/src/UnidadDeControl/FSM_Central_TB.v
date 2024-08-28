@@ -65,8 +65,10 @@ module FSM_Central_TB;
 	#50;
 	rst = 0;
 	#150;
-	BTest = 1; PulseTest = 4'd9;
-	#20;
+	BTest = 1; 
+	#20
+	PulseTest = 4'd1;
+	#40;
 	BTest = 0;
 
 	/*
