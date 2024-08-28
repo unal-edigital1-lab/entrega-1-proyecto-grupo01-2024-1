@@ -59,7 +59,7 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_location_assignment PIN_23 -to clk
 set_location_assignment PIN_141 -to buzzer
-set_location_assignment PIN_58 -to mic
+set_location_assignment PIN_28 -to mic
 set_location_assignment PIN_91 -to rst
 set_location_assignment PIN_74 -to signal_awake
 set_global_assignment -name VERILOG_FILE src/Sensores/ultrasonido/ultrasonido.v

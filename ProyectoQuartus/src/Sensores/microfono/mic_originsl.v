@@ -31,14 +31,14 @@ reg prev_mic;
 initial begin
 		state <= LISTENING;
 		next_state <= LISTENING;
-        buzzer <= 1;
+        buzzer <= 0;
         next <= ON;
         flag <= 0;
 end
 
 //Reset de la máquina de estados
-always @(posedge clk or negedge  rst) begin
-    if (!rst) begin
+always @(posedge clk or posedge rst) begin
+    if (rst) begin
         state <= LISTENING;
     end else begin
         state <= next_state;
@@ -58,15 +58,15 @@ always @(negedge clk) begin
             next_state = (contmsegs == (COUNT_MAX*8)-1)? LISTENING : next_state;
         end
         default: begin
-            next_state = LISTENING;
+            state = LISTENING;
             //buzzer = 0;WAITING
         end
     endcase
     prev_mic <= mic;
 end
 
-always @(posedge clk or negedge rst) begin
-    if (!rst) begin
+always @(posedge clk or posedge rst) begin
+    if (rst) begin
         counter <= 0;
         buzzer <= 0;
         next <= ON;
@@ -74,7 +74,7 @@ always @(posedge clk or negedge rst) begin
     end else begin
         case (next_state)
             LISTENING: begin
-                buzzer <= 1;
+                buzzer <= 0;
                 signal_awake <= 0;
                 flag = 0;
             end
@@ -87,7 +87,7 @@ always @(posedge clk or negedge rst) begin
                 case(next)
                 ON: begin
                         next <= (counter == COUNT_MAX*2)? WAIT1 : ON;
-                        buzzer <= 0;
+                        buzzer <= 1;
                         counter <= counter + 1;
                     end
                 WAIT1: begin
@@ -97,7 +97,7 @@ always @(posedge clk or negedge rst) begin
                 OFF: begin
                         next <= (counter == COUNT_MAX*2)? WAIT2 : OFF;
                         counter <= counter + 1;
-                        buzzer <= 1;
+                        buzzer <= 0;
                     end
                 WAIT2: begin
                     counter <= 0;
@@ -111,16 +111,21 @@ end
 
 
 // Divisor de frecuencia , a reloj en s
-		always @(posedge clk or negedge rst) begin
-		if(!rst)begin
+		always @(posedge clk or posedge rst) begin
+		if(rst)begin
 			clkmseg <=0;
-			contmsegs <= 0;
+			//counter <=0;
+            contmsegs <= 0;
 		end else begin
         if (flag) begin
             if (contmsegs == (COUNT_MAX*8)-1) begin
+                //clkmseg <= ~clkmseg;
+                //counter <= 0;
                 contmsegs <= 0;
                 end else begin
-                    contmsegs <= contmsegs+1;           
+                    //counter = counter +1;
+                    contmsegs <= contmsegs+1;
+                    
                 end
         end else begin 
             contmsegs <= 0;
