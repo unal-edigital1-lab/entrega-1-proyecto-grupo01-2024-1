@@ -12,18 +12,22 @@ module Tamagotchi (
 	input BTest,
 	input [3:0] pulseTest,
 // Salidas
-	output wire [3:0] state,
-	output wire [2:0] energy,
-	output wire [2:0] hunger,
-	output wire [2:0] entertainment,
+	//output wire [3:0] state,
+	//output wire [2:0] energy,
+	//output wire [2:0] hunger,
+	//output wire [2:0] entertainment,
+		 /*
     output reg rs,        
     output reg rw,
     output enable,    
     output reg [7:0] data
-
+	 */
+	output [0:6] sseg,
+	output wire [3:0] An
 );
 
-FSM_Central uut(
+wire [3:0] state;
+FSM_Central InstFSM(
 		.clk(clk),
 		.rst(rst),
 		.botonSleep(BSleep),
@@ -32,7 +36,7 @@ FSM_Central uut(
 		.botonPlay(BPlay),
 		.giro(Giro),
 		.botonTest(BTest),
-        .pulseTest(PulseTest),
+      .pulseTest(PulseTest),
 		/*
 		.sign_IDLE(SIDLE),
 		.sign_SLEEP(SSLEEP),
@@ -44,12 +48,13 @@ FSM_Central uut(
 		.sign_PLAYING(SPLAYING),
 		.sign_BORED(SBORED),
 		*/
-		.state(state),
-		.energy(energy),
-		.hunger(hunger),
-		.entertainment(entertainment)
+		.state(state)
+		//.energy(energy),
+		//.hunger(hunger),
+		//.entertainment(entertainment)
 	);
-lcd1602_cust_char_v2 uut(
+	/*
+lcd1602_cust_char_v2 InstLCD(
 
     .clk(clk),
     .reset(rst),
@@ -58,6 +63,14 @@ lcd1602_cust_char_v2 uut(
     .rw(rw),
     .enable(enable),
     .data(data)
+
+);*/
+
+BCDtoSSeg InstSseg(
+
+	.BCD(state),
+	.SSeg(sseg),
+	.an(An)
 
 );
 
