@@ -67,11 +67,6 @@ always @(posedge clk) begin
             if (botonReset) begin
                 if (contmsegs == FiveSegs) begin
                     btnRst <= 1;
-                    //contmsegs <= 'b0;
-						  flag_contmsegs <= 1'b1;
-                //contmsegs <= 'b0;
-					end else begin
-						flag_contmsegs <= 1'b0;
                 end
             end
         end
