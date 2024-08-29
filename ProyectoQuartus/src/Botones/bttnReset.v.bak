@@ -66,7 +66,7 @@ always @(posedge clk) begin
         WAITING: begin
             if (btnRst_in) begin
                 if (contmsegs == FiveSegs) begin
-                    btnRst_out <= 1;
+                    btnRst <= 1;
                     //contmsegs <= 'b0;
 						  flag_contmsegs <= 1'b1;
                 //contmsegs <= 'b0;
