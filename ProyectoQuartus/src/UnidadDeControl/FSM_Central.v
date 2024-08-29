@@ -9,7 +9,7 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	input botonPlay,
 	input giro,
 	input botonTest,
-	input [3:0] BBpulseTest,
+	input [3:0] BpulseTest,
 // Salidas
 	output reg [3:0] state,
 	output reg [2:0] energy,
@@ -39,7 +39,7 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	reg [$clog2(COUNT_MAX)-1:0] counter;
 	//reg [$clog2(CONTUNI)-1:0] contTime;
 	reg [$clog2(CONTUNI)-1:0] contTimeEnergy, contTimeHunger, contTimeEntertainment;
-	assign led4 =BBpulseTest;
+	assign led4 =BpulseTest;
 	//Valores de Inicio
 	initial begin
 		state <= IDLE;
@@ -221,12 +221,12 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 
 				TEST: begin
 					if (!botonTest) begin
-						if(BpulseTest == 4'd15) begin
+						if(BpulseTest == 4'd1) begin
 						//energy = 3'd5;
 						//hunger = 3'd5;
 						//entertainment = 3'd5;
                         	next = IDLE;
-						end else if (BpulseTest == 4'd0) begin
+						end else if (BpulseTest == 4'd2) begin
 						//energy = 3'd4;
 						//hunger = 3'd4;
 						//entertainment = 3'd4;
@@ -287,6 +287,7 @@ always @(posedge clkms or posedge rst) begin
         contTimeEnergy <= 0;
     end else begin
         if (state == TEST) begin
+				contTimeEnergy <= 0;
             case (BpulseTest)
                 4'd1: energy <= 3'd5;
                 4'd2: energy <= 3'd4;
@@ -299,10 +300,10 @@ always @(posedge clkms or posedge rst) begin
                 4'd9: energy <= 3'd0;
             endcase
             contTimeEnergy <= 0;
-        end else if (state == SLEEP && energy < 3'd5 && contTimeEnergy == Ener-1) begin
+        end else if (state == SLEEP && state != TEST && energy < 3'd5 && contTimeEnergy == Ener-1) begin
             energy <= energy + 1;
             contTimeEnergy <= 0;
-        end else if (state != DEATH && energy > 0) begin
+        end else if (state != DEATH && state != TEST && energy > 0) begin
             if (contTimeEnergy == Ener-1) begin
                 energy <= energy - 1;
                 contTimeEnergy <= 0;
@@ -320,6 +321,7 @@ always @(posedge clkms or posedge rst) begin
         contTimeHunger <= 0;
     end else begin
         if (state == TEST) begin
+				contTimeHunger <= 0;
             case (BpulseTest)
                 4'd1: hunger <= 3'd5;
                 4'd2: hunger <= 3'd4;
@@ -332,10 +334,10 @@ always @(posedge clkms or posedge rst) begin
                 4'd9: hunger <= 3'd0;
             endcase
             contTimeHunger <= 0;
-        end else if (botonFeed && hunger < 3'd5) begin
+        end else if (botonFeed && hunger < 3'd5 && state != TEST) begin
             hunger <= hunger + 1;
             contTimeHunger <= 0;
-        end else if (state != DEATH && hunger > 0) begin
+        end else if (state != DEATH && state != TEST && hunger > 0) begin
             if (contTimeHunger == Feed-1) begin
                 hunger <= hunger - 1;
                 contTimeHunger <= 0;
@@ -353,6 +355,7 @@ always @(posedge clkms or posedge rst) begin
         contTimeEntertainment <= 0;
     end else begin
         if (state == TEST) begin
+				contTimeEntertainment <= 0;
             case (BpulseTest)
                 4'd1: entertainment <= 3'd5;
                 4'd2: entertainment <= 3'd4;
@@ -365,10 +368,10 @@ always @(posedge clkms or posedge rst) begin
                 4'd9: entertainment <= 3'd0;
             endcase
             contTimeEntertainment <= 0;
-        end else if (state == PLAYING && entertainment < 3'd5 && contTimeEntertainment == Entert-1) begin
+        end else if (state == PLAYING && state != TEST && entertainment < 3'd5 && contTimeEntertainment == Entert-1) begin
             entertainment <= entertainment + 1;
             contTimeEntertainment <= 0;
-        end else if (state != DEATH && entertainment > 0) begin
+        end else if (state != DEATH && state != TEST && entertainment > 0) begin
             if (contTimeEntertainment == Entert-1) begin
                 entertainment <= entertainment - 1;
                 contTimeEntertainment <= 0;
