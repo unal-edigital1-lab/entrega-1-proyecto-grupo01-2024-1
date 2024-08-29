@@ -220,7 +220,6 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 				end
 
 				TEST: begin
-		
 					if (!botonTest) begin
 						if(pulseTest == 4'd15) begin
 						//energy = 3'd5;
