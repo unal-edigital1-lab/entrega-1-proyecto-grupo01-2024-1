@@ -2,6 +2,7 @@ module mic #(parameter COUNT_MAX = 25000000) (
     input mic,
     input clk,
     input rst,
+    input [3:0] state_t,
     output reg buzzer,
     output reg signal_awake
 );
@@ -22,8 +23,25 @@ reg [2:0] next_state;
 
 reg flag;
 
-reg [$clog2(COUNT_MAX*6)-1:0] counter;
-reg [$clog2(COUNT_MAX*8)-1:0] contmsegs = 0;
+
+reg [2:0] num_veces = 4'd3;
+
+always @(posedge clk)begin
+    if(state_t == 0 || state_t == 1) begin
+        num_veces <= 3;
+    end else if(state_t==5) begin
+        num_veces <= 2;
+    end else if(state_t==4)begin
+        num_veces <= 5;
+    end else if (state_t == 2)begin
+        num_veces <= 1;
+    end else begin
+        num_veces <= 1;
+    end
+end
+
+reg [$clog2(COUNT_MAX)-1:0] counter;
+reg [$clog2(COUNT_MAX*10 * 2)-1:0] contmsegs = 0;
 reg clkmseg;
 
 reg prev_mic;
@@ -55,7 +73,7 @@ always @(negedge clk) begin
             next_state = SPEAKING;
         end 
         SPEAKING: begin
-            next_state = (contmsegs == (COUNT_MAX*8)-1)? LISTENING : next_state;
+            next_state = (contmsegs == (COUNT_MAX*num_veces*2)-1)? LISTENING : next_state;
         end
         default: begin
             next_state = LISTENING;
@@ -86,7 +104,7 @@ always @(posedge clk or negedge rst) begin
             SPEAKING: begin
                 case(next)
                 ON: begin
-                        next <= (counter == COUNT_MAX*2)? WAIT1 : ON;
+                        next <= (counter == COUNT_MAX-1)? WAIT1 : ON;
                         buzzer <= 0;
                         counter <= counter + 1;
                     end
@@ -95,7 +113,7 @@ always @(posedge clk or negedge rst) begin
                     next <= OFF;
                 end
                 OFF: begin
-                        next <= (counter == COUNT_MAX*2)? WAIT2 : OFF;
+                        next <= (counter == COUNT_MAX-1)? WAIT2 : OFF;
                         counter <= counter + 1;
                         buzzer <= 1;
                     end
@@ -117,7 +135,7 @@ end
 			contmsegs <= 0;
 		end else begin
         if (flag) begin
-            if (contmsegs == (COUNT_MAX*8)-1) begin
+            if (contmsegs == (COUNT_MAX*num_veces*2)-1) begin
                 contmsegs <= 0;
                 end else begin
                     contmsegs <= contmsegs+1;           
