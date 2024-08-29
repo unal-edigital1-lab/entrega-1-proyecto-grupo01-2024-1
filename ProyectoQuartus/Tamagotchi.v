@@ -39,7 +39,7 @@ FSM_Central InstFSM(
 		.botonPlay(BPlay),
 		.giro(Giro),
 		.botonTest(BTest),
-      .pulseTest(9),
+        .BpulseTest(pulseTest),
 		/*
 		.sign_IDLE(SIDLE),
 		.sign_SLEEP(SSLEEP),

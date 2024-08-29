@@ -9,7 +9,7 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	input botonPlay,
 	input giro,
 	input botonTest,
-	input [3:0] BpulseTest,
+	input [3:0] BBpulseTest,
 // Salidas
 	output reg [3:0] state,
 	output reg [2:0] energy,
@@ -39,7 +39,7 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	reg [$clog2(COUNT_MAX)-1:0] counter;
 	//reg [$clog2(CONTUNI)-1:0] contTime;
 	reg [$clog2(CONTUNI)-1:0] contTimeEnergy, contTimeHunger, contTimeEntertainment;
-	assign 		led4 =BpulseTest;
+	assign led4 =BBpulseTest;
 	//Valores de Inicio
 	initial begin
 		state <= IDLE;
@@ -220,49 +220,48 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 				end
 
 				TEST: begin
-		
 					if (!botonTest) begin
-						if(pulseTest == 4'd15) begin
+						if(BpulseTest == 4'd15) begin
 						//energy = 3'd5;
 						//hunger = 3'd5;
 						//entertainment = 3'd5;
                         	next = IDLE;
-						end else if (pulseTest == 4'd0) begin
+						end else if (BpulseTest == 4'd0) begin
 						//energy = 3'd4;
 						//hunger = 3'd4;
 						//entertainment = 3'd4;
                         	next = NEUTRAL;
-						end else if (pulseTest == 4'd3) begin
+						end else if (BpulseTest == 4'd3) begin
 						//energy = 3'd2;
 						//hunger = 3'd5;
 						//entertainment = 3'd5;
                         	next = TIRED;
-						end else if (pulseTest == 4'd4) begin
+						end else if (BpulseTest == 4'd4) begin
 							//energy = 3'd2;
 							//hunger = 3'd5;
 							//entertainment = 3'd5;
 							next = SLEEP;
-						end else if (pulseTest == 4'd5) begin
+						end else if (BpulseTest == 4'd5) begin
 							//energy = 3'd5;
 							//hunger = 3'd2;
 							//entertainment = 3'd5;
 							next = HUNGRY;
-						end else if (pulseTest == 4'd6) begin
+						end else if (BpulseTest == 4'd6) begin
 							//energy = 3'd2;
 							//hunger = 3'd2;
 							//entertainment = 3'd5;
 							next = SAD;
-						end else if (pulseTest == 4'd7) begin
+						end else if (BpulseTest == 4'd7) begin
 							//energy = 3'd5;
 							//hunger = 3'd5;
 							//entertainment = 3'd2;
 							next = PLAYING;
-						end else if (pulseTest == 4'd8) begin
+						end else if (BpulseTest == 4'd8) begin
 						//energy = 3'd5;
 						//hunger = 3'd5;
 						//entertainment = 3'd2;
                         	next = BORED;
-						end else if (pulseTest == 4'd9) begin
+						end else if (BpulseTest == 4'd9) begin
 						//energy = 3'd0;
 						//hunger = 3'd0;
 						//entertainment = 3'd0;
@@ -288,7 +287,7 @@ always @(posedge clkms or posedge rst) begin
         contTimeEnergy <= 0;
     end else begin
         if (state == TEST) begin
-            case (pulseTest)
+            case (BpulseTest)
                 4'd1: energy <= 3'd5;
                 4'd2: energy <= 3'd4;
                 4'd3: energy <= 3'd2;
@@ -321,7 +320,7 @@ always @(posedge clkms or posedge rst) begin
         contTimeHunger <= 0;
     end else begin
         if (state == TEST) begin
-            case (pulseTest)
+            case (BpulseTest)
                 4'd1: hunger <= 3'd5;
                 4'd2: hunger <= 3'd4;
                 4'd3: hunger <= 3'd5;
@@ -354,7 +353,7 @@ always @(posedge clkms or posedge rst) begin
         contTimeEntertainment <= 0;
     end else begin
         if (state == TEST) begin
-            case (pulseTest)
+            case (BpulseTest)
                 4'd1: entertainment <= 3'd5;
                 4'd2: entertainment <= 3'd4;
                 4'd3: entertainment <= 3'd5;
