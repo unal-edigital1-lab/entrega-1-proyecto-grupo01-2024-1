@@ -1,4 +1,4 @@
-module bttnReset #(parameter COUNT_MAX = 25000000, FiveSegs = 10)(
+module bttnReset #(parameter COUNT_MAX = 25000000, FiveSegs = 9)(
     // Declaración de entradas y salidas
     input btnRst_in,
     input clk,
@@ -28,7 +28,7 @@ always @(posedge clk) begin
 
 end
 
-always @(*) begin
+always @(posedge clk) begin
 	case(state)
         PRESSING: begin
             if (btnRst_in) begin
@@ -41,7 +41,7 @@ always @(*) begin
             if (!btnRst_in) begin
                 next <= PRESSING;
             end else begin
-                if (contmsegs <= FiveSegs) begin
+                if (contmsegs <= COUNT_MAX * FiveSegs) begin
                     next <= WAITING;
                 end else begin
                     next <= PRESSING;
@@ -56,49 +56,32 @@ always @(posedge clk) begin
     case(next)
         PRESSING: begin
             btnRst_out <= 0;
-            if (btnRst_in) begin
-					 flag_contmsegs <= 1'b1;
-                //contmsegs <= 'b0;
-			  end else begin
-					flag_contmsegs <= 1'b0;
-			  end
+            flag_contmsegs <= 1'b0;
         end
         WAITING: begin
+            flag_contmsegs <= 1'b1;
             if (btnRst_in) begin
-                if (contmsegs == FiveSegs) begin
+                if (contmsegs == COUNT_MAX * FiveSegs - 1) begin
                     btnRst_out <= 1;
-                    //contmsegs <= 'b0;
-						  flag_contmsegs <= 1'b1;
-                //contmsegs <= 'b0;
-					end else begin
-						flag_contmsegs <= 1'b0;
-                end
+				end
             end
         end
     endcase
 end
 
 
-// Divisor de frecuencia , a reloj en s
+// Divisor de frecuencia , a reloj en 0.5s
 always @(posedge clk) begin
-
-	if (counter == COUNT_MAX-1) begin
-		 clkmseg <= ~clkmseg;
-		 counter <= 0;
-	end else begin
-			  counter = counter +1;
-    end
-end
-
-
-// Contador de tiempo en general 
-always @(posedge clkmseg) begin
-if (flag_contmsegs) begin
-	 contmsegs <= 0;
-end else begin
-    contmsegs <= contmsegs+1;
-end
-end
+    if (flag_contmsegs) begin
+        if (contmsegs == COUNT_MAX*FiveSegs*2) begin
+            contmsegs <= 0;
+            end else begin
+                contmsegs <= contmsegs+1;           
+            end
+    end else begin 
+        contmsegs <= 0;
+        end
+	end
 
 //assign contmsegs = (flag_contmsegs)? 'b0 : contmsegs;
 

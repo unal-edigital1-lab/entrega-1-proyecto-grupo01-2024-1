@@ -33,13 +33,17 @@ always @(posedge clk)begin
         nunm_tiempo <= 2;
     end else if(state_t==5) begin
         num_veces <= 2;
+        nunm_tiempo <= 1;
     end else if(state_t==4)begin
-        num_veces <= 5;
-        num_veces <= 5;
+        num_veces <= 2;
+        nunm_tiempo <= 5;
     end else if (state_t == 2)begin
         num_veces <= 1;
+        nunm_tiempo <= 1;
     end else begin
-        num_veces <= 1;
+        num_veces <= 0;
+        nunm_tiempo <= 1;
+        //prev_mic <= 1;
     end
 end
 
@@ -131,8 +135,8 @@ always @(posedge clk or negedge rst) begin
 end
 
 
-// Divisor de frecuencia , a reloj en s
-		always @(posedge clk or negedge rst) begin
+// Divisor de frecuencia , a reloj en 0.5s
+	always @(posedge clk or negedge rst) begin
 		if(!rst)begin
 			clkmseg <=0;
 			contmsegs <= 0;
