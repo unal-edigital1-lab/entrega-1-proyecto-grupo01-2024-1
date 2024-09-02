@@ -1,4 +1,4 @@
-module bttnTest #(parameter COUNT_MAX = 25000000,FiveSegs = 9)(
+module bttnTest #(parameter COUNT_MAX = 25000000,FiveSegs = 10)(
     // Declaración de entradas y salidas
     input botonTest,
     input clk,
@@ -43,14 +43,15 @@ end
 always @(posedge clk) begin
 	case(state)
         PRESSING: begin
-            if (!botonTest) begin
+            contBtnPress <= 0;
+            if (botonTest) begin
                 next <= WAITING;
             end else begin
                 next <= PRESSING;
             end
         end
         WAITING: begin
-            if (botonTest) begin
+            if (!botonTest) begin
                 next <= PRESSING;
             end else begin
                 if (contmsegs <= COUNT_MAX * FiveSegs - 1) begin
@@ -85,7 +86,7 @@ always @(posedge clk) begin
         end
         WAITING: begin
             flag_contmsegs <= 1'b1;
-            if (!botonTest) begin
+            if (botonTest) begin
                 if (contmsegs == COUNT_MAX * FiveSegs - 1) begin
                     btnTest <= 1;
                 end
@@ -93,12 +94,10 @@ always @(posedge clk) begin
         end
         WAITING2: begin
             flag_contmsegs <= 1'b0;
-				pulse_counter <= 0;
         end
         COUNTING: begin
-				contBtnPress <= 0;
             flag_contmsegs <= 1'b1;
-            if (!botonTest && prevBotonTest) begin
+            if (botonTest && !prevBotonTest) begin
                 pulse_counter <= pulse_counter + 1;
         end
         end

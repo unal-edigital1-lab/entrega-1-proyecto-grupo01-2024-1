@@ -12,7 +12,7 @@ reg [3:0] state;
 reg [3:0] next;
 
 reg [$clog2(COUNT_MAX)-1:0] counter = 0;
-reg [3:0] contmsegs = 0;
+reg [$clog2(COUNT_MAX*FiveSegs)-1:0] contmsegs = 0;
 reg clkmseg = 0;
 
 reg flag_contmsegs;
@@ -31,17 +31,17 @@ end
 always @(posedge clk) begin
 	case(state)
         PRESSING: begin
-            if (btnRst_in) begin
+            if (!btnRst_in) begin
                 next <= WAITING;
             end else begin
                 next <= PRESSING;
             end
         end
         WAITING: begin
-            if (!btnRst_in) begin
+            if (btnRst_in) begin
                 next <= PRESSING;
             end else begin
-                if (contmsegs <= COUNT_MAX * FiveSegs) begin
+                if (contmsegs <= COUNT_MAX * FiveSegs * 2) begin
                     next <= WAITING;
                 end else begin
                     next <= PRESSING;
@@ -60,7 +60,7 @@ always @(posedge clk) begin
         end
         WAITING: begin
             flag_contmsegs <= 1'b1;
-            if (btnRst_in) begin
+            if (!btnRst_in) begin
                 if (contmsegs == COUNT_MAX * FiveSegs - 1) begin
                     btnRst_out <= 1;
 				end

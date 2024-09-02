@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-`include "/home/jpalaciosch/Desktop/Digital_I/DigitalLabs/proyecto-final/entrega-1-proyecto-grupo01-2024-1/ProyectoQuartus/src/Botones/bttnReset.v"
+`include "/home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/ProyectoQuartus/src/Botones/bttnReset.v"
 
 module bttnResestTB;
 
@@ -45,7 +45,7 @@ module bttnResestTB;
         #10 btnRst_in = 0;
 
         #50 btnRst_in = 1;
-        #110 btnRst_in = 0;
+        #210 btnRst_in = 0;
 
         #30 btnRst_in = 1;
         #10 btnRst_in = 0;

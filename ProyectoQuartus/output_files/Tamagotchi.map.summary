@@ -1,12 +1,12 @@
-Analysis & Synthesis Status : Successful - Thu Aug 29 07:06:48 2024
+Analysis & Synthesis Status : Successful - Mon Sep  2 05:47:28 2024
 Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 Revision Name : Tamagotchi
-Top-level Entity Name : bttnReset
+Top-level Entity Name : Boton
 Family : Cyclone IV E
-Total logic elements : 56
-    Total combinational functions : 56
-    Dedicated logic registers : 33
-Total registers : 33
+Total logic elements : 26
+    Total combinational functions : 25
+    Dedicated logic registers : 16
+Total registers : 16
 Total pins : 3
 Total virtual pins : 0
 Total memory bits : 0

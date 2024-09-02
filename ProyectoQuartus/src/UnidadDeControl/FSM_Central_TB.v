@@ -38,7 +38,7 @@ module FSM_Central_TB;
 		.botonPlay(BPlay),
 		.giro(Giro),
 		.botonTest(BTest),
-        .pulseTest(PulseTest),
+        .BpulseTest(PulseTest),
 		/*
 		.sign_IDLE(SIDLE),
 		.sign_SLEEP(SSLEEP),
@@ -70,6 +70,8 @@ module FSM_Central_TB;
 	PulseTest = 4'd1;
 	#40;
 	BTest = 0;
+	#20;
+	PulseTest = 4'd0;
 
 	/*
 	BSleep = 1;

@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-`include "/home/jpalaciosch/Desktop/Digital_I/DigitalLabs/proyecto-final/entrega-1-proyecto-grupo01-2024-1/src/UnidadDeControl/bttnTest.v"
+`include "/home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/ProyectoQuartus/src/UnidadDeControl/bttnTest.v"
 
 module bttnTestTB;
 
@@ -37,8 +37,8 @@ module bttnTestTB;
         #10 botonTest = 1;
         #10 botonTest = 0;
 
-        #10 botonTest = 1;
-        #110 botonTest = 0;
+        #20 botonTest = 1;
+        #100 botonTest = 0;
 
         #30 botonTest = 1;
         #10 botonTest = 0;
