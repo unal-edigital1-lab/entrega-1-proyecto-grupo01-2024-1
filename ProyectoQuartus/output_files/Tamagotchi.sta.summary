@@ -2,36 +2,20 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow 1200mV 85C Model Setup 'state.SPEAKING'
-Slack : -4.477
-TNS   : -12.666
-
 Type  : Slow 1200mV 85C Model Setup 'clk'
-Slack : -4.385
-TNS   : -65.729
+Slack : -4.300
+TNS   : -64.738
 
 Type  : Slow 1200mV 85C Model Setup 'clkmseg'
-Slack : -3.226
-TNS   : -7.916
-
-Type  : Slow 1200mV 85C Model Setup 'contmsegs[2]'
-Slack : -2.047
-TNS   : -4.952
+Slack : -0.695
+TNS   : -1.566
 
 Type  : Slow 1200mV 85C Model Hold 'clkmseg'
-Slack : 0.465
-TNS   : 0.000
-
-Type  : Slow 1200mV 85C Model Hold 'contmsegs[2]'
-Slack : 0.538
-TNS   : 0.000
-
-Type  : Slow 1200mV 85C Model Hold 'state.SPEAKING'
-Slack : 0.655
+Slack : 0.453
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'clk'
-Slack : 0.744
+Slack : 0.454
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clk'
@@ -40,46 +24,22 @@ TNS   : -46.123
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clkmseg'
 Slack : -1.487
-TNS   : -7.435
-
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'contmsegs[2]'
-Slack : 0.376
-TNS   : 0.000
-
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'state.SPEAKING'
-Slack : 0.431
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Setup 'state.SPEAKING'
-Slack : -4.220
-TNS   : -12.507
+TNS   : -5.948
 
 Type  : Slow 1200mV 0C Model Setup 'clk'
-Slack : -4.130
-TNS   : -57.279
+Slack : -4.085
+TNS   : -57.728
 
 Type  : Slow 1200mV 0C Model Setup 'clkmseg'
-Slack : -2.777
-TNS   : -6.718
-
-Type  : Slow 1200mV 0C Model Setup 'contmsegs[2]'
-Slack : -2.305
-TNS   : -5.389
+Slack : -0.605
+TNS   : -1.245
 
 Type  : Slow 1200mV 0C Model Hold 'clkmseg'
-Slack : 0.416
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Hold 'contmsegs[2]'
-Slack : 0.473
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Hold 'state.SPEAKING'
-Slack : 0.559
+Slack : 0.357
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'clk'
-Slack : 0.691
+Slack : 0.402
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clk'
@@ -88,62 +48,30 @@ TNS   : -46.123
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clkmseg'
 Slack : -1.487
-TNS   : -7.435
-
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'contmsegs[2]'
-Slack : 0.126
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'state.SPEAKING'
-Slack : 0.300
-TNS   : 0.000
-
-Type  : Fast 1200mV 0C Model Setup 'state.SPEAKING'
-Slack : -1.570
-TNS   : -4.118
-
-Type  : Fast 1200mV 0C Model Setup 'clkmseg'
-Slack : -1.514
-TNS   : -3.613
+TNS   : -5.948
 
 Type  : Fast 1200mV 0C Model Setup 'clk'
-Slack : -1.368
-TNS   : -14.578
+Slack : -1.257
+TNS   : -12.556
 
-Type  : Fast 1200mV 0C Model Setup 'contmsegs[2]'
-Slack : -0.467
-TNS   : -0.925
-
-Type  : Fast 1200mV 0C Model Hold 'clkmseg'
-Slack : 0.193
-TNS   : 0.000
-
-Type  : Fast 1200mV 0C Model Hold 'state.SPEAKING'
-Slack : 0.221
+Type  : Fast 1200mV 0C Model Setup 'clkmseg'
+Slack : 0.257
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'clk'
-Slack : 0.298
+Slack : 0.167
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Hold 'contmsegs[2]'
-Slack : 0.418
+Type  : Fast 1200mV 0C Model Hold 'clkmseg'
+Slack : 0.167
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -33.838
+TNS   : -33.873
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clkmseg'
 Slack : -1.000
-TNS   : -5.000
-
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'contmsegs[2]'
-Slack : 0.255
-TNS   : 0.000
-
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'state.SPEAKING'
-Slack : 0.311
-TNS   : 0.000
+TNS   : -4.000
 
 ------------------------------------------------------------

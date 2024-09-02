@@ -1,18 +1,18 @@
 `timescale 1ns / 1ps
 `include "/home/jpalaciosch/Desktop/Digital_I/DigitalLabs/proyecto-final/entrega-1-proyecto-grupo01-2024-1/ProyectoQuartus/src/Botones/bttnReset.v"
 
-module bttnTestTB;
+module bttnResestTB;
 
     // Inputs
     reg clk;
-    reg botonReset;
-    wire btnRst;
+    reg btnRst_in;
+    wire btnRst_out;
 
     // Instantiate the module under test
-    bttnReset #(1, 5) uut(
+    bttnReset #(1, 10) uut(
         .clk(clk),
-        .botonReset(botonReset),
-        .btnRst(btnRst)
+        .btnRst_in(btnRst_in),
+        .btnRst_out(btnRst_out)
     );
 
     // Clock generation
@@ -20,44 +20,44 @@ module bttnTestTB;
 
     initial begin
         clk = 0;
-        botonReset = 0;
+        btnRst_in = 0;
         #5
 
-        #10 botonReset = 1;
-        #10 botonReset = 0;
+        #10 btnRst_in = 1;
+        #10 btnRst_in = 0;
 
-        #10 botonReset = 1;
-        #10 botonReset = 0;
+        #10 btnRst_in = 1;
+        #10 btnRst_in = 0;
 
-        #10 botonReset = 1;
-        #10 botonReset = 0;
+        #10 btnRst_in = 1;
+        #10 btnRst_in = 0;
 
-        #10 botonReset = 1;
-        #110 botonReset = 0;
+        #10 btnRst_in = 1;
+        #210 btnRst_in = 0;
 
-        #30 botonReset = 1;
-        #10 botonReset = 0;
+        #30 btnRst_in = 1;
+        #10 btnRst_in = 0;
 
-        #10 botonReset = 1;
-        #10 botonReset = 0;
+        #10 btnRst_in = 1;
+        #10 btnRst_in = 0;
 
-        #10 botonReset = 1;
-        #10 botonReset = 0;
+        #10 btnRst_in = 1;
+        #10 btnRst_in = 0;
 
-        #50 botonReset = 1;
-        #110 botonReset = 0;
+        #50 btnRst_in = 1;
+        #110 btnRst_in = 0;
 
-        #30 botonReset = 1;
-        #10 botonReset = 0;
+        #30 btnRst_in = 1;
+        #10 btnRst_in = 0;
 
-        #10 botonReset = 1;
-        #10 botonReset = 0;
+        #10 btnRst_in = 1;
+        #10 btnRst_in = 0;
 
-        #10 botonReset = 1;
-        #10 botonReset = 0;
+        #10 btnRst_in = 1;
+        #10 btnRst_in = 0;
 
-        #10 botonReset = 1;
-        #10 botonReset = 0;
+        #10 btnRst_in = 1;
+        #10 btnRst_in = 0;
 
     end
 
