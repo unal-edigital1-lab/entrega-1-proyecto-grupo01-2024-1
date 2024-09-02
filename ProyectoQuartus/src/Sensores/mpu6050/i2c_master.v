@@ -1,11 +1,10 @@
 `include "DivisorReloj.v"
 
-module i2c_master #(parameter DIV_FACTOR = 62)(
+module i2c_master #(parameter DIV_FACTOR = 16, SLAVE_ADDRESS = 8'h68)(
    input wire clk,                // System clock
    input wire reset,              // Reset signal
    input wire start,              // Signal to start transmission
-   input wire stop,               // Signal to stop transmission
-   input wire [6:0] slave_address, // Slave address, 7 bits
+   input wire stop,               // Signal to stop transmission 
    input wire [7:0] data_in,      // Regiter address that I2C master wants to read/write, 8 bits
    inout wire SDA_BUS,            // Serial Data
    output wire SCL_BUS,           // Serial Clock
@@ -16,17 +15,17 @@ module i2c_master #(parameter DIV_FACTOR = 62)(
 
 // Instantiate the divisorReloj module
 wire clk_scl;
-DivisorReloj #(.DIV_FACTOR(DIV_FACTOR)) clk_giroscopio (
-   .clk_in(clk),
+DivisorReloj #(4) clk_giroscopio (
+   .clk_in(clk_4x),
    .reset(reset),
    .clk_out(clk_scl)
 );
 
-wire clk_2x;
-DivisorReloj #(.DIV_FACTOR(DIV_FACTOR/2)) uut_clk (
+wire clk_4x;
+DivisorReloj #(DIV_FACTOR) uut_clk (
    .clk_in(clk),
    .reset(reset),
-   .clk_out(clk_2x)
+   .clk_out(clk_4x)
 );
 
 // Declare internal signals
@@ -40,10 +39,11 @@ reg bit_read_write = 1; // 1 to read, 0 to write
 // counters
 reg [1:0] counter_start = 0; // counter for start signal
 reg [1:0] counter_stop = 0; // counter for stop signal
-reg [4:0] counter_address = 0; // counter for address
+
+reg [6:0] counter_address = 0; // counter for address
 reg [4:0] counter_reg_data = 0; // counter for register to read
 reg [4:0] counter_data = 0; // counter for data
-reg [1:0] counter_ack = 0; // counter for ack
+reg [3:0] counter_ack = 0; // counter for ack
 
 // flags to change fsm_state
 reg enable_scl = 1; // habilita el bus scl
@@ -67,7 +67,7 @@ reg [0:2] next = 0;
 
 
 // STATE MACHINE
-always @(negedge clk_2x)begin
+always @(posedge clk_4x)begin
    if(reset == 0)begin
         fsm_state <= IDLE;
    end  else if ((stop == 1) && (fsm_state != STOP) && (fsm_state != IDLE)) begin
@@ -101,7 +101,7 @@ always @(*) begin
 end
 
 // OUTPUT LOGIC
-always @ (negedge clk_2x) begin
+always @ (posedge clk_4x) begin
    case(next)
       IDLE: begin
          sda <= 1;
@@ -127,25 +127,25 @@ always @ (negedge clk_2x) begin
          back_to_idle <= 0; // flag to change fsm_state
       end
       START: begin 
-         shift_address <= slave_address;
+         shift_address <= SLAVE_ADDRESS;
          shift_reg_data <= data_in;
          case (counter_start)
             0: begin sda <= 0; scl <= 1; counter_start <= 1; end 
             1: begin sda <= 0; scl <= 0; counter_start <= 2; end
-            2: begin counter_start <= 0; active_i2c <= 1;  end
+            2: begin counter_start <= 0; active_i2c <= 1; sda <= SLAVE_ADDRESS[6];  end
          endcase
       end
       SET_SLAVE: begin
          case(counter_address)
-            0: begin  sda <= slave_address[6]; shift_address <= shift_address << 1; counter_address <= 1; enable_scl = 0; control <=1;end
-            2: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 3; end
-            4: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 5; end
+            0: begin   shift_address <= shift_address << 1; counter_address <= 1; enable_scl = 0; control <=1;end
             6: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 7; end
-            8: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 9; end
-            10: begin sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 11; end
-            12: begin sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 13; end
-            14: begin sda <= bit_read_write; shift_address <= shift_address << 1; counter_address <= 15; end
-            16: begin sda = 1'bz; enable_sda <= 0; counter_address <= 0; slave_configured <= 1; end
+            14: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 15; end
+            22: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 23; end
+            30: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 31; end
+            38: begin sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 39; end
+            46: begin sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 47; end
+            54: begin sda <= bit_read_write; shift_address <= shift_address << 1; counter_address <= 55; end
+            62: begin sda = 1'bz; enable_sda <= 0; counter_address <= 0; slave_configured <= 1; end
             default:
                counter_address <= counter_address + 1;
          endcase
@@ -154,7 +154,9 @@ always @ (negedge clk_2x) begin
          case (counter_ack)
             0: begin counter_ack <= 1; end
             //1: begin counter_ack <= 2; end
-            1: begin counter_ack <= 0; sda = 0; enable_sda = 1; ack1_received <= 1; end
+            5: begin counter_ack <= 0; sda = 0; enable_sda = 1; ack1_received <= 1; end
+            default:
+            counter_ack <= counter_ack+1;
          endcase
       end 
       SENT_REG: begin  
