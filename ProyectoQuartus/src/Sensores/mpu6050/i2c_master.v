@@ -40,8 +40,8 @@ reg bit_read_write = 1; // 1 to read, 0 to write
 reg [1:0] counter_start = 0; // counter for start signal
 reg [1:0] counter_stop = 0; // counter for stop signal
 
-reg [6:0] counter_address = 0; // counter for address
-reg [4:0] counter_reg_data = 0; // counter for register to read
+reg [7:0] counter_address = 0; // counter for address
+reg [7:0] counter_reg_data = 0; // counter for register to read
 reg [4:0] counter_data = 0; // counter for data
 reg [3:0] counter_ack = 0; // counter for ack
 
@@ -153,23 +153,23 @@ always @ (posedge clk_4x) begin
       WAIT_ACK_1: begin
          case (counter_ack)
             0: begin counter_ack <= 1; end
-            //1: begin counter_ack <= 2; end
-            5: begin counter_ack <= 0; sda = 0; enable_sda = 1; ack1_received <= 1; end
+            8: begin  sda = 0; enable_sda = 1; ack1_received <= 1; counter_ack <= 9; end
+            10: begin  counter_ack <= 0; sda <= shift_reg_data[7];  end 
             default:
             counter_ack <= counter_ack+1;
          endcase
       end 
       SENT_REG: begin  
          case(counter_reg_data)
-             1: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 2; end
-             3: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 4; end
-             5: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 6; end
-             7: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 8; end
-             9: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 10; end
-             11: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 12; end
-             13: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 14; end
-             15: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 16; end
-             17: begin sda <= 1'bz; enable_sda <= 0; counter_reg_data <= 0; register_address_sent <= 1; end  
+             0: begin   shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 1; enable_scl = 0; control <=1;end
+             6: begin  sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 7; end
+             14: begin  sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 15; end
+             22: begin  sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 23; end
+             30: begin  sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 31; end
+             38: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 39; end
+             46: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 47; end
+             54: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 55; end
+             62: begin sda <= 1'bz; enable_sda <= 0; counter_reg_data <= 0; register_address_sent <= 1; end  
              default:
                  counter_reg_data <= counter_reg_data + 1;
          endcase
