@@ -8,10 +8,8 @@ module i2c_master_tb;
     parameter DIV_FACTOR = 62; // 2480 ns period, 403.2258 kHz
     parameter CLKR_PERIOD = (1/(50e6/(DIV_FACTOR*2)))*1e9; // 
     parameter TEST_TIME = CLKR_PERIOD*40;
-    parameter RESET_DELAY = CLKR_PERIOD/2;
-    parameter START_DELAY = CLKR_PERIOD/2;
-    parameter ACK1_DELAY = 2480 + CLKR_PERIOD*8;
-    parameter ACK2_DELAY = CLKR_PERIOD*8;
+    parameter ACK1_DELAY = 4880 + CLKR_PERIOD*8;
+    parameter ACK2_DELAY = CLKR_PERIOD*9;
 
     // Inputs
     reg clk;
@@ -59,7 +57,7 @@ module i2c_master_tb;
     initial begin
         // Initialize inputs
         clk = 0;
-        reset = 0;
+        reset = 1;
         start = 0;
         stop = 0;
         sda_enable = 0;
@@ -69,12 +67,12 @@ module i2c_master_tb;
         slave_address <= 7'b1101000; // 0x68 default address of mpu6050 (slave)
 
         // Reset
-        #RESET_DELAY reset = 1;
-        #CLK_PERIOD reset = 0;
+        #(CLK_PERIOD) reset = 0;
+        #(CLK_PERIOD) reset = 1;
 
         // Apply start signal and data
-        #START_DELAY start = 1;
-        #CLK_PERIOD start = 0;
+        #(CLK_PERIOD) start = 1;
+        #(CLK_PERIOD) start = 0;
 
         // Send Acknowledge 1 for slave address
         #ACK1_DELAY sda_enable = 1;

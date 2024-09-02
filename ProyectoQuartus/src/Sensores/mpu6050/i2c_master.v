@@ -15,11 +15,18 @@ module i2c_master #(parameter DIV_FACTOR = 62)(
 );
 
 // Instantiate the divisorReloj module
-wire clkr; // Clock output
-DivisorReloj #(.DIV_FACTOR(DIV_FACTOR)) uut_clk (
-   .clk(clk),
+wire clk_scl;
+DivisorReloj #(.DIV_FACTOR(DIV_FACTOR)) clk_giroscopio (
+   .clk_in(clk),
    .reset(reset),
-   .clk_out(clkr)
+   .clk_out(clk_scl)
+);
+
+wire clk_2x;
+DivisorReloj #(.DIV_FACTOR(DIV_FACTOR/2)) uut_clk (
+   .clk_in(clk),
+   .reset(reset),
+   .clk_out(clk_2x)
 );
 
 // Declare internal signals
@@ -38,7 +45,7 @@ reg [4:0] counter_reg_data = 0; // counter for register to read
 reg [4:0] counter_data = 0; // counter for data
 reg [1:0] counter_ack = 0; // counter for ack
 
-// flags to change state
+// flags to change fsm_state
 reg enable_scl = 1; // habilita el bus scl
 reg enable_sda = 1; // habilita el bus sda
 reg active_i2c = 0; // indica si la señal de inicio fue enviada, es decir, si la transmision esta activa
@@ -47,55 +54,55 @@ reg register_address_sent = 0; // indica si la direccion del registro que se qui
 reg ack1_received = 0; // indica si el ACK del slave fue recibido
 reg ack2_received = 0; // indica si el ACK del slave fue recibido
 reg NACK = 0; // flag to indicate that NACK was received from slave 
-reg back_to_idle = 0; // flag to return to idle state
+reg back_to_idle = 0; // flag to return to idle fsm_state
 
 // flags to indicate that the data was fully read
 reg enable_data_out = 0;
-reg OUTPUT_CHANGE = 0; // flag to register a change in the output
+reg control = 0; // flag to register a change in the output
 
 // Declare states
 localparam IDLE = 0, START = 1, SET_SLAVE = 2, WAIT_ACK_1 = 3, SENT_REG = 4, WAIT_ACK_2 = 5, READ = 6, STOP = 7;
-reg [0:2] state = 0; // state machine, 8 states
+reg [0:2] fsm_state = 0; // fsm_state machine, 8 states
+reg [0:2] next = 0;
+
 
 // STATE MACHINE
-always @(posedge clk) begin
-   if (reset == 1) begin
-      state <= IDLE;
-   end else if ((stop == 1) && (state != STOP) && (state != IDLE)) begin
-      state <= STOP;
+always @(negedge clk_2x)begin
+   if(reset == 0)begin
+        fsm_state <= IDLE;
+   end  else if ((stop == 1) && (fsm_state != STOP) && (fsm_state != IDLE)) begin
+      fsm_state <= STOP;
    end else begin
-      case(state)
-      IDLE:
-         state <= (start) ? START : state;
-      START:
-         state <= (active_i2c) ? SET_SLAVE : state;
-      SET_SLAVE:
-         state <= (slave_configured) ? WAIT_ACK_1 : state;
-      WAIT_ACK_1:
-         state <= (ack1_received) ? SENT_REG : state;
-      SENT_REG:
-         state <= (register_address_sent) ? WAIT_ACK_2 : state;
-      WAIT_ACK_2:
-         state <= (ack2_received) ? READ : state;
-      READ:
-         state <= (stop || NACK) ? STOP : state;
-      STOP:
-         state <= (back_to_idle) ? IDLE : state;
-      default:
-         state <= IDLE;
-      endcase
+        fsm_state <= next;
    end
-
 end
 
-assign SDA_BUS = (enable_sda) ? sda : 1'bz;
-assign SCL_BUS = (enable_scl) ? scl : clkr;
-assign avail_data_out = (enable_data_out) ? 1 : 0;
-assign avail_i2c_master = (state == IDLE) ? 1 : 0;
+always @(*) begin
+   case(fsm_state)
+      IDLE:
+        next <= (start) ? START : next;
+      START:
+        next <= (active_i2c) ? SET_SLAVE : next;
+      SET_SLAVE:
+        next <= (slave_configured) ? WAIT_ACK_1 : next;
+      WAIT_ACK_1:
+        next <= (ack1_received) ? SENT_REG : next;
+      SENT_REG:
+        next <= (register_address_sent) ? WAIT_ACK_2 : next;
+      WAIT_ACK_2:
+        next <= (ack2_received) ? READ : next;
+      READ:
+         next <= (stop || NACK) ? STOP : next;
+      STOP:
+        next <= (back_to_idle) ? IDLE : next;
+      default:
+        next <= IDLE;
+   endcase
+end
 
 // OUTPUT LOGIC
-always @ (clkr or state) begin
-   case(state)
+always @ (negedge clk_2x) begin
+   case(next)
       IDLE: begin
          sda <= 1;
          scl <= 1;
@@ -110,14 +117,14 @@ always @ (clkr or state) begin
          counter_reg_data <= 0; // counter for register to read (1) or write (0)
          counter_ack <= 0; // counter for ack
          counter_data <= 0; // counter for data
-         active_i2c <= 0; // flag to change state
-         slave_configured <= 0; // flag to change state
-         register_address_sent <= 0; // flag to change state
-         ack1_received <= 0; // flag to change state
-         ack2_received <= 0; // flag to change state
+         active_i2c <= 0; // flag to change fsm_state
+         slave_configured <= 0; // flag to change fsm_state
+         register_address_sent <= 0; // flag to change fsm_state
+         ack1_received <= 0; // flag to change fsm_state
+         ack2_received <= 0; // flag to change fsm_state
          NACK = 0; // flag to indicate that NACK was received from slave
-         enable_data_out <= 0; // flag to change state
-         back_to_idle <= 0; // flag to change state
+         enable_data_out <= 0; // flag to change fsm_state
+         back_to_idle <= 0; // flag to change fsm_state
       end
       START: begin 
          shift_address <= slave_address;
@@ -125,12 +132,12 @@ always @ (clkr or state) begin
          case (counter_start)
             0: begin sda <= 0; scl <= 1; counter_start <= 1; end 
             1: begin sda <= 0; scl <= 0; counter_start <= 2; end
-            2: begin counter_start <= 0; active_i2c <= 1; enable_scl = 0; end
+            2: begin counter_start <= 0; active_i2c <= 1;  end
          endcase
       end
       SET_SLAVE: begin
          case(counter_address)
-            0: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 1; end
+            0: begin  sda <= slave_address[6]; shift_address <= shift_address << 1; counter_address <= 1; enable_scl = 0; control <=1;end
             2: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 3; end
             4: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 5; end
             6: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 7; end
@@ -146,46 +153,46 @@ always @ (clkr or state) begin
       WAIT_ACK_1: begin
          case (counter_ack)
             0: begin counter_ack <= 1; end
-            1: begin counter_ack <= 2; end
-            2: begin counter_ack <= 0; sda = 0; enable_sda = 1; ack1_received <= 1; end
+            //1: begin counter_ack <= 2; end
+            1: begin counter_ack <= 0; sda = 0; enable_sda = 1; ack1_received <= 1; end
          endcase
       end 
-      SENT_REG: begin
+      SENT_REG: begin  
          case(counter_reg_data)
-           0: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 1; end
-           2: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 3; end
-           4: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 5; end
-           6: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 7; end
-           8: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 9; end
-           10: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 11; end
-           12: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 13; end
-           14: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 15; end
-           16: begin sda <= 1'bz; enable_sda <= 0; counter_reg_data <= 0; register_address_sent <= 1; end  
-           default:
-              counter_reg_data <= counter_reg_data + 1;
+             1: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 2; end
+             3: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 4; end
+             5: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 6; end
+             7: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 8; end
+             9: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 10; end
+             11: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 12; end
+             13: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 14; end
+             15: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 16; end
+             17: begin sda <= 1'bz; enable_sda <= 0; counter_reg_data <= 0; register_address_sent <= 1; end  
+             default:
+                 counter_reg_data <= counter_reg_data + 1;
          endcase
       end
       WAIT_ACK_2: begin
          case (counter_ack)
             0: begin counter_ack <= 1; end
-            1: begin counter_ack <= 2; end
-            2: begin counter_ack <= 0; sda = 1'bz; enable_sda = 0; ack2_received <= 1; end
+            //1: begin counter_ack <= 2; end
+            1: begin counter_ack <= 0; sda = 1'bz; enable_sda = 0; ack2_received <= 1; end
          endcase
       end
       READ: begin
          case (counter_data)
-            1: begin data_out[7] <= SDA_BUS; counter_data <= 2; end // most significant bit
-            3: begin data_out[6] <= SDA_BUS; counter_data <= 4; end
-            5: begin data_out[5] <= SDA_BUS; counter_data <= 6; end
-            7: begin data_out[4] <= SDA_BUS; counter_data <= 8; end
-            9: begin data_out[3] <= SDA_BUS; counter_data <= 10; end
-            11: begin data_out[2] <= SDA_BUS; counter_data <= 12; end
-            13: begin data_out[1] <= SDA_BUS; counter_data <= 14; end
-            15: begin data_out[0] <= SDA_BUS; counter_data <= 16; end // least significant bit, end of data
-            16: begin sda = 0; enable_sda = 1; enable_data_out <= 1; counter_data <= 17; end // ACK from master
-            18: begin sda = 1'bz; enable_sda = 0; data_out = 0; enable_data_out <= 0; counter_data <= 1; end // Free bus and reset counter
-            default:
-               counter_data <= counter_data + 1;
+             0: begin data_out[7] <= SDA_BUS; counter_data <= 1; end // most significant bit
+             2: begin data_out[6] <= SDA_BUS; counter_data <= 3; end
+             4: begin data_out[5] <= SDA_BUS; counter_data <= 5; end
+             6: begin data_out[4] <= SDA_BUS; counter_data <= 7; end
+             8: begin data_out[3] <= SDA_BUS; counter_data <= 9; end
+             10: begin data_out[2] <= SDA_BUS; counter_data <= 11; end
+             12: begin data_out[1] <= SDA_BUS; counter_data <= 13; end
+             14: begin data_out[0] <= SDA_BUS; counter_data <= 15; end // least significant bit, end of data
+             15: begin sda = 0; enable_sda = 1; enable_data_out <= 1; counter_data <= 16; end // ACK from master
+             17: begin sda = 1'bz; enable_sda = 0; enable_data_out <= 0; counter_data <= 0; data_out = 0; end // Free bus and reset counter
+             default:
+                 counter_data <= counter_data + 1;
          endcase
       end
       STOP: begin
@@ -199,4 +206,13 @@ always @ (clkr or state) begin
       end    
    endcase
 end
+
+
+
+assign SDA_BUS = (enable_sda) ? sda : 1'bz;
+assign SCL_BUS = (enable_scl) ? scl : clk_scl;
+assign avail_data_out = (enable_data_out) ? 1 : 0;
+assign avail_i2c_master = (fsm_state == IDLE) ? 1 : 0;
+
+
 endmodule
