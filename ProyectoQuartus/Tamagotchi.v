@@ -2,9 +2,9 @@
 //`include "/home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/src/pantalla_LCD_16x2/lcd1602_cust_char.v"
 module Tamagotchi (
 // Entradas
-    input clk,
-    input rst,
-    input BSleep,
+   input clk,
+   input rst,
+   input BSleep,
 	input BAwake,
 	input BFeed,
 	input BPlay,
@@ -28,29 +28,55 @@ module Tamagotchi (
 	
 );
 
+wire reset;
+Reset_AntiR RestInst(
+    .btnRst_in(rst),
+    .clk_(clk),
+    .btnRst_out(reset)
+);
+
+wire bottonTest;
+wire [3:0] NumPulse;
+Test_AntiR(
+	 .botonTest(BTest),
+    .clk_(clk),
+    .rst_(reset),
+    .BOTONTest(bottonTest),
+    .NUMPULSE(NumPulse) 
+);
+
+wire btnSleep;
+Boton BotonSleep(
+    .clk(clk),
+    .btn_in(BSleep),
+    .btn_out(btnSleep)
+);
+
+wire btnFeed;
+Boton BotonFeed(
+    .clk(clk),
+    .btn_in(BFeed),
+    .btn_out(btnFeed)
+);
+
+wire btnPlay;
+Boton BotonPlay(
+    .clk(clk),
+    .btn_in(BPlay),
+    .btn_out(btnPlay)
+);
 wire [3:0] state;
 //assign led4 =pulseTest;
 FSM_Central InstFSM(
 		.clk(clk),
-		.rst(rst),
-		.botonSleep(BSleep),
+		.rst(reset),
+		.botonSleep(btnSleep),
 		.botonAwake(BAwake),
-		.botonFeed(BFeed),
-		.botonPlay(BPlay),
+		.botonFeed(btnFeed),
+		.botonPlay(btnPlay),
 		.giro(Giro),
-		.botonTest(BTest),
-        .BpulseTest(pulseTest),
-		/*
-		.sign_IDLE(SIDLE),
-		.sign_SLEEP(SSLEEP),
-		.sign_NEUTRAL(SNEUTRAL),
-		.sign_TIRED(STIRED),
-		.sign_DEATH(SDEATH),
-		.sign_HUNGRY(SHUNGRY),
-		.sign_SAD(SSAD),
-		.sign_PLAYING(SPLAYING),
-		.sign_BORED(SBORED),
-		*/
+		.botonTest(bottonTest),
+      .BpulseTest(NumPulse),
 		.state(state),
 		.led4(led4)
 		//.energy(energy),
@@ -78,6 +104,5 @@ BCDtoSSeg InstSseg(
 
 );
 
-    // Agrega aquí la lógica y la funcionalidad de tu Tamagotchi
 
 endmodule
