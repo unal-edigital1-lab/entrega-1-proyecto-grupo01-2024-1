@@ -64,28 +64,40 @@ set_global_assignment -name EDA_TEST_BENCH_NAME mic_TB -section_id eda_simulatio
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id mic_TB
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME mic_TB -section_id mic_TB
 set_global_assignment -name EDA_TEST_BENCH_FILE src/Sensores/microfono/mic_TB.v -section_id mic_TB
-set_location_assignment PIN_72 -to btnRst_out
-set_location_assignment PIN_90 -to btnRst_in
-set_location_assignment PIN_91 -to botonTest
-set_location_assignment PIN_67 -to rst_
-set_location_assignment PIN_80 -to NUMPULSE[3]
-set_location_assignment PIN_83 -to NUMPULSE[2]
-set_location_assignment PIN_84 -to NUMPULSE[1]
-set_location_assignment PIN_77 -to NUMPULSE[0]
-set_location_assignment PIN_74 -to BOTONTest
-set_location_assignment PIN_30 -to btn_in
-set_location_assignment PIN_71 -to btn_out
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_global_assignment -name VERILOG_FILE src/Botones/Boton.v
-set_global_assignment -name VERILOG_FILE src/UnidadDeControl/bttnTest.v
-set_global_assignment -name VERILOG_FILE src/Botones/bttnReset.v
-set_global_assignment -name VERILOG_FILE Tamagotchi.v
+set_location_assignment PIN_133 -to An[3]
+set_location_assignment PIN_132 -to An[2]
+set_location_assignment PIN_129 -to An[1]
+set_location_assignment PIN_128 -to An[0]
+set_location_assignment PIN_72 -to led4[3]
+set_location_assignment PIN_69 -to led4[2]
+set_location_assignment PIN_70 -to led4[1]
+set_location_assignment PIN_71 -to led4[0]
+set_location_assignment PIN_91 -to rst
+set_location_assignment PIN_90 -to BTest
+set_location_assignment PIN_119 -to sseg[6]
+set_location_assignment PIN_120 -to sseg[5]
+set_location_assignment PIN_121 -to sseg[4]
+set_location_assignment PIN_124 -to sseg[3]
+set_location_assignment PIN_125 -to sseg[2]
+set_location_assignment PIN_126 -to sseg[1]
+set_location_assignment PIN_127 -to sseg[0]
+set_location_assignment PIN_68 -to Giro
+set_location_assignment PIN_58 -to BAwake
+set_location_assignment PIN_32 -to BFeed
+set_location_assignment PIN_34 -to BPlay
+set_location_assignment PIN_59 -to BSleep
 set_global_assignment -name VERILOG_FILE ../../Lab3/Entrega_1/BCDtoSSeg.v
-set_global_assignment -name VERILOG_FILE src/Sensores/ultrasonido/ultrasonido.v
+set_global_assignment -name VERILOG_FILE src/pantalla_LCD_16x2/lcd1602_cust_char.v
 set_global_assignment -name VERILOG_FILE src/Sensores/microfono/mic.v
 set_global_assignment -name VERILOG_FILE src/UnidadDeControl/FSM_Central.v
 set_global_assignment -name VERILOG_FILE src/Botones/Test_AntiR.v
 set_global_assignment -name VERILOG_FILE src/Botones/Reset_AntiR.v
+set_global_assignment -name VERILOG_FILE src/Botones/bttnTest.v
+set_global_assignment -name VERILOG_FILE src/Botones/bttnReset.v
+set_global_assignment -name VERILOG_FILE src/Botones/Boton.v
+set_global_assignment -name VERILOG_FILE Tamagotchi.v
+set_global_assignment -name VERILOG_FILE src/Botones/Boton_AR.v
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

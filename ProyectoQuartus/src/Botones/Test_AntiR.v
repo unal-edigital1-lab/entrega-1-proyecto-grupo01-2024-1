@@ -9,18 +9,16 @@ module Test_AntiR(
 );
 
 wire boton_ar;
-
 Boton InstBTN(
-    .clk(clk_), // Clock input in ms
-    .btn_in(btnTest_in), // Button input
-    .btn_out(boton_ar) // Debounced button output
+    .clk(clk_),
+    .btn_in(btnTest_in),
+    .btn_out(boton_ar)// Debounced button output
 );
 
 
 
 bttnTest InstTest(
-	
-	.btnTest_in(boton_ar),
+	 .botonTest(boton_ar),
     .clk(clk_),
     .rst(rst_),
     .btnTest(btnTest_out),

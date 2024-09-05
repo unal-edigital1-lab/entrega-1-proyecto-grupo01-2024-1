@@ -1,4 +1,4 @@
-module bttnReset #(parameter COUNT_MAX = 25000000, FiveSegs = 9)(
+module bttnReset #(parameter COUNT_MAX = 25000000, FiveSegs = 10)(
     // Declaración de entradas y salidas
     input btnRst_in,
     input clk,
