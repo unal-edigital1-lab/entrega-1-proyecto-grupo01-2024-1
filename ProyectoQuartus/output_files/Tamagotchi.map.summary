@@ -1,13 +1,13 @@
-Analysis & Synthesis Status : Successful - Wed Sep  4 08:37:29 2024
+Analysis & Synthesis Status : Successful - Thu Sep  5 07:59:44 2024
 Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 Revision Name : Tamagotchi
 Top-level Entity Name : Tamagotchi
 Family : Cyclone IV E
-Total logic elements : 530
-    Total combinational functions : 518
-    Dedicated logic registers : 244
-Total registers : 244
-Total pins : 27
+Total logic elements : 550
+    Total combinational functions : 541
+    Dedicated logic registers : 247
+Total registers : 247
+Total pins : 23
 Total virtual pins : 0
 Total memory bits : 0
 Embedded Multiplier 9-bit elements : 0

@@ -10,7 +10,7 @@ module Tamagotchi (
 	input BPlay,
 	input Giro,
 	input BTest,
-	input [3:0] pulseTest,
+	//input [3:0] pulseTest,
 // Salidas
 	//output wire [3:0] state,
 	//output wire [2:0] energy,
@@ -28,20 +28,20 @@ module Tamagotchi (
 	
 );
 
-
+/*
 wire clk_ms;
 DivisorReloj #(.DIV_FACTOR(25000)) divisor_clk_ms (
-	.clk(clk),
+	.clk_in(clk),
 	.reset(reset),
 	.clk_out(clk_ms)
-);
+);*/
 
 
 ///////////////////////// BOTONES ///////////////////////////
 wire reset;
 Reset_AntiR BotonReset(
     .btnRst_in(rst),
-    .clk_(clk_ms),
+    .clk_(clk),
     .btnRst_out(reset)
 );
 
@@ -50,7 +50,7 @@ wire btnTest;
 wire [3:0] NumPulse;
 Test_AntiR BotonTest(
 	.btnTest_in(BTest),
-    .clk_(clk_ms),
+    .clk_(clk),
     .rst_(reset),
     .btnTest_out(btnTest),
     .NUMPULSE(NumPulse) 
@@ -58,26 +58,29 @@ Test_AntiR BotonTest(
 
 
 wire btnSleep;
-Boton BotonSleep(
-    .clk(clk_ms),
-    .btn_in(BSleep),
-    .btn_out(btnSleep)
+Boton_AR BotonSleep(
+	 .reset(rst),
+    .clk(clk),
+    .boton_in(BSleep),
+    .boton_out(btnSleep)
 );
 
 
 wire btnFeed;
-Boton BotonFeed(
-    .clk(clk_ms),
-    .btn_in(BFeed),
-    .btn_out(btnFeed)
+Boton_AR BotonFeed(
+	 .reset(rst),
+    .clk(clk),
+    .boton_in(BFeed),
+    .boton_out(btnFeed)
 );
 
 
 wire btnPlay;
-Boton BotonPlay(
-    .clk(clk_ms),
-    .btn_in(BPlay),
-    .btn_out(btnPlay)
+Boton_AR BotonPlay(
+	 .reset(rst),
+    .clk(clk),
+    .boton_in(BPlay),
+    .boton_out(btnPlay)
 );
 
 
@@ -92,7 +95,7 @@ FSM_Central InstFSM(
 		.botonFeed(btnFeed),
 		.botonPlay(btnPlay),
 		.giro(Giro),
-		.btnTest_out(btnTest),
+		.botonTest(btnTest),
       .BpulseTest(NumPulse),
 		.state(state),
 		.led4(led4)

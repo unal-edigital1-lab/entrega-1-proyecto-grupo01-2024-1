@@ -9,14 +9,14 @@ module Reset_AntiR(
 wire boton_ar;
 
 Boton InstBTN(
-    .clk(clk_), // Clock input in ms
-    .btn_in(btnRst_in), // Button input
-    .btn_out(boton_ar) // Debounced button output
+    .clk(clk_),
+    .btn_in(btnRst_in),
+    .btn_out(boton_ar)// Debounced button output
 );
 
 
 
-bttnReset(
+bttnReset InstRst(
     // Declaración de entradas y salidas
     .btnRst_in(boton_ar),
     .clk(clk_),
