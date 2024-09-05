@@ -1,9 +1,9 @@
 module Test_AntiR(
 
-	 input botonTest,
+	 input btnTest_in,
     input clk_,
     input rst_,
-    output wire BOTONTest,
+    output wire btnTest_out,
     output wire [3:0] NUMPULSE
 	 
 );
@@ -12,7 +12,7 @@ wire boton_ar;
 
 Boton InstBTN(
     .clk(clk_), // Clock input in ms
-    .btn_in(botonTest), // Button input
+    .btn_in(btnTest_in), // Button input
     .btn_out(boton_ar) // Debounced button output
 );
 
@@ -20,10 +20,10 @@ Boton InstBTN(
 
 bttnTest InstTest(
 	
-	 .botonTest(boton_ar),
+	.btnTest_in(boton_ar),
     .clk(clk_),
     .rst(rst_),
-    .btnTest(BOTONTest),
+    .btnTest(btnTest_out),
     .contBtnPress(NUMPULSE)
 	
 );

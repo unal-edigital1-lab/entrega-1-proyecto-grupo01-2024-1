@@ -37,3 +37,4 @@ quartus/
 *.out
 *.vcd
 figs/.$Diagramas.drawio.bkp
+*.bak

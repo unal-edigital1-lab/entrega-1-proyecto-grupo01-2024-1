@@ -28,43 +28,60 @@ module Tamagotchi (
 	
 );
 
+
+wire clk_ms;
+DivisorReloj #(.DIV_FACTOR(25000)) divisor_clk_ms (
+	.clk(clk),
+	.reset(reset),
+	.clk_out(clk_ms)
+);
+
+
+///////////////////////// BOTONES ///////////////////////////
 wire reset;
-Reset_AntiR RestInst(
+Reset_AntiR BotonReset(
     .btnRst_in(rst),
-    .clk_(clk),
+    .clk_(clk_ms),
     .btnRst_out(reset)
 );
 
-wire bottonTest;
+
+wire btnTest;
 wire [3:0] NumPulse;
-Test_AntiR(
-	 .botonTest(BTest),
-    .clk_(clk),
+Test_AntiR BotonTest(
+	.btnTest_in(BTest),
+    .clk_(clk_ms),
     .rst_(reset),
-    .BOTONTest(bottonTest),
+    .btnTest_out(btnTest),
     .NUMPULSE(NumPulse) 
 );
 
+
 wire btnSleep;
 Boton BotonSleep(
-    .clk(clk),
+    .clk(clk_ms),
     .btn_in(BSleep),
     .btn_out(btnSleep)
 );
 
+
 wire btnFeed;
 Boton BotonFeed(
-    .clk(clk),
+    .clk(clk_ms),
     .btn_in(BFeed),
     .btn_out(btnFeed)
 );
 
+
 wire btnPlay;
 Boton BotonPlay(
-    .clk(clk),
+    .clk(clk_ms),
     .btn_in(BPlay),
     .btn_out(btnPlay)
 );
+
+
+///////////////////////// UNIDAD DE CONTROL ///////////////////////////
 wire [3:0] state;
 //assign led4 =pulseTest;
 FSM_Central InstFSM(
@@ -75,7 +92,7 @@ FSM_Central InstFSM(
 		.botonFeed(btnFeed),
 		.botonPlay(btnPlay),
 		.giro(Giro),
-		.botonTest(bottonTest),
+		.btnTest_out(btnTest),
       .BpulseTest(NumPulse),
 		.state(state),
 		.led4(led4)
@@ -96,6 +113,8 @@ lcd1602_cust_char_v2 InstLCD(
 
 );*/
 
+
+///////////////////////// VISUALIZACIÓN ///////////////////////////
 BCDtoSSeg InstSseg(
 
 	.BCD(state),
