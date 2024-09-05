@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps // Time scale is set to 1ns with 1ps resolution
-//`include "GiroscopioController.v" // Include the GiroscopioController module
+`include "GiroscopioController.v" // Include the GiroscopioController module
 
 module GiroscopioController_tb;
 
@@ -16,15 +16,14 @@ module GiroscopioController_tb;
     // Inputs
     reg clk;
     reg reset;
-    reg iniciar_giroscopio;
-    reg detener_giroscopio;
+    reg enable_giroscopio;
 
     // Bidirectional
     wire SDA_BUS;
   
     // Outputs
     wire SCL_BUS;
-    wire caminar;
+    wire mover;
 
     // Instantiate the GiroscopioController module
     GiroscopioController uut (
@@ -32,9 +31,8 @@ module GiroscopioController_tb;
         .reset(reset),
         .SDA_BUS(SDA_BUS),
         .SCL_BUS(SCL_BUS),
-        .iniciar_giroscopio(iniciar_giroscopio),
-        .detener_giroscopio(detener_giroscopio),
-        .caminar(caminar)
+        .enable_giroscopio(enable_giroscopio),
+        .mover(mover)
     );
     
     reg [7:0] data_out_reg;
@@ -54,8 +52,7 @@ module GiroscopioController_tb;
         // Initialize inputs
         clk = 0;
         reset = 0;
-        iniciar_giroscopio = 0;
-        detener_giroscopio = 0;
+        enable_giroscopio = 0;
         sda_enable = 0;
         sda_reg = 0;
         data_out_reg = 8'b11110000; // Data to receive
@@ -64,9 +61,8 @@ module GiroscopioController_tb;
         #RESET_DELAY reset = 1;
         #CLK_PERIOD reset = 0;
 
-        // iniciar_giroscopio signal to start the giroscopio controller
-        #START_DELAY iniciar_giroscopio = 1;
-        #CLK_PERIOD iniciar_giroscopio = 0;
+        // enable_giroscopio signal to start the giroscopio controller
+        #START_DELAY enable_giroscopio = 1;
         
         for (i = 0; i < 4; i = i + 1) begin
             // Start byte trasmission
@@ -98,8 +94,7 @@ module GiroscopioController_tb;
 
         end
 
-    #(CLK_PERIOD) detener_giroscopio = 1;
-    #(CLKR_PERIOD*5) detener_giroscopio = 0;
+    #(CLKR_PERIOD) enable_giroscopio = 0;
     $finish;
     end
     

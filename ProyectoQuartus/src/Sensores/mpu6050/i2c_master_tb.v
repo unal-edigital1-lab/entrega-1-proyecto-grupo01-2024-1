@@ -25,8 +25,8 @@ module i2c_master_tb;
     // Outputs
     wire SCL_BUS;
     wire [7:0] data_out;
-    wire avail_data_out;
-    wire avail_i2c_master;
+    wire data_out_available;
+    wire i2c_master_available;
 
     parameter slave_address = 7'b1010101; // this is an example, real default address of mpu6050 (slave) is 0x68
 
@@ -39,8 +39,8 @@ module i2c_master_tb;
         .SDA_BUS(SDA_BUS),
         .SCL_BUS(SCL_BUS),
         .data_out(data_out),
-        .avail_data_out(avail_data_out),
-        .avail_i2c_master(avail_i2c_master)
+        .data_out_available(data_out_available),
+        .i2c_master_available(i2c_master_available)
     );
     
     reg [7:0] data_out_reg;

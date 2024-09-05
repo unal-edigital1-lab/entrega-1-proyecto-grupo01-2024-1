@@ -1,6 +1,6 @@
 `include "DivisorReloj.v"
 
-module i2c_master #(parameter DIV_FACTOR = 16, SLAVE_ADDRESS = 8'h68)(
+module i2c_master #(parameter DIV_FACTOR = 16, SLAVE_ADDRESS = 7'h68)(
    input wire clk,                // System clock
    input wire reset,              // Reset signal
    input wire start,              // Signal to start transmission
@@ -8,8 +8,8 @@ module i2c_master #(parameter DIV_FACTOR = 16, SLAVE_ADDRESS = 8'h68)(
    inout wire SDA_BUS,            // Serial Data
    output wire SCL_BUS,           // Serial Clock
    output reg [7:0] data_out,     // Received data
-   output wire avail_data_out,     // Flag to indicate that the data was fully read
-   output wire avail_i2c_master    // Flag to indicate that the I2C master is available
+   output wire data_out_available,     // Flag to indicate that the data was fully read
+   output wire i2c_master_available    // Flag to indicate that the I2C master is available
 );
 
 // Instantiate the divisorReloj module
@@ -208,8 +208,8 @@ end
 //assign SDA_BUS = (enable_sda) ? highZ : 1'bz;
 assign SDA_BUS = (enable_sda) ? sda : 1'bz;
 assign SCL_BUS = (enable_scl) ? scl : clk_scl;
-assign avail_data_out = (enable_data_out) ? 1 : 0;
-assign avail_i2c_master = (fsm_state == IDLE) ? 1 : 0;
+assign data_out_available = (enable_data_out) ? 1 : 0;
+assign i2c_master_available = (fsm_state == IDLE) ? 1 : 0;
 
 
 endmodule
