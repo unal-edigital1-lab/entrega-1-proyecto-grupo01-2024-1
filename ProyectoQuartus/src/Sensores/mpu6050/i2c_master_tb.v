@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps // Time scale is set to 1ns with 1ps resolution
-`include "i2c.v" // Include the i2c_master module
+`include "i2c_master.v" // Include the i2c_master module
 
 module i2c_master_tb;
 
