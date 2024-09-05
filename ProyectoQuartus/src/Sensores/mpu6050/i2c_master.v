@@ -31,6 +31,7 @@ DivisorReloj #(DIV_FACTOR) uut_clk (
 // Declare internal signals
 reg sda = 1;
 reg scl = 1;
+wire highZ = 1'bz;
 
 reg [6:0] shift_address = 0; // slave adrress, 7 bits
 reg [7:0] shift_reg_data = 0; // register address to read/write, 8 bits
@@ -210,8 +211,8 @@ always @ (posedge clk_4x) begin
 end
 
 
-
-assign SDA_BUS = (enable_sda) ? sda : 1'bz;
+assign highZ = (sda) ? 1'bz : 1'b0;
+assign SDA_BUS = (enable_sda) ? highZ : 1'bz;
 assign SCL_BUS = (enable_scl) ? scl : clk_scl;
 assign avail_data_out = (enable_data_out) ? 1 : 0;
 assign avail_i2c_master = (fsm_state == IDLE) ? 1 : 0;
