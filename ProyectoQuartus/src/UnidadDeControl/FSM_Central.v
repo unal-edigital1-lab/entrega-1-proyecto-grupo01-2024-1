@@ -1,5 +1,5 @@
 // Dormir 
-module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, Entert= 20000, CONTUNI = 200000)(
+module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 750000000, Entert= 1000000000, CONTUNI = 10000000000)(
 // Entradas
 	input clk,
 	input rst,
@@ -77,7 +77,6 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 	
 // Máquina de Estados , general: Cambio entre estados 	
 	always @(*) begin
-
 		case (state)
 				IDLE: begin 
 					if (botonSleep && energy != 3'd5 && !botonPlay) begin
@@ -209,7 +208,7 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 							next = NEUTRAL;
 						end
 					end else if(botonTest) begin
-                        	next = TEST;
+                       next = TEST;
                     end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
 						next = IDLE;
 					end else if (energy == 3'd5) begin
@@ -281,23 +280,23 @@ module FSM_Central#(parameter COUNT_MAX = 50000 , Ener = 40000, Feed = 10000, En
 
 
 // Incrementador y disminuidor de energía
-always @(posedge clkms or posedge rst) begin
+always @(posedge clk or posedge rst) begin
     if (rst) begin
         energy <= 3'd5;
         contTimeEnergy <= 0;
     end else begin
         if (state == TEST) begin
-				contTimeEnergy <= 0;
+				//contTimeEnergy <= 0;
             case (BpulseTest)
-                4'd1: energy <= 3'd5;
-                4'd2: energy <= 3'd4;
-                4'd3: energy <= 3'd2;
-                4'd4: energy <= 3'd2;
-                4'd5: energy <= 3'd5;
-                4'd6: energy <= 3'd2;
-                4'd7: energy <= 3'd5;
-                4'd8: energy <= 3'd5;
-                4'd9: energy <= 3'd0;
+                4'd1: energy <= 3'd5; //IDLE
+                4'd2: energy <= 3'd4; //NEUTRAL
+                4'd3: energy <= 3'd2; //TIRED
+                4'd4: energy <= 3'd2; //SLEEP
+                4'd5: energy <= 3'd5; //HUNGRY
+                4'd6: energy <= 3'd2; //SAD
+                4'd7: energy <= 3'd5; //PLAYING
+                4'd8: energy <= 3'd5; //BORED
+                4'd9: energy <= 3'd0; //DEATH
             endcase
             contTimeEnergy <= 0;
         end else if (state == SLEEP && state != TEST && energy < 3'd5 && contTimeEnergy == Ener-1) begin
@@ -315,13 +314,13 @@ always @(posedge clkms or posedge rst) begin
 end
 
 // Incrementador y disminuidor de Hambre
-always @(posedge clkms or posedge rst) begin
+always @(posedge clk or posedge rst) begin
     if (rst) begin
         hunger <= 3'd5;
         contTimeHunger <= 0;
     end else begin
         if (state == TEST) begin
-				contTimeHunger <= 0;
+				//contTimeHunger <= 0;
             case (BpulseTest)
                 4'd1: hunger <= 3'd5;
                 4'd2: hunger <= 3'd4;
@@ -349,13 +348,13 @@ always @(posedge clkms or posedge rst) begin
 end
 
 // Incrementador y disminuidor de entretenimiento
-always @(posedge clkms or posedge rst) begin
+always @(posedge clk or posedge rst) begin
     if (rst) begin
         entertainment <= 3'd5;
         contTimeEntertainment <= 0;
     end else begin
         if (state == TEST) begin
-				contTimeEntertainment <= 0;
+				//contTimeEntertainment <= 0;
             case (BpulseTest)
                 4'd1: entertainment <= 3'd5;
                 4'd2: entertainment <= 3'd4;

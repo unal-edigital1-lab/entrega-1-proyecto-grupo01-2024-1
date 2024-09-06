@@ -14,7 +14,7 @@ module Tamagotchi (
 // Salidas
 	//output wire [3:0] state,
 	//output wire [2:0] energy,
-	//output wire [2:0] hunger,
+	//output wire [2:0] hunger_,
 	//output wire [2:0] entertainment,
 		 /*
     output reg rs,        
@@ -70,7 +70,7 @@ wire btnFeed;
 Boton_AR BotonFeed(
 	 .reset(rst),
     .clk(clk),
-    .boton_in(BFeed),
+    .boton_in(~BFeed),
     .boton_out(btnFeed)
 );
 
@@ -79,7 +79,7 @@ wire btnPlay;
 Boton_AR BotonPlay(
 	 .reset(rst),
     .clk(clk),
-    .boton_in(BPlay),
+    .boton_in(~BPlay),
     .boton_out(btnPlay)
 );
 
@@ -98,9 +98,9 @@ FSM_Central InstFSM(
 		.botonTest(btnTest),
       .BpulseTest(NumPulse),
 		.state(state),
-		.led4(led4)
-		//.energy(energy),
-		//.hunger(hunger),
+		//.led4(led4),
+		.energy(led4),
+		//.hunger(led4)
 		//.entertainment(entertainment)
 	);
 	/*
@@ -118,7 +118,7 @@ lcd1602_cust_char_v2 InstLCD(
 
 
 ///////////////////////// VISUALIZACIÓN ///////////////////////////
-BCDtoSSeg InstSseg(
+BCDtoSSeg InstSsegState(
 
 	.BCD(state),
 	.SSeg(sseg),

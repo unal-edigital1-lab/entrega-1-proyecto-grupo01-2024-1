@@ -29,7 +29,7 @@ module FSM_Central_TB;
 	wire [2:0] hunger;
 	wire [2:0] entertainment;
 	
-	FSM_Central #(5,4,4,4,20) uut(
+	FSM_Central #(25,40,15,20,200) uut(
 		.clk(clk),
 		.rst(rst),
 		.botonSleep(BSleep),
@@ -62,17 +62,17 @@ module FSM_Central_TB;
 	clk=0;
 	BSleep = 0; BAwake = 0; BFeed=0; BPlay=0; Giro=0; BTest=0; PulseTest=0;
 	rst = 1;
-	#50;
+	#5000;
 	rst = 0;
-	#150;
+	/*
 	BTest = 1; 
-	#20
+	#10
 	PulseTest = 4'd1;
-	#40;
+	#10
 	BTest = 0;
-	#20;
+	#10
 	PulseTest = 4'd0;
-
+*/
 	/*
 	BSleep = 1;
 	#103;
@@ -111,7 +111,7 @@ module FSM_Central_TB;
 initial begin:TEST_CASE
     $dumpfile("FSM_Central_TB.vcd");
 	$dumpvars(-1, uut);
-	#1000 $finish; 
+	#20000; $finish; 
 end
 
 endmodule
