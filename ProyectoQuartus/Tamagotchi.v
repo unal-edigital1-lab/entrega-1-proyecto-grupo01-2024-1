@@ -8,11 +8,13 @@ module Tamagotchi (
 	input BAwake,
 	input BFeed,
 	input BPlay,
-	input Giro,
+	//input Giro,
 	input BTest,
+	input echoUS,
 	//input [3:0] pulseTest,
 // Salidas
-    output wire BUZZER;
+    output wire BUZZER,
+	 output wire TRIGGER,
     output wire rs_,        
     output wire rw_,
     output wire enable_,    
@@ -93,7 +95,7 @@ FSM_Central InstFSM(
 		.botonAwake(sigAwake),
 		.botonFeed(btnFeed),
 		.botonPlay(btnPlay),
-		.giro(Giro),
+		.giro(sGiro),
 		.botonTest(btnTest),
       .BpulseTest(NumPulse),
 		.face(face_),
@@ -107,10 +109,20 @@ wire sigAwake;
 mic InstMic(
     .mic(BAwake),
     .clk(clk),
-    .rst(reset),
+    .rst(~reset),
     .state_t(face_),
     .buzzer(BUZZER),
     .signal_awake(sigAwake)
+);
+
+wire sGiro;
+ultrasonido InstUS(
+    .clk(clk),         // Clock de sistema (50 MHz)
+    .reset_n(~reset),     // Reset asincrónico (activo bajo)
+    .echo(echoUS),        // Señal de eco del ultrasonido
+    .boton(btnPlay),
+    .led(sGiro),          // LED de salida
+    .trigger(TRIGGER)
 );
 
 LCD1602_CONTROLLER InstLCD(
