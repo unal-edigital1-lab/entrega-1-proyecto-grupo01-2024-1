@@ -31,6 +31,8 @@ db/
 simulation/
 modelsim/
 quartus/
+incremental_db/
+output_files/
 
 #otros
 *.bkp
