@@ -2,148 +2,148 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow 1200mV 85C Model Setup 'LCD1602_CONTROLLER:uut|clk_16ms'
-Slack : -5.549
-TNS   : -244.475
+Type  : Slow 1200mV 85C Model Setup 'BAwake'
+Slack : -6.690
+TNS   : -53.698
+
+Type  : Slow 1200mV 85C Model Setup 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Slack : -6.023
+TNS   : -260.483
 
 Type  : Slow 1200mV 85C Model Setup 'clk'
-Slack : -3.901
-TNS   : -99.316
+Slack : -4.735
+TNS   : -982.945
 
-Type  : Slow 1200mV 85C Model Setup 'DivisorReloj:inst_clk_16ms|clkr'
-Slack : -2.950
-TNS   : -15.109
-
-Type  : Slow 1200mV 85C Model Setup 'DivisorReloj:inst_clk_paint|clkr'
-Slack : -2.383
-TNS   : -32.853
-
-Type  : Slow 1200mV 85C Model Hold 'LCD1602_CONTROLLER:uut|clk_16ms'
-Slack : 0.453
-TNS   : 0.000
-
-Type  : Slow 1200mV 85C Model Hold 'DivisorReloj:inst_clk_paint|clkr'
-Slack : 0.454
-TNS   : 0.000
-
-Type  : Slow 1200mV 85C Model Hold 'DivisorReloj:inst_clk_16ms|clkr'
-Slack : 0.493
-TNS   : 0.000
+Type  : Slow 1200mV 85C Model Hold 'BAwake'
+Slack : -0.950
+TNS   : -0.950
 
 Type  : Slow 1200mV 85C Model Hold 'clk'
-Slack : 0.493
+Slack : 0.434
 TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Slack : 0.452
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'clk'
+Slack : -1.898
+TNS   : -144.596
+
+Type  : Slow 1200mV 85C Model Removal 'clk'
+Slack : -0.877
+TNS   : -7.806
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -65.454
+TNS   : -453.561
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'LCD1602_CONTROLLER:uut|clk_16ms'
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'BAwake'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'rst'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
 Slack : -1.487
 TNS   : -126.395
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'DivisorReloj:inst_clk_paint|clkr'
-Slack : -1.487
-TNS   : -26.766
+Type  : Slow 1200mV 0C Model Setup 'BAwake'
+Slack : -6.382
+TNS   : -50.290
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'DivisorReloj:inst_clk_16ms|clkr'
-Slack : -1.487
-TNS   : -11.896
-
-Type  : Slow 1200mV 0C Model Setup 'LCD1602_CONTROLLER:uut|clk_16ms'
-Slack : -5.046
-TNS   : -221.372
+Type  : Slow 1200mV 0C Model Setup 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Slack : -5.497
+TNS   : -238.058
 
 Type  : Slow 1200mV 0C Model Setup 'clk'
-Slack : -3.643
-TNS   : -88.060
+Slack : -4.312
+TNS   : -893.853
 
-Type  : Slow 1200mV 0C Model Setup 'DivisorReloj:inst_clk_16ms|clkr'
-Slack : -2.711
-TNS   : -13.288
-
-Type  : Slow 1200mV 0C Model Setup 'DivisorReloj:inst_clk_paint|clkr'
-Slack : -2.146
-TNS   : -29.456
-
-Type  : Slow 1200mV 0C Model Hold 'DivisorReloj:inst_clk_paint|clkr'
-Slack : 0.402
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Hold 'LCD1602_CONTROLLER:uut|clk_16ms'
-Slack : 0.402
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Hold 'DivisorReloj:inst_clk_16ms|clkr'
-Slack : 0.457
-TNS   : 0.000
+Type  : Slow 1200mV 0C Model Hold 'BAwake'
+Slack : -0.942
+TNS   : -0.942
 
 Type  : Slow 1200mV 0C Model Hold 'clk'
-Slack : 0.457
+Slack : 0.383
 TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Slack : 0.400
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'clk'
+Slack : -1.765
+TNS   : -124.699
+
+Type  : Slow 1200mV 0C Model Removal 'clk'
+Slack : -0.803
+TNS   : -7.453
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -65.454
+TNS   : -453.561
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'LCD1602_CONTROLLER:uut|clk_16ms'
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'BAwake'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'rst'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
 Slack : -1.487
 TNS   : -126.395
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'DivisorReloj:inst_clk_paint|clkr'
-Slack : -1.487
-TNS   : -26.766
+Type  : Fast 1200mV 0C Model Setup 'BAwake'
+Slack : -2.414
+TNS   : -18.337
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'DivisorReloj:inst_clk_16ms|clkr'
-Slack : -1.487
-TNS   : -11.896
-
-Type  : Fast 1200mV 0C Model Setup 'LCD1602_CONTROLLER:uut|clk_16ms'
-Slack : -1.790
-TNS   : -59.756
+Type  : Fast 1200mV 0C Model Setup 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Slack : -2.000
+TNS   : -72.734
 
 Type  : Fast 1200mV 0C Model Setup 'clk'
-Slack : -1.077
-TNS   : -18.820
+Slack : -1.525
+TNS   : -266.546
 
-Type  : Fast 1200mV 0C Model Setup 'DivisorReloj:inst_clk_16ms|clkr'
-Slack : -0.635
-TNS   : -1.636
-
-Type  : Fast 1200mV 0C Model Setup 'DivisorReloj:inst_clk_paint|clkr'
-Slack : -0.476
-TNS   : -4.298
-
-Type  : Fast 1200mV 0C Model Hold 'DivisorReloj:inst_clk_paint|clkr'
-Slack : 0.187
-TNS   : 0.000
-
-Type  : Fast 1200mV 0C Model Hold 'LCD1602_CONTROLLER:uut|clk_16ms'
-Slack : 0.187
-TNS   : 0.000
-
-Type  : Fast 1200mV 0C Model Hold 'DivisorReloj:inst_clk_16ms|clkr'
-Slack : 0.198
-TNS   : 0.000
+Type  : Fast 1200mV 0C Model Hold 'BAwake'
+Slack : -0.456
+TNS   : -0.456
 
 Type  : Fast 1200mV 0C Model Hold 'clk'
-Slack : 0.198
+Slack : 0.169
 TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Slack : 0.186
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'clk'
+Slack : -0.289
+TNS   : -15.867
+
+Type  : Fast 1200mV 0C Model Removal 'clk'
+Slack : -0.492
+TNS   : -4.821
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -47.708
+TNS   : -325.089
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'LCD1602_CONTROLLER:uut|clk_16ms'
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'BAwake'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'rst'
+Slack : -3.000
+TNS   : -3.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
 Slack : -1.000
 TNS   : -85.000
-
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'DivisorReloj:inst_clk_paint|clkr'
-Slack : -1.000
-TNS   : -18.000
-
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'DivisorReloj:inst_clk_16ms|clkr'
-Slack : -1.000
-TNS   : -8.000
 
 ------------------------------------------------------------

@@ -12,19 +12,15 @@ module Tamagotchi (
 	input BTest,
 	//input [3:0] pulseTest,
 // Salidas
-	//output wire [3:0] state,
-	//output wire [2:0] energy,
-	//output wire [2:0] hunger_,
-	//output wire [2:0] entertainment,
-		 /*
-    output reg rs,        
-    output reg rw,
-    output enable,    
-    output reg [7:0] data
-	 */
-	output [0:6] sseg,
-	output [3:0] led4,
-	output wire [3:0] An
+    output wire BUZZER;
+    output wire rs_,        
+    output wire rw_,
+    output wire enable_,    
+    output wire [7:0] data_,
+	 
+	 output [0:6] sseg,
+	 output [3:0] led4,
+	 output wire [3:0] An
 	
 );
 
@@ -85,42 +81,56 @@ Boton_AR BotonPlay(
 
 
 ///////////////////////// UNIDAD DE CONTROL ///////////////////////////
-wire [3:0] state;
+wire [3:0] face_;
+wire [2:0] energy_;
+wire [2:0] hunger_;
+wire [2:0] entertainment_;
 //assign led4 =pulseTest;
 FSM_Central InstFSM(
 		.clk(clk),
 		.rst(reset),
 		.botonSleep(btnSleep),
-		.botonAwake(BAwake),
+		.botonAwake(sigAwake),
 		.botonFeed(btnFeed),
 		.botonPlay(btnPlay),
 		.giro(Giro),
 		.botonTest(btnTest),
       .BpulseTest(NumPulse),
-		.state(state),
-		//.led4(led4),
-		.energy(led4),
-		//.hunger(led4)
-		//.entertainment(entertainment)
+		.face(face_),
+		.led4(led4),
+		.energy(energy_),
+		.hunger(hunger_),
+		.entertainment(entertainment_)
 	);
-	/*
-lcd1602_cust_char_v2 InstLCD(
-
+	
+wire sigAwake;	
+mic InstMic(
+    .mic(BAwake),
     .clk(clk),
-    .reset(rst),
-    .state(state),
-    .rs(rs),
-    .rw(rw),
-    .enable(enable),
-    .data(data)
+    .rst(reset),
+    .state_t(face_),
+    .buzzer(BUZZER),
+    .signal_awake(sigAwake)
+);
 
-);*/
+LCD1602_CONTROLLER InstLCD(
+    .clk(clk),   
+    .reset(reset),
+    .face(face_),   
+    .feed_value(hunger_),
+    .joy_value(entertainment_),
+    .energy_value(energy_),
+    .rs(rs_),  
+    .rw(rw_),
+    .enable(enable_),
+    .data(data_)
+);
 
 
 ///////////////////////// VISUALIZACIÓN ///////////////////////////
 BCDtoSSeg InstSsegState(
 
-	.BCD(state),
+	.BCD(face_),
 	.SSeg(sseg),
 	.an(An)
 

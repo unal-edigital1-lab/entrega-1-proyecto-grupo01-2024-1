@@ -1,5 +1,4 @@
-// Dormir 
-module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 750000000, Entert= 1000000000, CONTUNI = 10000000000)(
+module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 500000000, Entert= 1000000000, CONTUNI = 10000000000)( //40s , 10s , 20s
 // Entradas
 	input clk,
 	input rst,
@@ -11,11 +10,11 @@ module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 7500
 	input botonTest,
 	input [3:0] BpulseTest,
 // Salidas
-	output reg [3:0] state,
+	output reg [3:0] face,
 	output reg [2:0] energy,
 	output reg [2:0] hunger,
 	output reg [2:0] entertainment,
-	output  [3:0] led4
+	output wire [3:0] led4
 	);
 	
 
@@ -33,16 +32,17 @@ module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 7500
 	
 	
 	//Registros 
-	//reg [3:0] state;
+	reg [3:0] state;
 	reg [3:0] next;
 	reg clkms;
 	reg [$clog2(COUNT_MAX)-1:0] counter;
 	//reg [$clog2(CONTUNI)-1:0] contTime;
 	reg [$clog2(CONTUNI)-1:0] contTimeEnergy, contTimeHunger, contTimeEntertainment;
-	assign led4 =BpulseTest;
+	assign led4 =state;
 	//Valores de Inicio
 	initial begin
 		state <= IDLE;
+		face <= state;
 		next <= IDLE;
 		clkms <= 'b0;
 		energy <= 3'd5;
@@ -57,6 +57,14 @@ module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 7500
 		end else begin
 			state <= next;
 		end
+	end
+	
+		//Reset de la máquina de estados
+		
+	always @(posedge clk) begin
+		if (state != TEST) begin
+			face <= state;
+		end 
 	end
 	
 // Divisor de frecuencia , a reloj en ms
@@ -380,14 +388,5 @@ always @(posedge clk or posedge rst) begin
         end
     end
 end
-
-/*// Contador de tiempo en general 
-	always @(posedge clkms or posedge rst) begin
-		if(rst)begin
-			contTime <= 0;
-		end else begin
-            contTime <= contTime+1;
-        end
-	end*/
 
 endmodule

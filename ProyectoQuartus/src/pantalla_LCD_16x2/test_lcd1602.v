@@ -47,7 +47,7 @@ module test_lcd1602 #(parameter COUNT_MAX = 800000) (
     
     wire clk_paint;
     DivisorReloj #(
-        .DIV_FACTOR(80)
+        .DIV_FACTOR(40)
     ) inst_clk_paint (
         .clk_in(clk_16ms),
         .reset(reset),
