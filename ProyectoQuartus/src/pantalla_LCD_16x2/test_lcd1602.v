@@ -1,6 +1,5 @@
-`timescale 1ns / 1ps
-`include "lcd1602_controller.v"
-`include "DivisorReloj.v"
+//`include "lcd1602_controller.v"
+//`include "DivisorReloj.v"
 
 module test_lcd1602 #(parameter COUNT_MAX = 800000) (
     input clk,
