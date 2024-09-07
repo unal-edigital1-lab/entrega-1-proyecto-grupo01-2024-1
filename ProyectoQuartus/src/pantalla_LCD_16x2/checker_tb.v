@@ -1,5 +1,5 @@
-`timescale 1ns / 1ps
-`include "checker.v"
+//`timescale 1ns / 1ps
+//`include "checker.v"
 
 module checker_tb;
 

@@ -1,5 +1,5 @@
-`include "lcd1602_cust_char.v"
-`include "task_manager.v"
+//`include "lcd1602_cust_char.v"
+//`include "task_manager.v"
 
 module LCD1602_CONTROLLER #(parameter MAX_VALUE = 5, NUM_FACES = 9, COUNT_MAX = 800000)(
     input clk,   
@@ -15,6 +15,7 @@ module LCD1602_CONTROLLER #(parameter MAX_VALUE = 5, NUM_FACES = 9, COUNT_MAX = 
 );
 
 reg [10: 0] counter = 0;
+reg [$clog2(MAX_VALUE)-1:0] actual_value = 0;
 reg rs_reg = 0;
 reg [7:0] data_reg = 0;
 
@@ -61,11 +62,12 @@ wire painting_caras;
 localparam IDLE = 0;
 localparam INIT_CONFIG = 1;
 localparam INITIAL_PAINT_CARA = 2;
-localparam INITIAL_PAINT_TEXT = 3;
-localparam INITIAL_PAINT_VALUES = 4;
-localparam PAINT_VALUES = 5;
-localparam PAINT_CARA = 6;
-localparam CHECK_UPDATES = 7;
+localparam INITIAL_PAINT_VALUES = 3;
+localparam INITIAL_PAINT_TEXT = 4;
+localparam CHECK_UPDATES = 5;
+localparam PAINT_VALUES = 6;
+localparam PAINT_CARA = 7;
+
 localparam WAIT = 9;
 
 reg [1:0] set_task = 0;
@@ -197,16 +199,16 @@ always @(*) begin
             next <= (initial_paint_values_done)? INITIAL_PAINT_TEXT : INITIAL_PAINT_VALUES;
         end
         INITIAL_PAINT_TEXT: begin
-            next <= (initial_paint_text_done)? PAINT_VALUES : INITIAL_PAINT_TEXT;
+            next <= (initial_paint_text_done)? CHECK_UPDATES : INITIAL_PAINT_TEXT;
+        end
+        CHECK_UPDATES: begin
+            next <= (new_update)? PAINT_VALUES : CHECK_UPDATES;
         end
         PAINT_VALUES: begin
             next <= (values_executed)? PAINT_CARA : PAINT_VALUES;
         end
         PAINT_CARA: begin
             next <= (carita_executed)? CHECK_UPDATES : PAINT_CARA;
-        end
-        CHECK_UPDATES: begin
-            next <= (new_update)? PAINT_VALUES : CHECK_UPDATES;
         end
         default: next = IDLE;
     endcase
@@ -263,7 +265,7 @@ always @(posedge clk_16ms) begin
             end
             INITIAL_PAINT_TEXT:begin   
                 case(counter_data)
-                    0: begin rs_reg <= 0; data_reg <= SHIFT_CURSOR_RIGHT; counter_data <= 1; end
+                    0: begin rs_reg <= 0; data_reg <= 0; counter_data <= 1; end
                     1: begin rs_reg <= 0; data_reg <= initial_lcd_address[FEED_TEXT]; counter_data <= 2; end
                     2: begin rs_reg <= 1; data_reg <= string_food[0]; counter_data <= 3; end
                     3: begin rs_reg <= 1; data_reg <= string_food[1]; counter_data <= 4; end
@@ -285,6 +287,7 @@ always @(posedge clk_16ms) begin
                 endcase
             end
             INITIAL_PAINT_VALUES: begin
+                actual_value <= string_numbers[5];
                 case(counter_data)
                     0: begin rs_reg <= 0; data_reg <= initial_lcd_address[FOOD_VALUE]; counter_data <= 1; end
                     1: begin rs_reg <= 1; data_reg <= string_numbers[5]; counter_data <= 2; end
@@ -318,11 +321,11 @@ always @(posedge clk_16ms) begin
                 counter <= counter + 1;
                 case(counter_data)
                     0: begin rs_reg <= 0; data_reg <= initial_lcd_address[FOOD_VALUE]; counter_data <= 1; end
-                    1: begin rs_reg <= 1; data_reg <= string_numbers[food_value]; counter_data <= 2; end
+                    1: begin rs_reg <= 1; data_reg <= string_numbers[food_value]; counter_data <= 2; actual_value <= string_numbers[food_value];end
                     2: begin rs_reg <= 0; data_reg <= initial_lcd_address[JOY_VALUE]; counter_data <= 3; end
-                    3: begin rs_reg <= 1; data_reg <= string_numbers[joy_value]; counter_data <= 4; end
+                    3: begin rs_reg <= 1; data_reg <= string_numbers[joy_value]; counter_data <= 4; actual_value <= string_numbers[joy_value]; end
                     4: begin rs_reg <= 0; data_reg <= initial_lcd_address[ENERGY_VALUE]; counter_data <= 5; end
-                    5: begin counter <= 0; rs_reg <= 1; data_reg <= string_numbers[energy_value]; counter_data <= 0; values_executed <= 1; end
+                    5: begin counter <= 0; rs_reg <= 1; data_reg <= string_numbers[energy_value]; counter_data <= 0; values_executed <= 1; actual_value <= string_numbers[energy_value]; end
                     default: counter_data <= 0;
                 endcase
             end

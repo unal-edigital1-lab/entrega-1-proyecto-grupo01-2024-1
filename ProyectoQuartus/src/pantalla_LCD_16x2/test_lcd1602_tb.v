@@ -1,5 +1,5 @@
-`timescale 1ns / 1ps
-`include "test_lcd1602.v"
+//`timescale 1ns / 1ps
+//`include "test_lcd1602.v"
 
 module TEST_tb;
 

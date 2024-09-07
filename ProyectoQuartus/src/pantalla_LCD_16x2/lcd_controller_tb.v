@@ -1,5 +1,5 @@
-`timescale 1ns / 1ps
-`include "lcd1602_controller.v"
+//`timescale 1ns / 1ps
+//`include "lcd1602_controller.v"
 
 
 module LCD1602_CONTROLLER_tb;
