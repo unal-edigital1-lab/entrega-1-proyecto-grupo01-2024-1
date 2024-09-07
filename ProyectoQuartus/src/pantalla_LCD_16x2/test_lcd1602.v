@@ -65,6 +65,7 @@ module test_lcd1602 #(parameter COUNT_MAX = 800000) (
             7: begin face <= 6; counter <= counter + 1; end
             8: begin face <= 7; counter <= counter + 1; end
             9: begin face <= 8; counter <= counter + 1; end
+				/*
             10: begin feed_value <= 0; counter <= counter + 1; end
             11: begin feed_value <= 1; counter <= counter + 1; end
             12: begin feed_value <= 2; counter <= counter + 1; end
@@ -84,6 +85,7 @@ module test_lcd1602 #(parameter COUNT_MAX = 800000) (
             26: begin energy_value <= 4; counter <= counter + 1; end
             27: begin energy_value <= 5; counter <= counter + 1; end
             28: begin counter <= 0; end
+				*/
             default: counter <= 0;
         endcase
     end
