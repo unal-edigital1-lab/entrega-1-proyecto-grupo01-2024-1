@@ -1,14 +1,14 @@
-Fitter Status : Successful - Sat Sep  7 13:21:26 2024
+Fitter Status : Successful - Sat Sep  7 13:31:49 2024
 Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 Revision Name : Tamagotchi
 Top-level Entity Name : test_lcd1602
 Family : Cyclone IV E
 Device : EP4CE6E22C8
 Timing Models : Final
-Total logic elements : 516 / 6,272 ( 8 % )
-    Total combinational functions : 511 / 6,272 ( 8 % )
-    Dedicated logic registers : 164 / 6,272 ( 3 % )
-Total registers : 164
+Total logic elements : 527 / 6,272 ( 8 % )
+    Total combinational functions : 521 / 6,272 ( 8 % )
+    Dedicated logic registers : 166 / 6,272 ( 3 % )
+Total registers : 166
 Total pins : 13 / 92 ( 14 % )
 Total virtual pins : 0
 Total memory bits : 0 / 276,480 ( 0 % )

@@ -135,7 +135,7 @@ reg start_painting_cara = 1'b0;
 reg [$clog2(NUM_FACES) - 1: 0] num_cust_char = 0;
 wire rs_caras;
 wire rw_wire;
-wire [5:0] data_caras;
+wire [7:0] data_caras;
 wire lcd_available_cara;
 
 // Instancia de lcd1602_cust_char
@@ -344,6 +344,6 @@ assign enable = clk_16ms;
 assign rw = 0;
 assign rs = (painting_caras)?  rs_caras : rs_reg;
 assign data = (painting_caras)?  data_caras: data_reg;
-assign painting_caras = (reset ? 0 : (fsm_state == PAINT_CARA || fsm_state == INITIAL_PAINT_CARA)? 1 : 0);
+assign painting_caras = ((reset ==0)? 0 : (fsm_state == PAINT_CARA || fsm_state == INITIAL_PAINT_CARA)? 1 : 0);
 
 endmodule
