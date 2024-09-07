@@ -2,148 +2,148 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
+Type  : Slow 1200mV 85C Model Setup 'LCD1602_CONTROLLER:inst_lcd1602_controller|clk_16ms'
+Slack : -6.122
+TNS   : -253.161
+
 Type  : Slow 1200mV 85C Model Setup 'clk'
-Slack : -52.949
-TNS   : -2001.307
+Slack : -4.108
+TNS   : -203.004
 
-Type  : Slow 1200mV 85C Model Setup 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
-Slack : -6.473
-TNS   : -261.609
+Type  : Slow 1200mV 85C Model Setup 'DivisorReloj:inst_clk_16ms|clkr'
+Slack : -2.934
+TNS   : -16.311
 
-Type  : Slow 1200mV 85C Model Setup 'Boton_AR:BotonFeed|boton_out'
-Slack : -5.478
-TNS   : -41.014
+Type  : Slow 1200mV 85C Model Setup 'DivisorReloj:inst_clk_paint|clkr'
+Slack : -2.230
+TNS   : -31.817
 
-Type  : Slow 1200mV 85C Model Hold 'Boton_AR:BotonFeed|boton_out'
-Slack : -0.002
-TNS   : -0.002
-
-Type  : Slow 1200mV 85C Model Hold 'clk'
-Slack : 0.321
-TNS   : 0.000
-
-Type  : Slow 1200mV 85C Model Hold 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Type  : Slow 1200mV 85C Model Hold 'LCD1602_CONTROLLER:inst_lcd1602_controller|clk_16ms'
 Slack : 0.453
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Recovery 'clk'
-Slack : -2.273
-TNS   : -317.976
+Type  : Slow 1200mV 85C Model Hold 'clk'
+Slack : 0.453
+TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Removal 'clk'
-Slack : -0.134
-TNS   : -6.204
+Type  : Slow 1200mV 85C Model Hold 'DivisorReloj:inst_clk_paint|clkr'
+Slack : 0.454
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'DivisorReloj:inst_clk_16ms|clkr'
+Slack : 0.492
+TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -655.793
+TNS   : -144.265
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'rst'
-Slack : -3.000
-TNS   : -3.000
-
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'LCD1602_CONTROLLER:inst_lcd1602_controller|clk_16ms'
 Slack : -1.487
-TNS   : -126.395
+TNS   : -120.447
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'Boton_AR:BotonFeed|boton_out'
-Slack : 0.272
-TNS   : 0.000
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'DivisorReloj:inst_clk_paint|clkr'
+Slack : -1.487
+TNS   : -26.766
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'DivisorReloj:inst_clk_16ms|clkr'
+Slack : -1.487
+TNS   : -11.896
+
+Type  : Slow 1200mV 0C Model Setup 'LCD1602_CONTROLLER:inst_lcd1602_controller|clk_16ms'
+Slack : -5.596
+TNS   : -232.908
 
 Type  : Slow 1200mV 0C Model Setup 'clk'
-Slack : -48.228
-TNS   : -1842.023
+Slack : -3.871
+TNS   : -182.342
 
-Type  : Slow 1200mV 0C Model Setup 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
-Slack : -5.955
-TNS   : -241.122
+Type  : Slow 1200mV 0C Model Setup 'DivisorReloj:inst_clk_16ms|clkr'
+Slack : -2.726
+TNS   : -14.808
 
-Type  : Slow 1200mV 0C Model Setup 'Boton_AR:BotonFeed|boton_out'
-Slack : -5.248
-TNS   : -39.361
+Type  : Slow 1200mV 0C Model Setup 'DivisorReloj:inst_clk_paint|clkr'
+Slack : -2.090
+TNS   : -28.857
 
-Type  : Slow 1200mV 0C Model Hold 'Boton_AR:BotonFeed|boton_out'
-Slack : 0.019
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Hold 'clk'
-Slack : 0.306
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Hold 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Type  : Slow 1200mV 0C Model Hold 'LCD1602_CONTROLLER:inst_lcd1602_controller|clk_16ms'
 Slack : 0.401
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Recovery 'clk'
-Slack : -1.943
-TNS   : -266.704
+Type  : Slow 1200mV 0C Model Hold 'clk'
+Slack : 0.401
+TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Removal 'clk'
-Slack : -0.128
-TNS   : -5.982
+Type  : Slow 1200mV 0C Model Hold 'DivisorReloj:inst_clk_paint|clkr'
+Slack : 0.402
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'DivisorReloj:inst_clk_16ms|clkr'
+Slack : 0.454
+TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -655.793
+TNS   : -144.265
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'rst'
-Slack : -3.000
-TNS   : -3.000
-
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'LCD1602_CONTROLLER:inst_lcd1602_controller|clk_16ms'
 Slack : -1.487
-TNS   : -126.395
+TNS   : -120.447
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'Boton_AR:BotonFeed|boton_out'
-Slack : 0.204
-TNS   : 0.000
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'DivisorReloj:inst_clk_paint|clkr'
+Slack : -1.487
+TNS   : -26.766
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'DivisorReloj:inst_clk_16ms|clkr'
+Slack : -1.487
+TNS   : -11.896
+
+Type  : Fast 1200mV 0C Model Setup 'LCD1602_CONTROLLER:inst_lcd1602_controller|clk_16ms'
+Slack : -2.081
+TNS   : -66.361
 
 Type  : Fast 1200mV 0C Model Setup 'clk'
-Slack : -22.040
-TNS   : -658.282
+Slack : -1.272
+TNS   : -37.525
 
-Type  : Fast 1200mV 0C Model Setup 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
-Slack : -2.227
-TNS   : -70.396
+Type  : Fast 1200mV 0C Model Setup 'DivisorReloj:inst_clk_16ms|clkr'
+Slack : -0.624
+TNS   : -2.150
 
-Type  : Fast 1200mV 0C Model Setup 'Boton_AR:BotonFeed|boton_out'
-Slack : -1.797
-TNS   : -12.085
+Type  : Fast 1200mV 0C Model Setup 'DivisorReloj:inst_clk_paint|clkr'
+Slack : -0.406
+TNS   : -4.369
 
-Type  : Fast 1200mV 0C Model Hold 'Boton_AR:BotonFeed|boton_out'
-Slack : -0.069
-TNS   : -0.122
-
-Type  : Fast 1200mV 0C Model Hold 'clk'
-Slack : 0.078
-TNS   : 0.000
-
-Type  : Fast 1200mV 0C Model Hold 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Type  : Fast 1200mV 0C Model Hold 'LCD1602_CONTROLLER:inst_lcd1602_controller|clk_16ms'
 Slack : 0.186
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Recovery 'clk'
-Slack : -0.521
-TNS   : -56.972
+Type  : Fast 1200mV 0C Model Hold 'clk'
+Slack : 0.186
+TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Removal 'clk'
-Slack : -0.081
-TNS   : -3.928
+Type  : Fast 1200mV 0C Model Hold 'DivisorReloj:inst_clk_paint|clkr'
+Slack : 0.188
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'DivisorReloj:inst_clk_16ms|clkr'
+Slack : 0.197
+TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -472.922
+TNS   : -104.212
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'rst'
-Slack : -3.000
-TNS   : -3.000
-
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'LCD1602_CONTROLLER:InstLCD|clk_16ms'
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'LCD1602_CONTROLLER:inst_lcd1602_controller|clk_16ms'
 Slack : -1.000
-TNS   : -85.000
+TNS   : -81.000
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'Boton_AR:BotonFeed|boton_out'
-Slack : 0.381
-TNS   : 0.000
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'DivisorReloj:inst_clk_paint|clkr'
+Slack : -1.000
+TNS   : -18.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'DivisorReloj:inst_clk_16ms|clkr'
+Slack : -1.000
+TNS   : -8.000
 
 ------------------------------------------------------------

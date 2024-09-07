@@ -129,7 +129,7 @@ LCD1602_CONTROLLER InstLCD(
     .clk(clk),   
     .reset(reset),
     .face(face_),   
-    .feed_value(hunger_),
+    .food_value(hunger_),
     .joy_value(entertainment_),
     .energy_value(energy_),
     .rs(rs_),  
