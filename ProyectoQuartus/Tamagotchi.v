@@ -125,6 +125,8 @@ ultrasonido InstUS(
     .trigger(TRIGGER)
 );
 
+///////////////////////// VISUALIZACIÓN ///////////////////////////
+
 LCD1602_CONTROLLER InstLCD(
     .clk(clk),   
     .reset(reset),
@@ -138,8 +140,6 @@ LCD1602_CONTROLLER InstLCD(
     .data(data_)
 );
 
-
-///////////////////////// VISUALIZACIÓN ///////////////////////////
 BCDtoSSeg InstSsegState(
 
 	.BCD(face_),

@@ -273,7 +273,8 @@ always @(posedge clk_16ms) begin
             end
             INITIAL_PAINT_TEXT:begin   
                 case(counter_data)
-                    0: begin rs_reg <= 0; data_reg <= SHIFT_CURSOR_RIGHT; counter_data <= 1; end
+                    //0: begin rs_reg <= 0; data_reg <= SHIFT_CURSOR_RIGHT; counter_data <= 1; end
+                    0: begin rs_reg <= 0; data_reg <= 0; counter_data <= 1; end
                     1: begin rs_reg <= 0; data_reg <= initial_lcd_address[FEED_TEXT]; counter_data <= 2; end
                     2: begin rs_reg <= 1; data_reg <= string_food[0]; counter_data <= 3; end
                     3: begin rs_reg <= 1; data_reg <= string_food[1]; counter_data <= 4; end
