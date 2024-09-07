@@ -17,7 +17,7 @@ module checker_tb;
     wire change;
 
     // Instancia del UUT
-    checker #(.max_value(MAX_VALUE)) uut (
+    checker #(.PERIOD_COUNT(MAX_VALUE)) uut (
         .clk(clk),
         .reset(reset),
         .the_signal(the_signal),

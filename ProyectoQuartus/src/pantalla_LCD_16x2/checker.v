@@ -1,4 +1,4 @@
-module checker #(parameter MAX_VALUE = 5, COUNT_MAX = 20, RESET_VALUE = 5)(
+module checker #(parameter MAX_VALUE = 5, PERIOD_COUNT = 25e6, RESET_VALUE = 5)(
     input wire clk,
     input wire reset,
     input [$clog2(MAX_VALUE)-1:0] the_signal,
@@ -8,7 +8,7 @@ module checker #(parameter MAX_VALUE = 5, COUNT_MAX = 20, RESET_VALUE = 5)(
 reg [$clog2(MAX_VALUE)-1:0] previus_value = 0;
 reg [$clog2(MAX_VALUE)-1:0] actual_value = 0;
 
-reg [$clog2(COUNT_MAX)-1:0] count = 0;
+reg [$clog2(PERIOD_COUNT)-1:0] count = 0;
 reg change_detected = 0;
 reg back_to_idle = 0;
 
@@ -69,7 +69,7 @@ always @(posedge clk) begin
                end
             end
             CHANGED: begin
-                if(count == COUNT_MAX) begin
+                if(count == PERIOD_COUNT) begin
                     count <= 0;
                     back_to_idle <= 1;
                 end else begin
