@@ -83,9 +83,10 @@ set_location_assignment PIN_126 -to sseg[1]
 set_location_assignment PIN_127 -to sseg[0]
 set_location_assignment PIN_68 -to Giro
 set_location_assignment PIN_58 -to BAwake
-set_location_assignment PIN_32 -to BFeed
-set_location_assignment PIN_34 -to BPlay
-set_location_assignment PIN_59 -to BSleep
+set_location_assignment PIN_30 -to BFeed
+set_location_assignment PIN_32 -to BPlay
+set_location_assignment PIN_34 -to BSleep
+set_global_assignment -name VERILOG_FILE ../../Lab3/Entrega_3/display.v
 set_global_assignment -name VERILOG_FILE ../../Lab3/Entrega_1/BCDtoSSeg.v
 set_global_assignment -name VERILOG_FILE src/pantalla_LCD_16x2/lcd1602_cust_char.v
 set_global_assignment -name VERILOG_FILE src/Sensores/microfono/mic.v
@@ -97,6 +98,7 @@ set_global_assignment -name VERILOG_FILE src/Botones/bttnReset.v
 set_global_assignment -name VERILOG_FILE src/Botones/Boton.v
 set_global_assignment -name VERILOG_FILE Tamagotchi.v
 set_global_assignment -name VERILOG_FILE src/Botones/Boton_AR.v
+set_location_assignment PIN_83 -to boton_out
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top

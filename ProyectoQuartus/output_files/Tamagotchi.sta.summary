@@ -2,160 +2,112 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow 1200mV 85C Model Setup 'FSM_Central:InstFSM|clkms'
-Slack : -6.032
-TNS   : -256.367
-
 Type  : Slow 1200mV 85C Model Setup 'BAwake'
-Slack : -5.680
-TNS   : -19.883
+Slack : -8.458
+TNS   : -25.324
 
 Type  : Slow 1200mV 85C Model Setup 'clk'
-Slack : -4.183
-TNS   : -454.674
+Slack : -5.679
+TNS   : -977.655
 
 Type  : Slow 1200mV 85C Model Hold 'BAwake'
-Slack : 0.175
-TNS   : 0.000
+Slack : -0.621
+TNS   : -1.180
 
 Type  : Slow 1200mV 85C Model Hold 'clk'
-Slack : 0.454
+Slack : 0.351
 TNS   : 0.000
-
-Type  : Slow 1200mV 85C Model Hold 'FSM_Central:InstFSM|clkms'
-Slack : 0.475
-TNS   : 0.000
-
-Type  : Slow 1200mV 85C Model Recovery 'FSM_Central:InstFSM|clkms'
-Slack : -2.327
-TNS   : -33.789
 
 Type  : Slow 1200mV 85C Model Recovery 'clk'
-Slack : -1.306
-TNS   : -29.932
-
-Type  : Slow 1200mV 85C Model Removal 'FSM_Central:InstFSM|clkms'
-Slack : 0.457
-TNS   : 0.000
+Slack : -1.715
+TNS   : -100.409
 
 Type  : Slow 1200mV 85C Model Removal 'clk'
-Slack : 0.662
-TNS   : 0.000
+Slack : -0.575
+TNS   : -6.966
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -276.608
+TNS   : -407.464
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'BAwake'
 Slack : -3.000
 TNS   : -3.000
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'FSM_Central:InstFSM|clkms'
-Slack : -1.487
-TNS   : -93.681
-
-Type  : Slow 1200mV 0C Model Setup 'FSM_Central:InstFSM|clkms'
-Slack : -5.537
-TNS   : -234.300
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'rst'
+Slack : -3.000
+TNS   : -3.000
 
 Type  : Slow 1200mV 0C Model Setup 'BAwake'
-Slack : -5.355
-TNS   : -18.892
+Slack : -8.455
+TNS   : -25.302
 
 Type  : Slow 1200mV 0C Model Setup 'clk'
-Slack : -3.884
-TNS   : -405.646
+Slack : -5.343
+TNS   : -894.186
 
 Type  : Slow 1200mV 0C Model Hold 'BAwake'
-Slack : 0.109
-TNS   : 0.000
+Slack : -0.566
+TNS   : -1.069
 
 Type  : Slow 1200mV 0C Model Hold 'clk'
-Slack : 0.402
+Slack : 0.340
 TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Hold 'FSM_Central:InstFSM|clkms'
-Slack : 0.429
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Recovery 'FSM_Central:InstFSM|clkms'
-Slack : -2.027
-TNS   : -25.604
 
 Type  : Slow 1200mV 0C Model Recovery 'clk'
-Slack : -1.127
-TNS   : -25.564
-
-Type  : Slow 1200mV 0C Model Removal 'FSM_Central:InstFSM|clkms'
-Slack : 0.356
-TNS   : 0.000
+Slack : -1.524
+TNS   : -84.043
 
 Type  : Slow 1200mV 0C Model Removal 'clk'
-Slack : 0.591
-TNS   : 0.000
+Slack : -0.529
+TNS   : -6.713
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -276.608
+TNS   : -407.464
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'BAwake'
 Slack : -3.000
+TNS   : -3.165
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'rst'
+Slack : -3.000
 TNS   : -3.000
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'FSM_Central:InstFSM|clkms'
-Slack : -1.487
-TNS   : -93.681
-
-Type  : Fast 1200mV 0C Model Setup 'FSM_Central:InstFSM|clkms'
-Slack : -2.020
-TNS   : -74.690
-
 Type  : Fast 1200mV 0C Model Setup 'BAwake'
-Slack : -1.728
-TNS   : -6.165
+Slack : -3.205
+TNS   : -8.338
 
 Type  : Fast 1200mV 0C Model Setup 'clk'
-Slack : -1.271
-TNS   : -94.563
+Slack : -2.645
+TNS   : -302.286
 
 Type  : Fast 1200mV 0C Model Hold 'BAwake'
-Slack : -0.152
-TNS   : -0.152
-
-Type  : Fast 1200mV 0C Model Hold 'FSM_Central:InstFSM|clkms'
-Slack : 0.137
-TNS   : 0.000
+Slack : -0.545
+TNS   : -1.125
 
 Type  : Fast 1200mV 0C Model Hold 'clk'
-Slack : 0.186
+Slack : 0.091
 TNS   : 0.000
-
-Type  : Fast 1200mV 0C Model Recovery 'FSM_Central:InstFSM|clkms'
-Slack : -0.608
-TNS   : -4.497
 
 Type  : Fast 1200mV 0C Model Recovery 'clk'
-Slack : -0.076
-TNS   : -0.966
-
-Type  : Fast 1200mV 0C Model Removal 'FSM_Central:InstFSM|clkms'
-Slack : 0.220
-TNS   : 0.000
+Slack : -0.293
+TNS   : -6.561
 
 Type  : Fast 1200mV 0C Model Removal 'clk'
-Slack : 0.308
-TNS   : 0.000
+Slack : -0.328
+TNS   : -4.368
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clk'
 Slack : -3.000
-TNS   : -198.749
+TNS   : -293.996
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'BAwake'
 Slack : -3.000
-TNS   : -3.000
+TNS   : -5.705
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'FSM_Central:InstFSM|clkms'
-Slack : -1.000
-TNS   : -63.000
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'rst'
+Slack : -3.000
+TNS   : -3.000
 
 ------------------------------------------------------------
