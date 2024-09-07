@@ -68,8 +68,8 @@ initial begin
    data <= 'b0;
    rw <= 0;
    rs <= 0;
-	$readmemb({"/home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/ProyectoQuartus/src/pantalla_LCD_16x2/", path_file}, data_memory);
-   //$readmemb({"C:/Users/Maria Alejandra/Documents/ElectronicaDigital/TAMAGOCHI/QUARTUS/QuartusLCD/TXT/", path_file}, data_memory);
+   //$readmemb({"/home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/ProyectoQuartus/src/pantalla_LCD_16x2/", path_file}, data_memory);
+   $readmemb({"C:/Users/Maria Alejandra/Documents/ElectronicaDigital/TAMAGOCHI/QUARTUS/QuartusLCD/TXT/", path_file}, data_memory);
 
    // Direcciones de escritura de la CGRAM 
    cgram_addrs[0] = 8'h40;

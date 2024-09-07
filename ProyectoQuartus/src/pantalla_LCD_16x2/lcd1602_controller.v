@@ -15,12 +15,11 @@ module LCD1602_CONTROLLER #(parameter MAX_VALUE = 5, NUM_FACES = 9, COUNT_MAX = 
 );
 
 reg [10: 0] counter = 0;
-reg [$clog2(MAX_VALUE)-1:0] actual_value = 0;
+reg [7:0] actual_value = 0;
 reg rs_reg = 0;
 reg [7:0] data_reg = 0;
 
 // Comandos de configuración
-localparam num_config_commands = 4;
 localparam CLEAR_DISPLAY = 8'h01;
 localparam SHIFT_CURSOR_RIGHT = 8'h06;
 localparam DISPON_CURSOROFF = 8'h0C;
@@ -32,12 +31,14 @@ localparam LINES1_MATRIX5x8_MODE4bit = 8'h20;
 localparam START_2LINE = 8'hC0;
 
 // Contadores
-reg [$clog2(num_config_commands):0] config_command_counter  = 0;// Contador para controlar el envío de comandos
 reg [$clog2(16):0] counter_data = 0; // Contador para controlar el envío de datos
 
 
-// Banco de registros
+// CONFIGURACION
+localparam num_config_commands = 4;
+reg [$clog2(num_config_commands):0] config_command_counter  = 0;// Contador para controlar el envío de comandos
 reg [7:0] config_memory [0: num_config_commands-1]; 
+
 
 // Divisor de frecuencia
 reg clk_16ms = 0;
@@ -132,7 +133,7 @@ end
 
 // Inputs/ Outputs de lcd1602_cust_char para las caras
 reg start_painting_cara = 1'b0;
-reg [$clog2(NUM_FACES) - 1: 0] num_cust_char = 0;
+reg [$clog2(NUM_FACES) - 1: 0] num_cust_char_cara = 0;
 wire rs_caras;
 wire rw_wire;
 wire [7:0] data_caras;
@@ -144,7 +145,7 @@ lcd1602_cust_char #(
 ) lcd_caras (
     .clk(clk),
     .reset(reset),
-    .num_cust_char(num_cust_char),
+    .num_cust_char(num_cust_char_cara),
     .start_painting(start_painting_cara),
     .lcd_available(lcd_available_cara),
     .rs(rs_caras),
@@ -217,7 +218,14 @@ end
 // Asignar el estado inicial
 always @(posedge clk_16ms) begin
     if (reset == 0) begin
-        config_command_counter <= 'b0;
+        init_config_executed <= 0;
+        initial_paint_text_done <= 0;
+        initial_paint_values_done <= 0;
+        initial_paint_cara_done <= 0;
+        carita_executed <= 0;
+        values_executed <= 0;
+        set_task <= 0;
+        num_cust_char_cara <= 0;
         counter_data <= 'b0;
 		data_reg <= 'b0;
         rs_reg <= 'b0;
@@ -231,7 +239,7 @@ always @(posedge clk_16ms) begin
                 carita_executed <= 0;
                 values_executed <= 0;
                 set_task <= 0;
-                config_command_counter <= 'b0;
+                num_cust_char_cara <= 0;
                 counter_data <= 'b0;
                 data_reg <= 'b0;
                 rs_reg <= 'b0;
@@ -248,7 +256,7 @@ always @(posedge clk_16ms) begin
             INITIAL_PAINT_CARA:begin
                 case(set_task)
                     SENT_CARITA: begin
-                        num_cust_char <= 0;
+                        num_cust_char_cara <= 0;
                         set_task <= START_PAINT;
                     end
                     START_PAINT: begin
@@ -265,7 +273,7 @@ always @(posedge clk_16ms) begin
             end
             INITIAL_PAINT_TEXT:begin   
                 case(counter_data)
-                    0: begin rs_reg <= 0; data_reg <= 0; counter_data <= 1; end
+                    0: begin rs_reg <= 0; data_reg <= SHIFT_CURSOR_RIGHT; counter_data <= 1; end
                     1: begin rs_reg <= 0; data_reg <= initial_lcd_address[FEED_TEXT]; counter_data <= 2; end
                     2: begin rs_reg <= 1; data_reg <= string_food[0]; counter_data <= 3; end
                     3: begin rs_reg <= 1; data_reg <= string_food[1]; counter_data <= 4; end
@@ -298,11 +306,17 @@ always @(posedge clk_16ms) begin
                     default: counter_data <= 0;
                 endcase
             end
+            CHECK_UPDATES: begin
+                carita_executed <= 0;
+                values_executed <= 0;
+                data_reg <= 0;
+                rs_reg <= 0;
+            end
             PAINT_CARA:begin
                 counter <= counter + 1;
                 case(set_task)
                     SENT_CARITA: begin
-                        num_cust_char <= face;
+                        num_cust_char_cara <= face;
                         set_task <= START_PAINT;
                     end
                     START_PAINT: begin
@@ -329,21 +343,16 @@ always @(posedge clk_16ms) begin
                     default: counter_data <= 0;
                 endcase
             end
-            CHECK_UPDATES: begin
-                carita_executed <= 0;
-                values_executed <= 0;
-                data_reg <= 0;
-                rs_reg <= 0;
-            end
+
         endcase
     end
 end
 
-
+assign painting_caras = ((reset==0) ? 0 : (fsm_state == PAINT_CARA || fsm_state == INITIAL_PAINT_CARA)? 1 : 0);
 assign enable = clk_16ms;
 assign rw = 0;
 assign rs = (painting_caras)?  rs_caras : rs_reg;
 assign data = (painting_caras)?  data_caras: data_reg;
-assign painting_caras = ((reset ==0)? 0 : (fsm_state == PAINT_CARA || fsm_state == INITIAL_PAINT_CARA)? 1 : 0);
+
 
 endmodule

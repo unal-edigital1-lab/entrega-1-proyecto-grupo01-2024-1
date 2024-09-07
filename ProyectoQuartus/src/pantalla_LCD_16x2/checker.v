@@ -1,4 +1,4 @@
-module checker #(parameter MAX_VALUE = 5, COUNT_MAX = 20)(
+module checker #(parameter MAX_VALUE = 5, COUNT_MAX = 20, RESET_VALUE = 5)(
     input wire clk,
     input wire reset,
     input [$clog2(MAX_VALUE)-1:0] the_signal,
@@ -52,8 +52,8 @@ end
 
 always @(posedge clk) begin
     if (reset == 0) begin
-        actual_value <= 0;
-        previus_value <= 0;
+        actual_value <= RESET_VALUE;
+        previus_value <= RESET_VALUE;
         change_detected <= 0;
     end else begin
         case(next)

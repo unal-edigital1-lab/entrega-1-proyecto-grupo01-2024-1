@@ -12,31 +12,29 @@ module task_manager #(parameter MAX_VALUE_STATISTICS = 5, NUM_FACES = 9)(
 );
 
 
-wire Hunger_change;
+wire food_change;
 wire Joy_change;
 wire Energy_change;
-wire state_change;
+wire face_change;
 
-reg new_update_reg = 0;
-
-assign new_update = (state_change | Hunger_change | Joy_change | Energy_change);
+assign new_update = (reset == 0) ? 0 : (face_change | food_change | Joy_change | Energy_change);
 
 
-checker #(.MAX_VALUE(MAX_VALUE_STATISTICS)) Hunger_checker (
+checker #(.MAX_VALUE(MAX_VALUE_STATISTICS), .RESET_VALUE(5)) Hunger_checker (
     .clk(clk),
     .reset(reset),
     .the_signal(Hunger),
-    .change(Hunger_change)
+    .change(food_change)
 );
 
-checker #(.MAX_VALUE(MAX_VALUE_STATISTICS)) Entertainment_checker (
+checker #(.MAX_VALUE(MAX_VALUE_STATISTICS), .RESET_VALUE(5)) Entertainment_checker (
     .clk(clk),
     .reset(reset),
     .the_signal(Joy),
     .change(Joy_change)
 );
 
-checker #(.MAX_VALUE(MAX_VALUE_STATISTICS)) Energy_checker (
+checker #(.MAX_VALUE(MAX_VALUE_STATISTICS), .RESET_VALUE(5)) Energy_checker (
     .clk(clk),
     .reset(reset),
     .the_signal(Energy),
@@ -44,11 +42,11 @@ checker #(.MAX_VALUE(MAX_VALUE_STATISTICS)) Energy_checker (
 );
 
 
-checker #(.MAX_VALUE(NUM_FACES)) state_checker (
+checker #(.MAX_VALUE(NUM_FACES), .RESET_VALUE(0)) state_checker (
     .clk(clk),
     .reset(reset),
     .the_signal(face),
-    .change(state_change)
+    .change(face_change)
 );
 
 endmodule

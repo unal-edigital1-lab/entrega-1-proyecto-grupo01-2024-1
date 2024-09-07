@@ -8,9 +8,9 @@ module LCD1602_CONTROLLER_tb;
     reg clk;
     reg reset;
     reg [$clog2(9)-1:0] face;
-    reg [$clog2(5):0] feed_value;
-    reg [$clog2(5):0] joy_value;
-    reg [$clog2(5):0] energy_value;
+    reg [$clog2(5)-1:0] feed_value;
+    reg [$clog2(5)-1:0] joy_value;
+    reg [$clog2(5)-1:0] energy_value;
     wire rs;
     wire rw;
     wire enable;
@@ -19,14 +19,13 @@ module LCD1602_CONTROLLER_tb;
     // Instantiate the LCD1602_TEXT module
     LCD1602_CONTROLLER #(
         .MAX_VALUE(5),
-        .num_config_commands(4),
         .NUM_FACES(9),
         .COUNT_MAX(8)
     ) uut (
         .clk(clk),
         .reset(reset),
         .face(face),
-        .feed_value(feed_value),
+        .food_value(feed_value),
         .joy_value(joy_value),
         .energy_value(energy_value),
         .rs(rs),
@@ -43,9 +42,9 @@ module LCD1602_CONTROLLER_tb;
         clk = 0;
         reset = 0;
         face = 0;
-        feed_value = 0;
-        joy_value = 0;
-        energy_value = 0;
+        feed_value = 5;
+        joy_value = 5;
+        energy_value = 5;
 
         // Apply reset
         reset = 0;
@@ -56,17 +55,23 @@ module LCD1602_CONTROLLER_tb;
 
         // Set face and values
         #20 face = 3;
-        #20 feed_value = 2;
-        #20 joy_value = 4;
-        #20 energy_value = 1;
+        #20 feed_value = 0;
+        #20 joy_value = 1;
+        #20 energy_value = 2;
 
         // Wait for some time to observe the behavior
         #(2e4);
 
+        #(1e3) reset = 0;
+        #(10) begin face = 0; feed_value = 5; joy_value = 5; energy_value = 5; end
+        #(1e3) reset = 1;
+        #(6e4);
+
         // Change values
+        #20 face = 4;
         #20 feed_value = 5;
-        #20 joy_value = 3;
-        #20 energy_value = 2;
+        #20 joy_value = 5;
+        #20 energy_value = 5;
 
         // Wait for some time to observe the behavior
         #(2e4);
