@@ -1,4 +1,4 @@
-`include "lcd1602_cust_char.v"
+//`include "lcd1602_cust_char.v"
 
 module LCD1602_CONTROLLER #(parameter MAX_VALUE = 5, num_config_commands = 4, NUM_FACES = 9, COUNT_MAX = 800000)(
     input clk,   

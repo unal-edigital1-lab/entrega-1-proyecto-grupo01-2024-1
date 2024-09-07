@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE6E22C8
-set_global_assignment -name TOP_LEVEL_ENTITY Tamagotchi
+set_global_assignment -name TOP_LEVEL_ENTITY test_lcd1602
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 23.1STD.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "05:49:37  AGOSTO 22, 2024"
 set_global_assignment -name LAST_QUARTUS_VERSION "23.1std.0 Lite Edition"
@@ -86,6 +86,10 @@ set_location_assignment PIN_58 -to BAwake
 set_location_assignment PIN_30 -to BFeed
 set_location_assignment PIN_32 -to BPlay
 set_location_assignment PIN_34 -to BSleep
+set_location_assignment PIN_83 -to boton_out
+set_global_assignment -name VERILOG_FILE src/pantalla_LCD_16x2/test_lcd1602.v
+set_global_assignment -name VERILOG_FILE src/pantalla_LCD_16x2/lcd1602_controller.v
+set_global_assignment -name VERILOG_FILE src/pantalla_LCD_16x2/DivisorReloj.v
 set_global_assignment -name VERILOG_FILE ../../Lab3/Entrega_3/display.v
 set_global_assignment -name VERILOG_FILE ../../Lab3/Entrega_1/BCDtoSSeg.v
 set_global_assignment -name VERILOG_FILE src/pantalla_LCD_16x2/lcd1602_cust_char.v
@@ -98,8 +102,27 @@ set_global_assignment -name VERILOG_FILE src/Botones/bttnReset.v
 set_global_assignment -name VERILOG_FILE src/Botones/Boton.v
 set_global_assignment -name VERILOG_FILE Tamagotchi.v
 set_global_assignment -name VERILOG_FILE src/Botones/Boton_AR.v
-set_location_assignment PIN_83 -to boton_out
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_112 -to data[7]
+set_location_assignment PIN_111 -to data[6]
+set_location_assignment PIN_110 -to data[5]
+set_location_assignment PIN_106 -to data[4]
+set_location_assignment PIN_105 -to data[3]
+set_location_assignment PIN_104 -to data[2]
+set_location_assignment PIN_103 -to data[1]
+set_location_assignment PIN_101 -to data[0]
+set_location_assignment PIN_100 -to enable
+set_location_assignment PIN_66 -to reset
+set_location_assignment PIN_85 -to rs
+set_location_assignment PIN_99 -to rw
+set_global_assignment -name ENABLE_OCT_DONE OFF
+set_global_assignment -name USE_CONFIGURATION_DEVICE OFF
+set_global_assignment -name CRC_ERROR_OPEN_DRAIN OFF
+set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
