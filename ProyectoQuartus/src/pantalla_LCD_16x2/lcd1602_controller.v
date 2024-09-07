@@ -279,7 +279,7 @@ always @(posedge clk_16ms) begin
                     13: begin rs_reg <= 1; data_reg <= string_energy[3]; counter_data <= 14; end
                     14: begin rs_reg <= 1; data_reg <= string_energy[4]; counter_data <= 15; end
                     15: begin rs_reg <= 1; data_reg <= string_energy[5]; counter_data <= 16; end
-                    16: begin counter_data <= 0; initial_paint_text_done <= 1; end
+                    16: begin rs_reg <= 0; data_reg <= 0; counter_data <= 0; initial_paint_text_done <= 1; end
                     default: counter_data <= 0;
                 endcase
             end
