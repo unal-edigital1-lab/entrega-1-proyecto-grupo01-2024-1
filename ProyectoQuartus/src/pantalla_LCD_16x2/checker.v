@@ -1,4 +1,4 @@
-module checker #(parameter MAX_VALUE = 5, PERIOD_COUNT = 25e6, RESET_VALUE = 5)(
+module checker #(parameter MAX_VALUE = 5, PERIOD_COUNT = 25000000, RESET_VALUE = 5)(
     input wire clk,
     input wire reset,
     input [$clog2(MAX_VALUE)-1:0] the_signal,

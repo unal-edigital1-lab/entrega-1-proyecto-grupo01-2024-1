@@ -129,7 +129,7 @@ ultrasonido InstUS(
 
 LCD1602_CONTROLLER InstLCD(
     .clk(clk),   
-    .reset(reset),
+    .reset(~reset),
     .face(face_),   
     .food_value(hunger_),
     .joy_value(entertainment_),

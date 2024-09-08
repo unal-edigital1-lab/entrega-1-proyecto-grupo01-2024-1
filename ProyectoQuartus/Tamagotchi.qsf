@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE6E22C8
-set_global_assignment -name TOP_LEVEL_ENTITY test_lcd1602
+set_global_assignment -name TOP_LEVEL_ENTITY Tamagotchi
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 23.1STD.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "05:49:37  AGOSTO 22, 2024"
 set_global_assignment -name LAST_QUARTUS_VERSION "23.1std.0 Lite Edition"
@@ -86,18 +86,7 @@ set_location_assignment PIN_28 -to BAwake
 set_location_assignment PIN_30 -to BFeed
 set_location_assignment PIN_32 -to BPlay
 set_location_assignment PIN_34 -to BSleep
-set_location_assignment PIN_112 -to data[7]
-set_location_assignment PIN_111 -to data[6]
-set_location_assignment PIN_110 -to data[5]
-set_location_assignment PIN_106 -to data[4]
-set_location_assignment PIN_105 -to data[3]
-set_location_assignment PIN_104 -to data[2]
-set_location_assignment PIN_103 -to data[1]
-set_location_assignment PIN_101 -to data[0]
-set_location_assignment PIN_100 -to enable
 set_location_assignment PIN_58 -to reset
-set_location_assignment PIN_85 -to rs
-set_location_assignment PIN_99 -to rw
 set_global_assignment -name ENABLE_OCT_DONE OFF
 set_global_assignment -name USE_CONFIGURATION_DEVICE OFF
 set_global_assignment -name CRC_ERROR_OPEN_DRAIN OFF
@@ -106,6 +95,17 @@ set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_location_assignment PIN_112 -to data_[7]
+set_location_assignment PIN_111 -to data_[6]
+set_location_assignment PIN_110 -to data_[5]
+set_location_assignment PIN_106 -to data_[4]
+set_location_assignment PIN_105 -to data_[3]
+set_location_assignment PIN_104 -to data_[2]
+set_location_assignment PIN_103 -to data_[1]
+set_location_assignment PIN_101 -to data_[0]
+set_location_assignment PIN_100 -to enable_
+set_location_assignment PIN_85 -to rs_
+set_location_assignment PIN_99 -to rw_
 set_location_assignment PIN_141 -to BUZZER
 set_location_assignment PIN_31 -to TRIGGER
 set_location_assignment PIN_33 -to echoUS
