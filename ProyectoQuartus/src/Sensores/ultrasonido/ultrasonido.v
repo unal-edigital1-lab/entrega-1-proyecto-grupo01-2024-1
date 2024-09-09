@@ -8,28 +8,34 @@ module ultrasonido (
 );
 
 
+localparam V_SONIDO = 34300; // Velocidad del sonido en el aire a 20°C en metros por segundo
+localparam DIVISOR = 100;
 localparam DISTANCIA_MINIMA = 50; // Distancia mínima en centímetros (1 metro = 100 cm)
-//localparam T_CLK =  20 * 0.00000002; // Período del clock en usegundos (50 MHz) 2*10^-8
 localparam T_CLK =  2; // Período del clock en usegundos (50 kHz)
 
+//localparam T_CLK =  20 * 0.00000002; // Período del clock en usegundos (50 MHz) 2*10^-8
+//reg [15:0] distancia_cm;    // Distancia calculada en centímetros
+//distancia_cm <= (cuenta_echo+1) * T_CLK * (V_SONIDO/2); // multiplicado por 100 para convertir a centímetros
+// 50 --> 146000
+//100 --> 292000
+// 25 --> 73000
+// 10 --> 30000
+//450 --> 1314000
 
 reg [21:0] cuenta_echo;     // Contador para medir el tiempo de eco
 reg [21:0] max_echo;
-//reg [15:0] distancia_cm;    // Distancia calculada en centímetros
+reg [9:0] count;
+
+
+// FSM
 reg [3:0] estado, next_estado; 
-reg clk_out; // Estados actuales y próximos
-
-
-localparam V_SONIDO = 34300; // Velocidad del sonido en el aire a 20°C en metros por segundo
-localparam DIVISOR = 100;
-
-// Definición de la máquina de estados
+// Estados de la máquina de estados
 localparam IDLE = 3'd0;
 localparam START = 3'd1;
 localparam WAIT_FOR_ECHO = 3'd2;
 localparam MEASURE_DISTANCE = 3'd3;
 localparam OPERATION = 3'd4;
-//reg [9:0] contador;
+
 
 initial begin
 		estado <= IDLE;
@@ -47,7 +53,7 @@ always @(posedge clk) begin
     end
 end
 
-reg [9:0] count;
+
 
 // Lógica de la máquina de estados
 always @(*) begin
@@ -98,6 +104,8 @@ end
 
 // Divisor de frecuencia
 
+//reg [9:0] contador;
+//reg clk_out; // Estados actuales y próximos
 /*always @(posedge clk) begin
         if (reset_n==0) begin
             contador <= 0;
@@ -167,11 +175,6 @@ end
 	end
 end*/
 
-//distancia_cm <= (cuenta_echo+1) * T_CLK * (V_SONIDO/2); // multiplicado por 100 para convertir a centímetros
-// 50 --> 146000
-//100 --> 292000
-// 25 --> 73000
-// 10 --> 30000
-//450 --> 1314000
+
 
 endmodule
