@@ -1,4 +1,4 @@
-//`include "Antirebote.v"
+//`include "BotonAntirebote.v"
 module Boton #(parameter MIN_TIME = 25000000, TIME_ANTIREBOTE = 5000)(
     input wire clk, // Clock input in ms
     input wire reset,

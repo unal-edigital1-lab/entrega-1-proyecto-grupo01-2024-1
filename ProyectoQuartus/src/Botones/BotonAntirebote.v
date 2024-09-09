@@ -21,7 +21,9 @@ module BotonAntirebote #(parameter MIN_TIME = 5000)(
                 btn_state <= 1;
                 counter <= 0;
             end
-        end 
+        end else begin
+            counter <= 0;
+        end
     end
 
     assign btn_out = btn_state;

@@ -11,11 +11,13 @@ module Boton_tb;
     // Boton signals
     reg clk; 
     reg btn_in;
+    reg reset;
     wire btn_out;
 
     // Instantiate the boton module
-    Boton #(.MIN_TIME(500), .TIME_ANTIREBOTE(10)) uut_boton(
+    Boton #(.MIN_TIME(490), .TIME_ANTIREBOTE(10)) uut_boton(
         .clk(clk),
+        .reset(reset),
         .btn_in(btn_in),
         .btn_out(btn_out)
     );
@@ -28,9 +30,12 @@ module Boton_tb;
     // Test sequence
     initial begin
         // Initialize signals
+        begin
         clk = 1;
         btn_in = 0;
-        
+        reset = 1;
+        end
+
         // Test button
         #(1e3) btn_in = 1;
         #BTN_PRESS_TIME_10ms btn_in = 0;
