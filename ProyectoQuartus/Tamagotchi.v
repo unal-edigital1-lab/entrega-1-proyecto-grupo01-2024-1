@@ -57,7 +57,7 @@ Test_AntiR BotonTest(
 
 wire btnSleep;
 Boton BotonSleep(
-	 .reset(rst),
+	.reset(rst),
     .clk(clk),
     .boton_in(~BSleep),
     .boton_out(btnSleep)
@@ -66,7 +66,7 @@ Boton BotonSleep(
 
 wire btnFeed;
 Boton BotonFeed(
-	 .reset(rst),
+	.reset(rst),
     .clk(clk),
     .boton_in(~BFeed),
     .boton_out(btnFeed)
@@ -75,7 +75,7 @@ Boton BotonFeed(
 
 wire btnPlay;
 Boton BotonPlay(
-	 .reset(rst),
+	.reset(rst),
     .clk(clk),
     .boton_in(~BPlay),
     .boton_out(btnPlay)
