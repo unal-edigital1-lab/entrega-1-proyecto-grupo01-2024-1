@@ -8,7 +8,7 @@ module Reset_AntiR(
 
 wire boton_ar;
 
-Boton InstBTN(
+Antirebote InstAntirebote(
     .clk(clk_),
     .btn_in(btnRst_in),
     .btn_out(boton_ar)// Debounced button output

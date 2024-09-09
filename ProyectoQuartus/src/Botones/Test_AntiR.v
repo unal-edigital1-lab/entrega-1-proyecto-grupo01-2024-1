@@ -9,7 +9,7 @@ module Test_AntiR(
 );
 
 wire boton_ar;
-Boton InstBTN(
+Antirebote InstAntirebote(
     .clk(clk_),
     .btn_in(btnTest_in),
     .btn_out(boton_ar)// Debounced button output
