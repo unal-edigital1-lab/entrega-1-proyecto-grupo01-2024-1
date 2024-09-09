@@ -2,8 +2,8 @@
 module Boton #(parameter MIN_TIME = 25000000, TIME_ANTIREBOTE = 5000)(
     input wire clk, // Clock input in ms
     input wire reset,
-    input wire btn_in, // Button input
-    output wire btn_out // Debounced button output
+    input wire boton_in, // Button input
+    output wire boton_out // Debounced button output
 );
 
     wire btn_procesado; // Processed button output
