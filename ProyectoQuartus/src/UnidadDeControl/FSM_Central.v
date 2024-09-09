@@ -105,7 +105,7 @@ module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 5000
 						end else if(!botonSleep && botonPlay) begin
 							next = PLAYING;
 						end else if(botonTest) begin
-                        	next = TEST;
+                        next = TEST;
                     	end else if(energy <= 3'd2 && hunger > 3'd2 && entertainment > 3'd2) begin
 							next = TIRED;
 						end else if(hunger <= 3'd2 && energy > 3'd2 && entertainment > 3'd2) begin
@@ -114,7 +114,9 @@ module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 5000
 							next = BORED;
 						end else if((hunger < 3'd2 && energy < 3'd2) || (entertainment < 3'd2 && energy < 3'd2) || (hunger < 3'd2 && entertainment < 3'd2)) begin
 							next = SAD;
-						end  else begin
+						end else if(hunger == 3'd5 && energy == 3'd5 && entertainment == 3'd5) begin
+							next = IDLE;
+						end else begin
 							next = NEUTRAL;
 						end
 				end
@@ -190,12 +192,12 @@ module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 5000
 							next = HUNGRY;
 						end else if (energy > 3'd2 && entertainment <= 3'd2 && hunger > 3'd2) begin
 							next = BORED;
-						end else if (energy < 3'd5 && hunger < 3'd5 && entertainment < 3'd5) begin
+						end else if ((energy >= 3'd3 && energy < 3'd5) && (hunger >= 3'd3 && hunger < 3'd5) && (entertainment >= 3'd3 && entertainment < 3'd5)) begin
 							next = NEUTRAL;
 						end
 					end else if(botonTest) begin
-                        	next = TEST;
-                    end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
+                     next = TEST;
+                end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
 						next = IDLE;
 					end else if (entertainment == 3'd5) begin
 						next = NEUTRAL;
@@ -212,7 +214,7 @@ module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 5000
 							next = HUNGRY;
 						end else if (energy > 3'd2 && entertainment <= 3'd2 && hunger > 3'd2) begin
 							next = BORED;
-						end else if (energy < 3'd5 && hunger < 3'd5 && entertainment < 3'd5) begin
+						end else if ((energy >= 3'd3 && energy < 3'd5) && (hunger >= 3'd3 && hunger < 3'd5) && (entertainment >= 3'd3 && entertainment < 3'd5)) begin
 							next = NEUTRAL;
 						end
 					end else if(botonTest) begin
@@ -344,7 +346,7 @@ always @(posedge clk or posedge rst) begin
         end else if (botonFeed && hunger < 3'd5 && state != TEST) begin
             hunger <= hunger + 1;
             contTimeHunger <= 0;
-        end else if (state != DEATH && state != TEST && hunger > 0) begin
+        end else if ((state != DEATH) && (state != TEST) && (hunger > 0) && state != SLEEP) begin
             if (contTimeHunger == Feed-1) begin
                 hunger <= hunger - 1;
                 contTimeHunger <= 0;
@@ -378,7 +380,7 @@ always @(posedge clk or posedge rst) begin
         end else if (state == PLAYING && state != TEST && entertainment < 3'd5 && contTimeEntertainment == Entert-1) begin
             entertainment <= entertainment + 1;
             contTimeEntertainment <= 0;
-        end else if (state != DEATH && state != TEST && entertainment > 0) begin
+        end else if ((state != DEATH) && (state != TEST) && (entertainment > 0) && state != SLEEP) begin
             if (contTimeEntertainment == Entert-1) begin
                 entertainment <= entertainment - 1;
                 contTimeEntertainment <= 0;

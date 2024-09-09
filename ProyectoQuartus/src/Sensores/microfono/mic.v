@@ -41,7 +41,7 @@ always @(posedge clk)begin
         num_veces <= 1;
         nunm_tiempo <= 1;
     end else begin
-        num_veces <= 0;
+        num_veces <= 1;
         nunm_tiempo <= 1;
         //prev_mic <= 1;
     end

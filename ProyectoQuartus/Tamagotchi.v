@@ -8,7 +8,7 @@ module Tamagotchi (
 	input BAwake,
 	input BFeed,
 	input BPlay,
-	//input Giro,
+	input Giro,
 	input BTest,
 	input echoUS,
 	//input [3:0] pulseTest,
@@ -56,16 +56,16 @@ Test_AntiR BotonTest(
 
 
 wire btnSleep;
-Boton_AR BotonSleep(
+Boton BotonSleep(
 	 .reset(rst),
     .clk(clk),
-    .boton_in(BSleep),
+    .boton_in(~BSleep),
     .boton_out(btnSleep)
 );
 
 
 wire btnFeed;
-Boton_AR BotonFeed(
+Boton BotonFeed(
 	 .reset(rst),
     .clk(clk),
     .boton_in(~BFeed),
@@ -74,7 +74,7 @@ Boton_AR BotonFeed(
 
 
 wire btnPlay;
-Boton_AR BotonPlay(
+Boton BotonPlay(
 	 .reset(rst),
     .clk(clk),
     .boton_in(~BPlay),
@@ -95,7 +95,7 @@ FSM_Central InstFSM(
 		.botonAwake(sigAwake),
 		.botonFeed(btnFeed),
 		.botonPlay(btnPlay),
-		.giro(sGiro),
+		.giro(Giro),
 		.botonTest(btnTest),
       .BpulseTest(NumPulse),
 		.face(face_),

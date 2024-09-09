@@ -109,6 +109,10 @@ set_location_assignment PIN_99 -to rw_
 set_location_assignment PIN_141 -to BUZZER
 set_location_assignment PIN_31 -to TRIGGER
 set_location_assignment PIN_33 -to echoUS
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VERILOG_FILE src/Botones/BotonAntirebote.v
 set_global_assignment -name VERILOG_FILE src/pantalla_LCD_16x2/task_manager.v
 set_global_assignment -name VERILOG_FILE src/pantalla_LCD_16x2/checker.v
 set_global_assignment -name VERILOG_FILE src/Sensores/ultrasonido/ultrasonido.v
@@ -127,7 +131,4 @@ set_global_assignment -name VERILOG_FILE src/Botones/bttnReset.v
 set_global_assignment -name VERILOG_FILE src/Botones/Boton.v
 set_global_assignment -name VERILOG_FILE Tamagotchi.v
 set_global_assignment -name VERILOG_FILE src/Botones/Boton_AR.v
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
