@@ -8,7 +8,7 @@ module Tamagotchi (
 	input BAwake,
 	input BFeed,
 	input BPlay,
-	input Giro,
+	//input Giro,
 	input BTest,
 	input echoUS,
 	//input [3:0] pulseTest,
@@ -59,7 +59,7 @@ wire btnSleep;
 Boton BotonSleep(
 	.reset(rst),
     .clk(clk),
-    .boton_in(~BSleep),
+    .boton_in(BSleep),
     .boton_out(btnSleep)
 );
 
@@ -68,7 +68,7 @@ wire btnFeed;
 Boton BotonFeed(
 	.reset(rst),
     .clk(clk),
-    .boton_in(~BFeed),
+    .boton_in(BFeed),
     .boton_out(btnFeed)
 );
 
@@ -77,7 +77,7 @@ wire btnPlay;
 Boton BotonPlay(
 	.reset(rst),
     .clk(clk),
-    .boton_in(~BPlay),
+    .boton_in(BPlay),
     .boton_out(btnPlay)
 );
 
@@ -91,11 +91,11 @@ wire [2:0] entertainment_;
 FSM_Central InstFSM(
 		.clk(clk),
 		.rst(reset),
-		.botonSleep(btnSleep),
+		.botonSleep(~btnSleep),
 		.botonAwake(sigAwake),
-		.botonFeed(btnFeed),
-		.botonPlay(btnPlay),
-		.giro(Giro),
+		.botonFeed(~btnFeed),
+		.botonPlay(~btnPlay),
+		.giro(sGiro),
 		.botonTest(btnTest),
       .BpulseTest(NumPulse),
 		.face(face_),
@@ -120,7 +120,7 @@ ultrasonido InstUS(
     .clk(clk),         // Clock de sistema (50 MHz)
     .reset_n(~reset),     // Reset asincrónico (activo bajo)
     .echo(echoUS),        // Señal de eco del ultrasonido
-    .boton(btnPlay),
+    .boton(~btnPlay),
     .led(sGiro),          // LED de salida
     .trigger(TRIGGER)
 );

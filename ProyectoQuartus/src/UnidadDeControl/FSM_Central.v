@@ -201,7 +201,7 @@ module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 5000
 						next = IDLE;
 					end else if (entertainment == 3'd5) begin
 						next = NEUTRAL;
-					end  else begin
+					end else begin
 						next = PLAYING;
 					end
 				end				

@@ -24,7 +24,7 @@ module FSM_Central_TB;
 	wire SPLAYING;
 	wire SBORED;
 	*/
-	wire [3:0] state;
+	wire [3:0] face_;
 	wire [2:0] energy;
 	wire [2:0] hunger;
 	wire [2:0] entertainment;
@@ -39,18 +39,7 @@ module FSM_Central_TB;
 		.giro(Giro),
 		.botonTest(BTest),
         .BpulseTest(PulseTest),
-		/*
-		.sign_IDLE(SIDLE),
-		.sign_SLEEP(SSLEEP),
-		.sign_NEUTRAL(SNEUTRAL),
-		.sign_TIRED(STIRED),
-		.sign_DEATH(SDEATH),
-		.sign_HUNGRY(SHUNGRY),
-		.sign_SAD(SSAD),
-		.sign_PLAYING(SPLAYING),
-		.sign_BORED(SBORED),
-		*/
-		.state(state),
+		.face(face_),
 		.energy(energy),
 		.hunger(hunger),
 		.entertainment(entertainment)
@@ -62,8 +51,24 @@ module FSM_Central_TB;
 	clk=0;
 	BSleep = 0; BAwake = 0; BFeed=0; BPlay=0; Giro=0; BTest=0; PulseTest=0;
 	rst = 1;
-	#5000;
+	#50;
 	rst = 0;
+	#110;
+	BPlay =1; Giro=1;
+	#5;
+	BPlay = 0;
+	#10;
+	Giro = 1;
+	#1 BFeed =1;
+	#1 BFeed =0;
+	#1 BFeed =1;
+	#1 BFeed =0;
+	#1 BFeed =1;
+	#1 BFeed =0;
+	#1 BFeed =1;
+	#1 BFeed =0;
+	#10;
+	Giro = 0;
 	/*
 	BTest = 1; 
 	#10
@@ -111,7 +116,7 @@ module FSM_Central_TB;
 initial begin:TEST_CASE
     $dumpfile("FSM_Central_TB.vcd");
 	$dumpvars(-1, uut);
-	#20000; $finish; 
+	#2000; $finish; 
 end
 
 endmodule
