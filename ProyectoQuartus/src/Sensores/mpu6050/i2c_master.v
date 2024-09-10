@@ -12,19 +12,23 @@ module i2c_master #(parameter DIV_FACTOR = 16, SLAVE_ADDRESS = 7'h68)(
    output wire i2c_master_available    // Flag to indicate that the I2C master is available
 );
 
-// Instantiate the divisorReloj module
-wire clk_scl;
-DivisorReloj #(4) clk_giroscopio (
-   .clk_in(clk_4x),
-   .reset(reset),
-   .clk_out(clk_scl)
-);
 
 wire clk_4x;
+reg enable_clk_4x = 1;
 DivisorReloj #(DIV_FACTOR) uut_clk (
-   .clk_in(clk),
    .reset(reset),
+   .enable(enable_clk_4x),
+   .clk_in(clk),
    .clk_out(clk_4x)
+);
+
+wire clk_scl;
+reg enable_clk_scl = 0;
+DivisorReloj #(4) clk_giroscopio (
+   .reset(reset),
+   .enable(enable_clk_scl),
+   .clk_in(clk_4x),
+   .clk_out(clk_scl)
 );
 
 // Declare internal signals
@@ -39,8 +43,8 @@ reg [7:0] shift_reg_data = 0; // register address to read/write, 8 bits
 reg bit_read_write = 1; // 1 to read, 0 to write
 
 // counters
-reg [1:0] counter_start = 0; // counter for start signal
-reg [1:0] counter_stop = 0; // counter for stop signal
+reg [3:0] counter_start = 0; // counter for start signal
+reg [3:0] counter_stop = 0; // counter for stop signal
 reg [7:0] counter_address = 0; // counter for address
 reg [7:0] counter_reg_data = 0; // counter for register to read
 reg [8:0] counter_read_data = 0; // counter for data
@@ -127,28 +131,27 @@ always @ (posedge clk_4x) begin
          case (counter_start)
             0: begin sda <= 0; scl <= 1; counter_start <= 1; end 
             1: begin sda <= 0; scl <= 0; counter_start <= 2; end
-            2: begin counter_start <= 0; active_i2c <= 1; sda <= SLAVE_ADDRESS[6];  end
+            7: begin counter_start <= 0; active_i2c <= 1;  end
+            default: counter_start <= counter_start + 1;
          endcase
       end
       SET_SLAVE: begin
          case(counter_address)
-            0: begin   shift_address <= shift_address << 1; counter_address <= 1; enable_scl = 0; end
-            6: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 7; end
-            14: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 15; end
-            22: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 23; end
-            30: begin  sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 31; end
-            38: begin sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 39; end
-            46: begin sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= 47; end
-            54: begin sda <= bit_read_write; shift_address <= shift_address << 1; counter_address <= 55; end
-            62: begin sda = 1'bz; enable_sda <= 0; counter_address <= 0; slave_configured <= 1; end
+            0: begin enable_clk_scl <= 1; enable_scl = 0; counter_address <= 1; end
+            // slave adrress, 7 bits
+            2,10,18,26,34,42,50: begin sda <= shift_address[6]; shift_address <= shift_address << 1; counter_address <= counter_address + 1; end
+            // bit de lectura
+            58: begin sda <= bit_read_write; counter_address <= counter_address + 1; end
+            // liberación del bus para recibir ACK from slave 
+            66: begin sda = 1'bz; enable_sda <= 0; counter_address <= 0; slave_configured <= 1; end
             default:
                counter_address <= counter_address + 1;
          endcase
       end
       WAIT_ACK_1: begin
          case (counter_ack)
-            0: begin counter_ack <= 1; end
-            7: begin  sda = 0; enable_sda = 1; counter_ack <= 0; sda <= shift_reg_data[7]; ack1_received <= 1; end 
+            0: begin  counter_ack <= counter_ack + 1; end
+            7: begin sda = 0; enable_sda = 1; counter_ack <= 0; sda <= shift_reg_data[7]; ack1_received <= 1; end 
             default:
             counter_ack <= counter_ack+1;
          endcase
@@ -156,13 +159,15 @@ always @ (posedge clk_4x) begin
       SENT_REG: begin  
          case(counter_reg_data)
              0: begin  shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 1; enable_scl = 0; end
-             7: begin  sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 8; end
-             15: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 16; end
-             23: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 24; end
-             31: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 32; end
-             39: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 40; end
-             47: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 48; end
-             55: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= 56; end
+             // register address to read/write, 8 bits
+             7: begin  sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= counter_reg_data + 1; end
+             15: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= counter_reg_data + 1; end
+             23: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= counter_reg_data + 1; end
+             31: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= counter_reg_data + 1; end
+             39: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= counter_reg_data + 1; end
+             47: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= counter_reg_data + 1; end
+             55: begin sda <= shift_reg_data[7]; shift_reg_data <= shift_reg_data << 1; counter_reg_data <= counter_reg_data + 1; end
+             // liberación del bus para recibir ACK from slave
              63: begin sda <= 1'bz; enable_sda <= 0; counter_reg_data <= 0; register_address_sent <= 1; end  
              default:
                  counter_reg_data <= counter_reg_data + 1;

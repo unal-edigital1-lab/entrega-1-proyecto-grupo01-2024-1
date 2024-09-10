@@ -2,6 +2,7 @@
 // The default output clock frequency is 50 MHz / 25k = 2 kHz so a 1 ms period clk_in is generated
 module DivisorReloj #(parameter DIV_FACTOR = 25000)(
     input wire clk_in, // Clock input
+    input enable, // Enable input
     input wire reset, // Reset input
     output wire clk_out // Clock output
 );
@@ -14,11 +15,13 @@ always @(posedge clk_in) begin
         clk_counter <= 0;
         clkr <= 0;
     end else begin
-        if (clk_counter == DIV_FACTOR - 1) begin
-            clkr <= ~clkr;
-            clk_counter <= 0;
-        end else begin
-            clk_counter <= clk_counter + 1;
+        if (enable == 1) begin
+            if (clk_counter == DIV_FACTOR - 1) begin
+                clkr <= ~clkr;
+                clk_counter <= 0;
+            end else begin
+                clk_counter <= clk_counter + 1;
+            end
         end
     end
 end

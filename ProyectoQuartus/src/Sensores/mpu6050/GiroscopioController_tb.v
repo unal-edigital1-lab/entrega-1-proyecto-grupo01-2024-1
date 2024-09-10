@@ -58,8 +58,8 @@ module GiroscopioController_tb;
         data_out_reg = 8'b11110000; // Data to receive
 
         // Reset
-        #RESET_DELAY reset = 1;
-        #CLK_PERIOD reset = 0;
+        #RESET_DELAY reset = 0;
+        #CLK_PERIOD reset = 1;
 
         // enable_giroscopio signal to start the giroscopio controller
         #START_DELAY enable_giroscopio = 1;

@@ -8,7 +8,7 @@ module i2c_master_tb;
     parameter DIV_FACTOR = 16; // 2480 ns period, 403.2258 kHz
     parameter CLKR_PERIOD = (1/(50e6/(DIV_FACTOR*2*4)))*1e9; // 
     parameter TEST_TIME = CLKR_PERIOD*80;
-    parameter ACK1_DELAY = 39340;
+    parameter ACK1_DELAY = 45100;
     parameter ACK1_WAIT = 5120;
     parameter ACK2_DELAY = 40960;
     
@@ -57,7 +57,7 @@ module i2c_master_tb;
     initial begin
         // Initialize inputs
         clk = 0;
-        reset = 1;
+        reset = 0;
         start = 0;
         sda_enable = 0;
         sda_reg = 0;
@@ -66,24 +66,21 @@ module i2c_master_tb;
         
 
         // Reset
-        #(CLK_PERIOD) reset = 0;
-        #(CLK_PERIOD) reset = 1;
-
+        #(CLKR_PERIOD) reset = 1;
 
         // Apply start signal and data
         #(CLK_PERIOD) start = 1;
         #(CLKR_PERIOD) start = 0;
 
-
         // Send Acknowledge 1 for slave address
         #ACK1_DELAY sda_enable = 1;
         #(ACK1_WAIT) sda_enable = 0;
 
-        // Send Acknowledge 2 for slave address
+        // Send Acknowledge 2 for register address
         #ACK2_DELAY sda_enable = 1;
-        #(ACK1_WAIT)    begin sda_reg = data_out_reg[7]; end
+        #(ACK1_WAIT)  begin sda_reg = data_out_reg[7]; end
 
-         // Simulate slave sending data
+        //  // Simulate slave sending data
         #(CLKR_PERIOD*2) sda_reg = data_out_reg[6];
         #(CLKR_PERIOD*2) sda_reg = data_out_reg[5];
         #(CLKR_PERIOD*2) sda_reg = data_out_reg[4];
