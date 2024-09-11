@@ -15,11 +15,11 @@ module Boton_tb;
     wire btn_out;
 
     // Instantiate the boton module
-    Boton #(.MIN_TIME(490), .TIME_ANTIREBOTE(10)) uut_boton(
+    Boton #(.TIME_PRESSED(490), .TIME_ANTIREBOTE(10)) uut_boton(
         .clk(clk),
         .reset(reset),
-        .btn_in(btn_in),
-        .btn_out(btn_out)
+        .boton_in(btn_in),
+        .boton_out(btn_out)
     );
 
     // Clock 50 MHz generation
@@ -30,17 +30,17 @@ module Boton_tb;
     // Test sequence
     initial begin
         // Initialize signals
-        begin
+        
         clk = 1;
         btn_in = 0;
         reset = 1;
-        end
+        
 
         // Test button
         #(1e3) btn_in = 1;
-        #BTN_PRESS_TIME_10ms btn_in = 0;
+        #(BTN_PRESS_TIME_10ms*3) btn_in = 0;
         // expected btn_out = 1;
-      
+
         #(1e3) btn_in = 1;    
         #BTN_PRESS_TIME_3ms btn_in = 0;
         // expected btn_out = 0;

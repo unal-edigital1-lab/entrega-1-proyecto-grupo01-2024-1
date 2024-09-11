@@ -55,11 +55,13 @@ always @(posedge clk) begin
         actual_value <= RESET_VALUE;
         previus_value <= RESET_VALUE;
         change_detected <= 0;
+        count <= 0;
     end else begin
         case(next)
             IDLE: begin
                 back_to_idle <= 0;
                 change_detected <= 0;
+                count <= 0;
             end
             WAITING: begin
                if (the_signal != actual_value) begin
