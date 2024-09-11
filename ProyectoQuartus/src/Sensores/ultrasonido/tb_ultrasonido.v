@@ -1,4 +1,4 @@
-`include "/home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/src/Sensores/ultrasonido/ultrasonido.v"
+`include "ultrasonido.v"
 `timescale 1ns/1ns
 
 module tb_ultrasonido;
@@ -30,23 +30,25 @@ module tb_ultrasonido;
     initial begin
         // Inicializar señales
         clk = 0;
-        reset_n = 0;
+        reset_n = 1;
         echo = 0;
         boton = 0;
         #5
-        reset_n = 1;
-        #10
         reset_n = 0;
+        #10
+        reset_n = 1;
         #10
         // Prueba con distancia que supera el umbral
         boton = 1;   // Activar el botón para empezar la medición
         #20;
         boton = 0;
+        #100
+        boton =1;
 
         // Simular una distancia que no supera el umbral (por ejemplo, 50 cm)
-        #600;
+        #158000;
         echo = 1;    // Empezar a medir el eco
-        #8925000;        // Mantener el eco activo para simular 50 cm
+        #19925;        // Mantener el eco activo para simular 50 cm
         echo = 0;    // Terminar la señal de eco
 
         // Esperar un poco para que el módulo procese la distancia
@@ -55,7 +57,7 @@ module tb_ultrasonido;
         // Volver a inicializar las señales
         boton = 1;   // Activar el botón para empezar una nueva medición
         #20;
-        boton = 0;
+        //boton = 0;
 
         // Simular una distancia que no supera el umbral
         #480;
@@ -64,7 +66,7 @@ module tb_ultrasonido;
         echo = 0;    // Terminar la señal de eco
 
         // Esperar un poco para que el módulo procese la distancia
-        #40;
+        #8000;
         // Finalizar simulación
         $finish;
     end
