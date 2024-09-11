@@ -11,10 +11,7 @@ module ultrasonido (
 localparam V_SONIDO = 34300; // Velocidad del sonido en el aire a 20°C en metros por segundo
 localparam DIVISOR = 100;
 localparam DISTANCIA_MINIMA = 50; // Distancia mínima en centímetros (1 metro = 100 cm)
-localparam T_CLK =  2; // Período del clock en usegundos (50 kHz)
-
-//localparam T_CLK =  20 * 0.00000002; // Período del clock en usegundos (50 MHz) 2*10^-8
-//reg [15:0] distancia_cm;    // Distancia calculada en centímetros
+// Período del clock en usegundos (50 MHz) 2*10⁻8
 //distancia_cm <= (cuenta_echo+1) * T_CLK * (V_SONIDO/2); // multiplicado por 100 para convertir a centímetros
 // 50 --> 146000
 //100 --> 292000
@@ -25,6 +22,9 @@ localparam T_CLK =  2; // Período del clock en usegundos (50 kHz)
 reg [21:0] cuenta_echo;     // Contador para medir el tiempo de eco
 reg [21:0] max_echo;
 reg [9:0] count;
+reg [$clog2(50000000)-1:0] counteat;
+reg act;
+
 
 
 // FSM
@@ -42,6 +42,9 @@ initial begin
 		next_estado <= IDLE;
         //contador <= 0;
         cuenta_echo <= 0;
+        act <= 1;
+        counteat <= 0;
+        count <= 0;
 	end
 
 // Máquina de estados
@@ -102,28 +105,14 @@ always @(*) begin
     endcase
 end
 
-// Divisor de frecuencia
-
-//reg [9:0] contador;
-//reg clk_out; // Estados actuales y próximos
-/*always @(posedge clk) begin
-        if (reset_n==0) begin
-            contador <= 0;
-            clk_out <= 0;
-        end else begin
-            if (contador == (DIVISOR - 1)) begin
-                clk_out <= ~clk_out; // Alternar el estado del reloj de salida
-                contador <= 0;
-            end else begin
-                contador <= contador + 1;
-            end
-        end
-end;*/
 
 // Definición de la máquina de estados
 
 always @(posedge clk) begin
     if (reset_n==0) begin 
+        cuenta_echo <= 0;
+        act <= 1;
+        counteat <= 0;
         count <= 0;
     end else begin
         case(estado)
@@ -155,11 +144,13 @@ always @(posedge clk) begin
                 count = count + 1;
                  // multiplicado por 100 para convertir a centímetros
                     if (cuenta_echo >= 73000) begin
-                        led = 1'b1;
+                        act = 1'b1; //lejos
                     end else begin
-                        led = 1'b0;
+                        act = 1'b0; //no lejose
                     end                          
             end
+
+            
 
             
     endcase
@@ -167,13 +158,21 @@ always @(posedge clk) begin
     end
 end
 
-/*always @(posedge clk_out) begin
-    if (estado == MEASURE_DISTANCE) begin
-        cuenta_echo <= cuenta_echo + 1;
-    end else if (estado==START)begin
-		cuenta_echo <= 0;
-	end
-end*/
+//logica de un segundo
+
+always @(posedge clk) begin
+    if (act==0) begin
+        counteat=counteat+1;
+    end else begin
+        counteat=0;
+    end
+    if (counteat == 500) begin
+        led = 1;
+    end else begin
+        led = 0;
+    end
+end
+
 
 
 
