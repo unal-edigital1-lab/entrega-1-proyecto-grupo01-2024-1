@@ -2,7 +2,6 @@ module ultrasonido (
     input wire clk,         // Clock de sistema (50 MHz)
     input wire reset_n,     // Reset asincrónico (activo bajo)
     input wire echo,        // Señal de eco del ultrasonido
-    input wire boton,
     output reg led,          // LED de salida
     output reg trigger
 );
@@ -24,6 +23,7 @@ reg [21:0] max_echo;
 reg [9:0] count;
 reg [$clog2(50000000)-1:0] counteat;
 reg act;
+reg boton;
 
 
 
@@ -45,6 +45,7 @@ initial begin
         act <= 1;
         counteat <= 0;
         count <= 0;
+	boton <= 1;
 	end
 
 // Máquina de estados
