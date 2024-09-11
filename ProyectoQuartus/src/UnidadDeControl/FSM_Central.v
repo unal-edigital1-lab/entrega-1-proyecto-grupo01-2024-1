@@ -1,4 +1,4 @@
-module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 500000000, Entert= 1000000000, CONTUNI = 10000000000)( //40s , 10s , 20s
+module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 1500000000, Feed = 500000000, Entert= 1000000000, CONTUNI = 10000000000)( //40s , 10s , 20s
 // Entradas
 	input clk,
 	input rst,
@@ -219,7 +219,7 @@ module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 2000000000, Feed = 5000
 						end
 					end else if(botonTest) begin
                        next = TEST;
-                    end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
+               end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
 						next = IDLE;
 					end else if (energy == 3'd5) begin
 						next = NEUTRAL;
@@ -295,7 +295,7 @@ always @(posedge clk or posedge rst) begin
         energy <= 3'd5;
         contTimeEnergy <= 0;
     end else begin
-        if (state == TEST) begin
+        if (next == TEST) begin
 				//contTimeEnergy <= 0;
             case (BpulseTest)
                 4'd1: energy <= 3'd5; //IDLE
@@ -309,10 +309,10 @@ always @(posedge clk or posedge rst) begin
                 4'd9: energy <= 3'd0; //DEATH
             endcase
             contTimeEnergy <= 0;
-        end else if (state == SLEEP && state != TEST && energy < 3'd5 && contTimeEnergy == Ener-1) begin
+        end else if ((next == SLEEP) && (next != TEST) && (energy < 3'd5) && (contTimeEnergy == Ener-1)) begin
             energy <= energy + 1;
             contTimeEnergy <= 0;
-        end else if (state != DEATH && state != TEST && energy > 0) begin
+        end else if ((next != DEATH) && (next != TEST) && (energy > 0)) begin
             if (contTimeEnergy == Ener-1) begin
                 energy <= energy - 1;
                 contTimeEnergy <= 0;
@@ -329,7 +329,7 @@ always @(posedge clk or posedge rst) begin
         hunger <= 3'd5;
         contTimeHunger <= 0;
     end else begin
-        if (state == TEST) begin
+        if (next == TEST) begin
 				//contTimeHunger <= 0;
             case (BpulseTest)
                 4'd1: hunger <= 3'd5;
@@ -343,10 +343,10 @@ always @(posedge clk or posedge rst) begin
                 4'd9: hunger <= 3'd0;
             endcase
             contTimeHunger <= 0;
-        end else if (botonFeed && hunger < 3'd5 && state != TEST) begin
+        end else if (botonFeed && (hunger < 3'd5) && (next != TEST)) begin
             hunger <= hunger + 1;
             contTimeHunger <= 0;
-        end else if ((state != DEATH) && (state != TEST) && (hunger > 0) && state != SLEEP) begin
+        end else if ((next != DEATH) && (next != TEST) && (next > 0) && (next != SLEEP)) begin
             if (contTimeHunger == Feed-1) begin
                 hunger <= hunger - 1;
                 contTimeHunger <= 0;
@@ -363,7 +363,7 @@ always @(posedge clk or posedge rst) begin
         entertainment <= 3'd5;
         contTimeEntertainment <= 0;
     end else begin
-        if (state == TEST) begin
+        if (next == TEST) begin
 				//contTimeEntertainment <= 0;
             case (BpulseTest)
                 4'd1: entertainment <= 3'd5;
@@ -377,10 +377,10 @@ always @(posedge clk or posedge rst) begin
                 4'd9: entertainment <= 3'd0;
             endcase
             contTimeEntertainment <= 0;
-        end else if (state == PLAYING && state != TEST && entertainment < 3'd5 && contTimeEntertainment == Entert-1) begin
+        end else if ((next == PLAYING) && (next != TEST) && (entertainment < 3'd5) && (contTimeEntertainment == Entert-1)) begin
             entertainment <= entertainment + 1;
             contTimeEntertainment <= 0;
-        end else if ((state != DEATH) && (state != TEST) && (entertainment > 0) && state != SLEEP) begin
+        end else if ((next != DEATH) && (next != TEST) && (entertainment > 0) && (next != SLEEP)) begin
             if (contTimeEntertainment == Entert-1) begin
                 entertainment <= entertainment - 1;
                 contTimeEntertainment <= 0;

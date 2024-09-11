@@ -113,7 +113,7 @@ always @(posedge clk) begin
     if (reset_n==0) begin 
         cuenta_echo <= 0;
         act <= 1;
-        counteat <= 0;
+        //counteat <= 0;
         count <= 0;
     end else begin
         case(estado)
@@ -162,6 +162,9 @@ end
 //logica de un segundo
 
 always @(posedge clk) begin
+	if(reset_n)begin
+		counteat=0;
+	end
     if (act==0) begin
         counteat=counteat+1;
     end else begin
