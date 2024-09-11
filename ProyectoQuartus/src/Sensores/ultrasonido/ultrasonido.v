@@ -143,7 +143,7 @@ always @(posedge clk) begin
             OPERATION: begin
                 count = count + 1;
                  // multiplicado por 100 para convertir a centímetros
-                    if (cuenta_echo >= 73000) begin
+		    if (cuenta_echo >= 30000) begin
                         act = 1'b1; //lejos
                     end else begin
                         act = 1'b0; //no lejose
@@ -166,7 +166,7 @@ always @(posedge clk) begin
     end else begin
         counteat=0;
     end
-    if (counteat == 500) begin
+	if (counteat == 50000000) begin
         led = 1;
     end else begin
         led = 0;
