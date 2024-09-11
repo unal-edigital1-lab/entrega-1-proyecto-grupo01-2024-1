@@ -11,22 +11,15 @@ module GiroscopioController #(parameter SLAVE_ADDRESS = 7'h68)(
     output wire mover);
     
 
-reg [1:0] counter = 0;
-reg [1:0] next_counter = 0;
-localparam AX1 = 1;
-localparam AX2 = 2;
-
 // GiroscopioController output
 reg enable_mover = 0; // flag to enable output wire mover 
 assign mover = (enable_mover) ? 1 : 0;
 
 // I2C Master inputs
-reg [7:0] reg_data_in = 0; // Register that I2C master wants to read
-
+reg [7:0] reg_to_read = 0; // Register that I2C master wants to read
 wire start;
 reg enable_start = 0;
 assign start = (enable_start) ? 1 : 0;
-
 
 // I2C Master outputs
 wire [7:0] data_out;
@@ -39,7 +32,7 @@ i2c_master #(.SLAVE_ADDRESS(SLAVE_ADDRESS)) i2c_inst(
     .clk(clk),
     .reset(reset),
     .start(start),
-    .data_in(reg_data_in),
+    .data_in(reg_to_read),
     .SDA_BUS(SDA_BUS),
     .SCL_BUS(SCL_BUS),
     .data_out(data_out),
@@ -60,7 +53,10 @@ reg [7:0] address_Az1 = 8'h3F; reg [7:0] address_Az2 = 8'h40;
 // Variables to store values sent by giroscopio, 16 bits signed
 reg signed [15:0] actual_value = 0;
 reg signed [15:0] previus_value = 0;
-
+reg [1:0] counter = 0;
+reg [1:0] next_counter = 0;
+localparam AX1 = 0;
+localparam AX2 = 1;
 
 // Estados de la maquina de estados
 localparam IDLE = 0, SET_BYTE_TO_READ = 1, START_I2C = 2, WAIT_DATA = 3, PROCCESS = 4, STOP = 5;
@@ -109,7 +105,7 @@ always @(clk) begin
         case(next_state)
         IDLE: begin
             enable_start <= 0;
-            reg_data_in <= 0;
+            reg_to_read <= 0;
             byte_read <= 0;
             isFirstByte <= 0;
             byte_read <= 0;
@@ -118,8 +114,8 @@ always @(clk) begin
         SET_BYTE_TO_READ: begin
             counter = next_counter;
             case(counter)
-                AX1: begin reg_data_in <= address_Ax1; isFirstByte = 0; next_counter = AX2; end
-                AX2: begin reg_data_in <= address_Ax2; isFirstByte = 1; next_counter = AX1; end
+                AX1: begin reg_to_read <= address_Ax1; isFirstByte = 0; next_counter = AX2; end
+                AX2: begin reg_to_read <= address_Ax2; isFirstByte = 1; next_counter = AX1; end
             endcase   
         end
         START_I2C: begin

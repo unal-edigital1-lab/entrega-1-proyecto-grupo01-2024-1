@@ -58,11 +58,11 @@ module GiroscopioController_tb;
         data_out_reg = 8'b11110000; // Data to receive
 
         // Reset
-        #RESET_DELAY reset = 0;
-        #CLK_PERIOD reset = 1;
+        #(RESET_DELAY) reset = 0;
+        #(CLK_PERIOD) reset = 1;
 
         // enable_giroscopio signal to start the giroscopio controller
-        #START_DELAY enable_giroscopio = 1;
+        #(START_DELAY) enable_giroscopio = 1;
         
         for (i = 0; i < 4; i = i + 1) begin
             // Start byte trasmission
@@ -99,7 +99,7 @@ module GiroscopioController_tb;
     end
     
 	initial begin: TEST_CASE
-     $dumpfile("GiroscopioController_tb.vcd");
+     $dumpfile("GiController_tb.vcd");
      $dumpvars(-1, uut);
      //#(TEST_TIME) $finish;
     end
