@@ -1,4 +1,4 @@
-module BotonAntirebote(
+module Button(
     input clk,
     input buttonRaw,
     output reg buttonDebounced
