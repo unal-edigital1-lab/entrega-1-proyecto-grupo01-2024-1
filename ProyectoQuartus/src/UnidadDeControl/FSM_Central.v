@@ -346,7 +346,7 @@ always @(posedge clk or posedge rst) begin
         end else if (botonFeed && (hunger < 3'd5) && (next != TEST)) begin
             hunger <= hunger + 1;
             contTimeHunger <= 0;
-        end else if ((next != DEATH) && (next != TEST) && (next > 0) && (next != SLEEP)) begin
+        end else if ((next != DEATH) && (next != TEST) && (hunger > 0) && (next != SLEEP)) begin
             if (contTimeHunger == Feed-1) begin
                 hunger <= hunger - 1;
                 contTimeHunger <= 0;

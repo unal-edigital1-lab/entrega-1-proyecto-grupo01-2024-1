@@ -45,12 +45,12 @@ initial begin
         act <= 1;
         counteat <= 0;
         count <= 0;
-	boton <= 1;
+			boton <= 1;
 	end
 
 // Máquina de estados
 always @(posedge clk) begin
-    if (reset_n==0) begin
+    if (reset_n) begin
         estado <= IDLE;
     end else begin
         estado <= next_estado;
@@ -110,7 +110,7 @@ end
 // Definición de la máquina de estados
 
 always @(posedge clk) begin
-    if (reset_n==0) begin 
+    if (reset_n) begin 
         cuenta_echo <= 0;
         act <= 1;
         //counteat <= 0;

@@ -83,7 +83,6 @@ set_location_assignment PIN_126 -to sseg[1]
 set_location_assignment PIN_127 -to sseg[0]
 set_location_assignment PIN_68 -to Giro
 set_location_assignment PIN_28 -to BAwake
-set_location_assignment PIN_30 -to BFeed
 set_location_assignment PIN_87 -to BPlay
 set_location_assignment PIN_86 -to BSleep
 set_global_assignment -name ENABLE_OCT_DONE OFF

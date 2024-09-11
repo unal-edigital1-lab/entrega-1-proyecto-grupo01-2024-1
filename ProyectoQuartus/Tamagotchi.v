@@ -108,7 +108,7 @@ mic InstMic(
 wire btnFeed;
 ultrasonido InstUS(
     .clk(clk),         // Clock de sistema (50 MHz)
-    .reset_n(~reset),     // Reset asincrónico (activo bajo)
+    .reset_n(reset),     // Reset asincrónico (activo bajo)
     .echo(echoUS),        // Señal de eco del ultrasonido
     .led(btnFeed),          // LED de salida
     .trigger(TRIGGER)
