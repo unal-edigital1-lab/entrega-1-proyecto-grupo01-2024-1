@@ -15,11 +15,12 @@ module Tamagotchi (
 // Salidas
     output wire BUZZER,
 	 output wire TRIGGER,
+	 //LCD 16x2
     output wire rs_,        
     output wire rw_,
     output wire enable_,    
     output wire [7:0] data_,
-	 
+	 //7 Seg
 	 output [0:6] sseg,
 	 output [3:0] led4,
 	 output wire [3:0] An
