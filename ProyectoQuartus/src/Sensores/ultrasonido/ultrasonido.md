@@ -13,7 +13,7 @@ VCC corresponde a la alimentación del dispositivo que debe ser de 5V DC y conse
 el ECHO es un output del dispositivo es decir es un input en el dispositivo de control que se esté manejando, por este canal es por el que se va a enviar la señal que refleja el objeto, y con esta es con la que se debe calcular la distancia y se hace con la siguiente ecuación:
 
 $$
-\text{distancia} = \frac{\text{velocidad del sonido} \times \text{duración de onda}}{2}
+\text{distancia} = \frac{\text{velocidad del sonido} X \text{duración de onda}}{2}
 $$
 
 
