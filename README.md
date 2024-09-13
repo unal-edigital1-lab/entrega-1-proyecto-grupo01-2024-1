@@ -39,20 +39,16 @@ La interacción usuario-sistema se realizará mediante los siguientes cinco boto
 
 - **Reset:** Reestablece el Tamagotchi a un estado inicial conocido al mantener pulsado el botón durante al menos 5 segundos. Este estado inicial simula el despertar de la mascota con salud óptima.
 - **Test:** Activa el modo de prueba al mantener pulsado por al menos 5 segundos, permitiendo al usuario navegar entre los diferentes estados del Tamagotchi con cada pulsación.
-- **Alimentar:** Permite alimentar a la mascota virtual. Cada pulsación aumenta un valor de "Hunger" en el sistema. Si la alimentación es insuficiente, la mascota virtual puede entrar en un estado de hambre.
 - **Jugar:** Una pulsación activa el modo juego, el cual permite a la mascota aumentar su estadística de "Entertainment" en el sistema. 
 - **Dormir:**  Una pulsación de este botón activa el modo dormir que permite a la mascota aumentar su estadística de "Energy".
 
 ## 2.2 Sistema de Sensado
 Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de interacción, se incorporará lo siguiente:
 
-- **sensor de ultra sonido HC-SR04:** con este sensor el Tamagotchi podrá jugar con el usuario, la mascota jugará mientras el usuario se encuentre a una distancia de 50cm del Tamagotchi.
- 
+- **sensor de ultra sonido HC-SR04:** con este sensor el Tamagotchi podrá jse podrá alimentar. Si se coloca un objeto a 10 cm del sensor durante un segundo el indicador de comida debería aumentar en un punto.
 - **sensor de sonido analógico y digital KY038:** se utilizará la salida digital del sensor, permitiendo que al detectar un ruido del usuario, el Tamagotchi se despierte.
 
 - **buzzer:** el Tamagotchi podrá interactuar con el usuario mediante un buzzer manifestando diferentes sonidos dependiendo de como se esté sintiendo. Cada estado del Tamagotchi emitirá una cantidad de pulsos auditivos diferentes. 
-
-- **giroscopio (mpu6050):**  se incorporará el sensor de movimiento MPU5050. Con este sensor el Tamagotchi simulará que camina cuando el usuario se desplace (movimiento lineal en x).
 
 ## 2.3 Sistema de Visualización
 
@@ -89,14 +85,10 @@ El siguiente diagrama de Moore es una representación gráfica de la lógica de 
 
 ### 3.4.1 Botones
 
-Se propone utilizar pulsadores como interfaz de interacción con los botones del Tamagotchi. Estos pulsadores estarán conectados a entradas del FPGA, permitiendo al sistema detectar las pulsaciones del usuario. Se utilizarán resistencias de pull-up para garantizar un estado definido en las entradas cuando no se estén pulsando los botones. Además se hará una descripción de hardware para mitigar el rebote mecánico de los botones mediante el módulo anti-rebote.
+Se propone utilizar pulsadores como interfaz de interacción con los botones del Tamagotchi. Estos pulsadores estarán conectados a entradas del FPGA, permitiendo al sistema detectar las pulsaciones del usuario. Además se hará una descripción de hardware para mitigar el rebote mecánico de los botones mediante el módulo anti-rebote.
 
-### 3.4.2 Sensor de Movimiento (Giroscopio)
 
-El sensor de movimiento MPU6050 se conectará al FPGA mediante la interfaz I2C. La FPGA proporcionará el bus SCL al sensor y leerá los datos del sensor desde el bus SDA, para determinar el movimiento del usuario. Estos datos se procesarán para determinar si el usuario está "jugando" con el Tamagotchi. Por lo que, en la descripción de hardware se implementaran dos modulos uno para la comunicacion I2C (I2C master) y otro para el procesamiento de datos del giroscopio (girscopio controller). La salida del módulo de procesamiento de datos se utilizará para actualizar el estado del Tamagotchi y aumentar el nivel de "entertainment".
-![Giro](./figs/Giroscopio.jpg)
-
-### 3.4.3  Sensor de Sonido y Buzzer
+### 3.4.2  Sensor de Sonido y Buzzer
 Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se propone un módulo que gestione la interacción con estos componentes. Este módulo será responsable de:
 
 1. Lectura del sensor de sonido (micrófono): Leer la señal digital del sensor KY038 para detectar la presencia o ausencia de sonido.
@@ -104,7 +96,7 @@ Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se
 2. Control del buzzer: Generar una señal que permita "interactuar" con el Tamagotchi, la cual variará en frecuencia de acuerdo al estado de animo del mismo.
 ![Mic](./figs/Mic.jpg)
 
-### 3.4.4 Sensor Ultrasónico HC-SR04
+### 3.4.3 Sensor Ultrasónico HC-SR04
 
 El HC-SR04 es un sensor de ultrasonido ampliamente utilizado para medir distancias. Funciona emitiendo un pulso de sonido ultrasonico y midiendo el tiempo que tarda en rebotar en un objeto y regresar al sensor.
 
