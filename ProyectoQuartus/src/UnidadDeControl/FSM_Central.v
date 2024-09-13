@@ -1,4 +1,4 @@
-module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 1500000000, Feed = 500000000, Entert= 1000000000, CONTUNI = 10000000000)( //40s , 10s , 20s
+module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 1500000000, Feed = 500000000, Entert= 1000000000, CONTUNI = 10000000000)( //30s , 10s , 20s
 // Entradas
 	input clk,
 	input rst,
