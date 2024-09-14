@@ -39,9 +39,20 @@ Finalmente, en el estado "WAIT_FOR_ECHO", se añade un contador llamado "max_ech
 Para aclarar una parte del código que puede resultar confusa, la metodología para pasar del estado "IDLE" al estado "START" está condicionada a que un registro llamado "boton" sea igual a 1. En el código actual, se ha definido que este registro siempre será 1. Esto se hace para facilitar el desarrollo y en caso de que la especificación requiera que el sensor de ultrasonido solo se active al presionar un botón, el registro "boton" puede ser reemplazado por una entrada asociada a un botón físico. 
 
 ## Simulación
+Para la simulación se reduce el tiempo de espera para enviar el output "led" a 1 de 50000000 a 500.
 
+En la primera imgaen se aprecia como empieza a aumentar el contador "counteat" ya que el contador que mide los ciclos no superó el valor definido que es de 73000.
 ![image](https://github.com/user-attachments/assets/7fa9163f-5188-4996-81e9-c802aba10177)
 
+Luego al llegar el contador "counteat" a 500 se envia un pulso que dura 1 ciclo al output "led" y a pesar que el contador sigue aumentando no se vuelve a enviar este pulso, esto se puede percibir en la siguiente imagen: 
+![image](https://github.com/user-attachments/assets/7400a6fb-5d02-401a-9d4e-496a6d98215f)
 
+En la siguiente imagen se puede observar el comportamiento del sistema cuando se coloca un objeto a una distancia superior a 10 cm inmediatamente después de haberlo colocado a 10 cm. Inicialmente, el contador "counteat" sigue aumentando, ya que no ha recibido una medida diferente. Sin embargo, en el momento en que detecta un objeto que supera la distancia establecida, el contador "counteat" se detiene y el registro "act" cambia a 1. A continuación, se observa que el contador del eco se detiene justo cuando deja de recibir el eco. Todo esto queda reflejado en la imagen a continuación:
+
+![image](https://github.com/user-attachments/assets/7c63c096-99bf-4bc0-a525-6770e5bc5148)
+
+Con esta simulaación fue suficiente para determinar que el codigo funciona y que se puede implementar en el top general, al probarlo de manera experimental se obtuvieron resultados satisfactorios que se mostrarán en el video general del Tamagotchi.
 
 ## Implementación
+
+Este código se implementa para la función de alimentar al Tamagotchi. Cuando se acerca un "alimento" al sensor de ultrasonido y se mantiene a una distancia de 10 cm durante 1 segundo, el indicador de comida aumentará en una unidad. Para que el indicador de comida suba otra unidad, el alimento debe ser retirado y luego vuelto a acercar al sensor. Si el alimento permanece a 10 cm durante un tiempo prolongado, solo se incrementará una vez el indicador de comida.
