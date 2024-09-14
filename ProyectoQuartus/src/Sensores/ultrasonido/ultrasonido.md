@@ -1,37 +1,47 @@
 # Sensor de Distancia: HC-SR04
 
-El HC-SR04 es un sensor de distancia ultrasónido utilizado para medir distancias entre el sensor y un objeto con una precisión muy alta ya que s capaz de medir distancias a nivel de milimetros, centimetros y hasta los 4 metros de manera satisfactoria, esto lo hace enviando una señal de ultrasonido a través de un transductor, la onda golpea al objeto que tiene al frente y se refleja para ser detectada por el transductor receptor, se mide el tiempo de la onda y se calcula la distancia a la que se encuentra el objeto.
+El HC-SR04 es un sensor de distancia por ultrasonido utilizado para medir la distancia entre el sensor y un objeto con una alta precisión, ya que es capaz de medir distancias en milímetros, centímetros e incluso hasta 4 metros de manera satisfactoria. Funciona enviando una señal de ultrasonido a través de un transductor; la onda golpea el objeto frente al sensor y se refleja para ser detectada por el transductor receptor. El tiempo que tarda la onda en regresar se mide y se utiliza para calcular la distancia del objeto.
 
 ## Descripción de hardware
 
-El ultrasonido cuenta con 4 pines (VCC, GND, ECHO, TRIG) cada uno cumple su respectiva función en el desempeño del dispositivo.
+El sensor de ultrasonido cuenta con 4 pines (VCC, GND, ECHO, TRIG), cada uno con una función específica para el funcionamiento del dispositivo.
 
-VCC corresponde a la alimentación del dispositivo que debe ser de 5V DC y consecuentemente el GND se debe conectar a tierra, el HC-SR04 no cuenta con ningún led ni indicador que pueda dar certeza de que se encuentra en operación lo cual dificulta un poco el trabajo a la hora se usar el dispositivo.
+VCC corresponde a la alimentación del sensor, que debe ser de 5V DC, mientras que el GND debe conectarse a tierra. El HC-SR04 no dispone de LED ni indicadores que permitan confirmar visualmente su funcionamiento, lo que puede dificultar su uso y la verificación de que está en operación.
 
 ### ECHO
 
-el ECHO es un output del dispositivo es decir es un input en el dispositivo de control que se esté manejando, por este canal es por el que se va a enviar la señal que refleja el objeto, y con esta es con la que se debe calcular la distancia y se hace con la siguiente ecuación:
+El pin ECHO es una salida del sensor, es decir, una entrada para el dispositivo de control que se esté utilizando. A través de este pin se recibe la señal reflejada por el objeto. La distancia se calcula utilizando esta señal, mediante la siguiente ecuación:
 
 $$
 \text{distancia} = \frac{\text{Vel Sonido X}  \text{  ECHo}}{2}
 $$
 
-Para el codigo implementado se calcula con la velocidad del sonido en cm/s que sería igual a 3400 y ECHO s el tiempo que dura el ECHO activado, y esto se calcular con el periodo de la frecuencia a la cual trabaja la FPGA (50MHz) multiplicandolo por el numero de periodos que abarca el ECHO asi:
-
+En el código implementado, la distancia se calcula utilizando la velocidad del sonido en cm/s, que es de aproximadamente 34300 cm/s (en lugar de 3400, que sería incorrecto). El pin ECHO proporciona el tiempo durante el cual está activo. Este tiempo se determina a partir del periodo de la frecuencia de la FPGA (50 MHz), multiplicado por el número de periodos que abarca el ECHO, de la siguiente manera:
 $$
 \text{ECHO} = 2 \times 10^{-8} \times \text{número de ciclos}
 $$
 
-Todo este proceso de medida se realiza en la maquina de estados en el estado llamado "MEASURE_ECHO"
+Todo este proceso de medición se lleva a cabo en la máquina de estados, en el estado denominado "MEASURE_DISTANCE". Sin embargo, antes de que el sensor de ultrasonido pueda emitir la onda, es necesario realizar un proceso previo, que se explica a continuación:
 
-pero para que el Ultrasonido envie la onda, se debe hacer un proceso previo que se explica a continuación
+### TRIG
 
-###TRIG
+Este pin es una entrada del HC-SR04, es decir, una salida de la unidad de control. Es el encargado de activar el sensor de ultrasonido, ya que el HC-SR04 solo emitirá la onda ultrasónica si recibe previamente una señal positiva de exactamente 10 µs a través del pin TRIG. Solo se emitirá una onda ultrasónica cada vez que reciba esta señal específica. Por lo tanto, el código debe enviar repetidamente la señal de 10 µs al pin TRIG para medir la distancia de manera constante, según lo requerido en nuestra aplicación.
 
-Este pin es un Input del HC-SR04 es decir un Output de la unidad de control, este pin es el encargado de manejar el Ultrasonido ya que el ultrasonido solo enviará la onda ultrasonica solo si recibe antes mediante el pin del trigger una señal positiva de exactamente 10\mu S y solo enviará una onda ultrasonica cada vez que reciba esta señal antes mencionada, es decir que el codigo debe enviar la señal de trigger de 10\mu S repetidas veces para medir constantemente la distancia, así como es requerido en nuestra aplicación.
+Este proceso de enviar el trigger se realiza en la máquina de estados, en el estado "START", utilizando un contador que cuenta 499 ciclos de la señal del CLOCK, que tiene una frecuencia de 50 MHz, lo que es equivalente a 10µs.
 
-este proceso de enviar el trigger se hace en la maquina de estados en el estado "START" con un contador que cuenta 499 ciclos de la señal de CLOCK que es de 50MHz
+### Funcionamiento
+El sensor de ultrasonido debe detectar un objeto a una distancia menor de 10 cm durante al menos 1 segundo para luego enviar un 1 al output denominado "led". Si el objeto se encuentra a una distancia superior a 10 cm, no se contará el segundo necesario para activar el output, y se enviará un 0 en su lugar. Si el objeto está cerca por menos de 1 segundo y luego se retira, el output no enviará un 1; el conteo del tiempo se reiniciará. Si el objeto permanece cerca durante más de 1 segundo, el output enviará un 1 solo durante un ciclo; el resto del tiempo que el objeto permanezca cerca, el output se mantendrá en 0. Por lo tanto, para generar múltiples pulsos de 1 en el output, es necesario poner y retirar el objeto repetidamente.
+
+En la máquina de estados, en el estado denominado "OPERATION", se evalúa si la distancia es mayor o menor de 10 cm. Dependiendo de esta evaluación, se asigna un valor al registro "act", que controla la habilitación o deshabilitación del conteo de un segundo. Este conteo se gestiona en un bloque always mediante un contador llamado "countbeat", que incrementa cada ciclo cuando el registro "act" es 0 y se reinicia cuando "act" es 1. En el mismo bloque always, hay una condición que asigna un 1 al output "led" si el contador alcanza 25,000,000, que equivale a 1 segundo.
+
+Finalmente, en el estado "WAIT_FOR_ECHO", se añade un contador llamado "max_echo" que mide los ciclos necesarios para detectar el eco del dispositivo HC-SR04. Dado que el rango máximo de detección es de 4 metros, se calcula el tiempo necesario para superar este rango, que es de 900,000 ciclos. Si el contador excede este valor, se reinicia el proceso y se regresa al estado "IDLE", ya que si el objeto está demasiado lejos, el eco no será detectado. Esto evita que el sensor se quede estancado en el proceso de medición.
+
+Para aclarar una parte del código que puede resultar confusa, la metodología para pasar del estado "IDLE" al estado "START" está condicionada a que un registro llamado "boton" sea igual a 1. En el código actual, se ha definido que este registro siempre será 1. Esto se hace para facilitar el desarrollo y en caso de que la especificación requiera que el sensor de ultrasonido solo se active al presionar un botón, el registro "boton" puede ser reemplazado por una entrada asociada a un botón físico. 
 
 ## Simulación
+
+![image](https://github.com/user-attachments/assets/7fa9163f-5188-4996-81e9-c802aba10177)
+
+
 
 ## Implementación
