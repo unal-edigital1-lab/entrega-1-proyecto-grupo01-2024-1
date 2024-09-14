@@ -18,8 +18,11 @@
   - [3.3 Diagrama de Moore](#33-diagrama-de-moore)
   - [3.4 Descripción de Componentes](#34-descripción-de-componentes)
     - [3.4.1 Botones](#341-botones)
-    - [3.4.2 Sensor de Movimiento (Giroscopio)](#342-sensor-de-movimiento-giroscopio)
-    - [3.4.3  Sensor de Sonido y Buzzer](#343--sensor-de-sonido-y-buzzer)
+    - [3.4.2  Sensor de Sonido y Buzzer](#342--sensor-de-sonido-y-buzzer)
+    - [3.4.3 Sensor Ultrasónico HC-SR04](#343-sensor-ultrasónico-hc-sr04)
+      - [Señales](#señales)
+      - [Especificaciones](#especificaciones)
+      - [Funcionamiento](#funcionamiento)
     - [3.4.5 Pantalla LCD 16x2](#345-pantalla-lcd-16x2)
 - [4. Especificaciones Detalladas de Diseño](#4-especificaciones-detalladas-de-diseño)
   - [4.1 Modos de Operación](#41-modos-de-operación)
@@ -46,6 +49,7 @@ La interacción usuario-sistema se realizará mediante los siguientes cinco boto
 Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de interacción, se incorporará lo siguiente:
 
 - **sensor de ultra sonido HC-SR04:** con este sensor el Tamagotchi podrá jse podrá alimentar. Si se coloca un objeto a 10 cm del sensor durante un segundo el indicador de comida debería aumentar en un punto.
+  
 - **sensor de sonido analógico y digital KY038:** se utilizará la salida digital del sensor, permitiendo que al detectar un ruido del usuario, el Tamagotchi se despierte.
 
 - **buzzer:** el Tamagotchi podrá interactuar con el usuario mediante un buzzer manifestando diferentes sonidos dependiendo de como se esté sintiendo. Cada estado del Tamagotchi emitirá una cantidad de pulsos auditivos diferentes. 
