@@ -42,9 +42,11 @@ Para aclarar una parte del código que puede resultar confusa, la metodología p
 Para la simulación se reduce el tiempo de espera para enviar el output "led" a 1 de 50000000 a 500.
 
 En la primera imgaen se aprecia como empieza a aumentar el contador "counteat" ya que el contador que mide los ciclos no superó el valor definido que es de 73000.
+
 ![image](https://github.com/user-attachments/assets/7fa9163f-5188-4996-81e9-c802aba10177)
 
-Luego al llegar el contador "counteat" a 500 se envia un pulso que dura 1 ciclo al output "led" y a pesar que el contador sigue aumentando no se vuelve a enviar este pulso, esto se puede percibir en la siguiente imagen: 
+Luego al llegar el contador "counteat" a 500 se envia un pulso que dura 1 ciclo al output "led" y a pesar que el contador sigue aumentando no se vuelve a enviar este pulso, esto se puede percibir en la siguiente imagen:
+
 ![image](https://github.com/user-attachments/assets/7400a6fb-5d02-401a-9d4e-496a6d98215f)
 
 En la siguiente imagen se puede observar el comportamiento del sistema cuando se coloca un objeto a una distancia superior a 10 cm inmediatamente después de haberlo colocado a 10 cm. Inicialmente, el contador "counteat" sigue aumentando, ya que no ha recibido una medida diferente. Sin embargo, en el momento en que detecta un objeto que supera la distancia establecida, el contador "counteat" se detiene y el registro "act" cambia a 1. A continuación, se observa que el contador del eco se detiene justo cuando deja de recibir el eco. Todo esto queda reflejado en la imagen a continuación:
