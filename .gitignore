@@ -40,3 +40,4 @@ output_files/
 *.vcd
 figs/.$Diagramas.drawio.bkp
 *.bak
+/.vscode
