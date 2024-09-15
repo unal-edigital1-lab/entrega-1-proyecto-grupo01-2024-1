@@ -14,8 +14,7 @@ module LCD1602_CONTROLLER #(parameter MAX_VALUE = 5, NUM_FACES = 9, COUNT_MAX = 
     output [7:0] data
 );
 
-reg [10: 0] counter = 0;
-reg [7:0] actual_value = 0;
+
 reg rs_reg = 0;
 reg [7:0] data_reg = 0;
 
@@ -72,7 +71,7 @@ localparam PAINT_CARA = 7;
 localparam WAIT = 9;
 
 reg [1:0] set_task = 0;
-localparam SENT_CARITA = 0;
+localparam SET_CARITA = 0;
 localparam START_PAINT = 1;
 localparam PAINTING = 2;
 
@@ -232,17 +231,17 @@ always @(posedge clk_16ms) begin
     end else begin
         case (next)
             IDLE: begin
-                init_config_executed <= 0;
-                initial_paint_text_done <= 0;
-                initial_paint_values_done <= 0;
-                initial_paint_cara_done <= 0;
-                carita_executed <= 0;
-                values_executed <= 0;
-                set_task <= 0;
-                num_cust_char_cara <= 0;
-                counter_data <= 'b0;
-                data_reg <= 'b0;
-                rs_reg <= 'b0;
+                init_config_executed <= 0; // restet flag
+                initial_paint_text_done <= 0; // restet flag
+                initial_paint_values_done <= 0; // restet flag
+                initial_paint_cara_done <= 0; // restet flag
+                carita_executed <= 0; // restet flag
+                values_executed <= 0; // restet flag
+                set_task <= 0; // restet counter
+                counter_data <= 'b0; // restet counter
+                num_cust_char_cara <= 0; // reset register, IDLE FACE == 0
+                data_reg <= 'b0; // restet register
+                rs_reg <= 'b0; // restet register
             end
             INIT_CONFIG: begin
                 case(counter_data)
@@ -255,35 +254,54 @@ always @(posedge clk_16ms) begin
             end
             INITIAL_PAINT_CARA:begin
                 case(set_task)
-                    SENT_CARITA: begin
-                        num_cust_char_cara <= 0;
+                    SET_CARITA: begin
+                        num_cust_char_cara <= 0; // IDLE FACE == 0
                         set_task <= START_PAINT;
                     end
                     START_PAINT: begin
                         set_task <= (lcd_available_cara)? START_PAINT : PAINTING;
-                        start_painting_cara <= (lcd_available_cara)? 1 : 0;
+                        start_painting_cara <= (lcd_available_cara)? 1 : 0; // señal de start que se envía al módulo lcd1602_cust_char
                     end
                     PAINTING: begin
-                       if (lcd_available_cara) begin
-                           initial_paint_cara_done <= 1;
-                           set_task <= 0;
+                       if (lcd_available_cara) begin // Si la pantalla está disponible
+                           initial_paint_cara_done <= 1; // flag para indicar que se pintó la cara
+                           set_task <= 0; // resetear la tarea para que pueda ser reutilizada
                         end
                     end
                 endcase
             end
+            INITIAL_PAINT_VALUES: begin
+                case(counter_data)
+                    // Se mueve el cursor a la posición de la LCD donde se pintará el valor de FOOD
+                    0: begin rs_reg <= 0; data_reg <= initial_lcd_address[FOOD_VALUE]; counter_data <= 1; end
+                    // Se pinta el numero 5 en la LCD
+                    1: begin rs_reg <= 1; data_reg <= string_numbers[5]; counter_data <= 2; end
+                    // Se mueve el cursor a la posición de la LCD donde se pintará el valor de JOY
+                    2: begin rs_reg <= 0; data_reg <= initial_lcd_address[JOY_VALUE]; counter_data <= 3; end
+                    // Se pinta el numero 5 en la LCD
+                    3: begin rs_reg <= 1; data_reg <= string_numbers[5]; counter_data <= 4; end
+                    // Se mueve el cursor a la posición de la LCD donde se pintará el valor de ENERGY
+                    4: begin rs_reg <= 0; data_reg <= initial_lcd_address[ENERGY_VALUE]; counter_data <= 5; end
+                    // Se pinta el numero 5 en la LCD
+                    5: begin  rs_reg <= 1; data_reg <= string_numbers[5]; counter_data <= 0; initial_paint_values_done <= 1; end
+                    default: counter_data <= 0;
+                endcase
+            end
             INITIAL_PAINT_TEXT:begin   
                 case(counter_data)
-                    //0: begin rs_reg <= 0; data_reg <= SHIFT_CURSOR_RIGHT; counter_data <= 1; end
                     0: begin rs_reg <= 0; data_reg <= 0; counter_data <= 1; end
+                    // Se pinta el texto FOOD en la LCD usando caracteres ascii
                     1: begin rs_reg <= 0; data_reg <= initial_lcd_address[FEED_TEXT]; counter_data <= 2; end
                     2: begin rs_reg <= 1; data_reg <= string_food[0]; counter_data <= 3; end
                     3: begin rs_reg <= 1; data_reg <= string_food[1]; counter_data <= 4; end
                     4: begin rs_reg <= 1; data_reg <= string_food[2]; counter_data <= 5; end
                     5: begin rs_reg <= 1; data_reg <= string_food[3]; counter_data <= 6; end
+                    // Se pinta el texto JOY en la LCD usando caracteres ascii
                     6: begin rs_reg <= 0; data_reg <= initial_lcd_address[JOY_TEXT]; counter_data <= 7; end
                     7: begin rs_reg <= 1; data_reg <= string_joy[0]; counter_data <= 8; end
                     8: begin rs_reg <= 1; data_reg <= string_joy[1]; counter_data <= 9; end
                     9: begin rs_reg <= 1; data_reg <= string_joy[2]; counter_data <= 10; end
+                    // Se pinta el texto ENERGY en la LCD usando caracteres ascii
                     10: begin rs_reg <= 0; data_reg <= initial_lcd_address[ENERGY_TEXT]; counter_data <= 11; end
                     11: begin rs_reg <= 1; data_reg <= string_energy[0]; counter_data <= 12; end
                     12: begin rs_reg <= 1; data_reg <= string_energy[1]; counter_data <= 13; end
@@ -291,32 +309,20 @@ always @(posedge clk_16ms) begin
                     14: begin rs_reg <= 1; data_reg <= string_energy[3]; counter_data <= 15; end
                     15: begin rs_reg <= 1; data_reg <= string_energy[4]; counter_data <= 16; end
                     16: begin rs_reg <= 1; data_reg <= string_energy[5]; counter_data <= 17; end
+                    // Se resetea counter_data y se activa la bandera de que indica que ya se pintó todo el texto
                     17: begin rs_reg <= 0; data_reg <= 0; counter_data <= 0; initial_paint_text_done <= 1; end
                     default: counter_data <= 0;
                 endcase
             end
-            INITIAL_PAINT_VALUES: begin
-                actual_value <= string_numbers[5];
-                case(counter_data)
-                    0: begin rs_reg <= 0; data_reg <= initial_lcd_address[FOOD_VALUE]; counter_data <= 1; end
-                    1: begin rs_reg <= 1; data_reg <= string_numbers[5]; counter_data <= 2; end
-                    2: begin rs_reg <= 0; data_reg <= initial_lcd_address[JOY_VALUE]; counter_data <= 3; end
-                    3: begin rs_reg <= 1; data_reg <= string_numbers[5]; counter_data <= 4; end
-                    4: begin rs_reg <= 0; data_reg <= initial_lcd_address[ENERGY_VALUE]; counter_data <= 5; end
-                    5: begin counter <= 0; rs_reg <= 1; data_reg <= string_numbers[5]; counter_data <= 0; initial_paint_values_done <= 1; end
-                    default: counter_data <= 0;
-                endcase
-            end
             CHECK_UPDATES: begin
-                carita_executed <= 0;
-                values_executed <= 0;
+                carita_executed <= 0; // reset flag
+                values_executed <= 0; // reset flag
                 data_reg <= 0;
                 rs_reg <= 0;
             end
             PAINT_CARA:begin
-                counter <= counter + 1;
                 case(set_task)
-                    SENT_CARITA: begin
+                    SET_CARITA: begin
                         num_cust_char_cara <= face;
                         set_task <= START_PAINT;
                     end
@@ -333,14 +339,13 @@ always @(posedge clk_16ms) begin
                 endcase
             end
             PAINT_VALUES: begin
-                counter <= counter + 1;
                 case(counter_data)
                     0: begin rs_reg <= 0; data_reg <= initial_lcd_address[FOOD_VALUE]; counter_data <= 1; end
-                    1: begin rs_reg <= 1; data_reg <= string_numbers[food_value]; counter_data <= 2; actual_value <= string_numbers[food_value];end
+                    1: begin rs_reg <= 1; data_reg <= string_numbers[food_value]; counter_data <= 2; end
                     2: begin rs_reg <= 0; data_reg <= initial_lcd_address[JOY_VALUE]; counter_data <= 3; end
-                    3: begin rs_reg <= 1; data_reg <= string_numbers[joy_value]; counter_data <= 4; actual_value <= string_numbers[joy_value]; end
+                    3: begin rs_reg <= 1; data_reg <= string_numbers[joy_value]; counter_data <= 4;  end
                     4: begin rs_reg <= 0; data_reg <= initial_lcd_address[ENERGY_VALUE]; counter_data <= 5; end
-                    5: begin counter <= 0; rs_reg <= 1; data_reg <= string_numbers[energy_value]; counter_data <= 0; values_executed <= 1; actual_value <= string_numbers[energy_value]; end
+                    5: begin  rs_reg <= 1; data_reg <= string_numbers[energy_value]; counter_data <= 0; values_executed <= 1;  end
                     default: counter_data <= 0;
                 endcase
             end
