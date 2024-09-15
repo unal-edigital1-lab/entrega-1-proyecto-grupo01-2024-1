@@ -214,13 +214,14 @@ module FSM_Central#(parameter COUNT_MAX = 25000 , Ener = 1500000000, Feed = 5000
 							next = HUNGRY;
 						end else if (energy > 3'd2 && entertainment <= 3'd2 && hunger > 3'd2) begin
 							next = BORED;
-						end else if ((energy >= 3'd3 && energy < 3'd5) && (hunger >= 3'd3 && hunger < 3'd5) && (entertainment >= 3'd3 && entertainment < 3'd5)) begin
+						end else if ((energy > 3'd2 && energy < 3'd5) && (hunger > 3'd2 && hunger <= 3'd5) && (entertainment > 3'd2 && entertainment <= 3'd5)) begin
 							next = NEUTRAL;
 						end
 					end else if(botonTest) begin
                        next = TEST;
                end else if (energy == 3'd5 && hunger == 3'd5 && entertainment == 3'd5) begin
 						next = IDLE;
+						
 					end else if (energy == 3'd5) begin
 						next = NEUTRAL;
 					end  else begin

@@ -26,24 +26,37 @@ reg flag;
 
 reg [2:0] num_veces = 4'd3;
 reg [2:0] nunm_tiempo = 4'd1;
+reg [2:0] num_y_tiempo = 4'd1;
 
 always @(posedge clk)begin
     if(state_t == 0 || state_t == 1) begin
         num_veces <= 3;
         nunm_tiempo <= 2;
+		  num_y_tiempo <= 1;
     end else if(state_t==5) begin
         num_veces <= 2;
         nunm_tiempo <= 1;
+		  num_y_tiempo <= 1;
     end else if(state_t==4)begin
         num_veces <= 2;
-        nunm_tiempo <= 5;
+        nunm_tiempo <= 2;
+		  num_y_tiempo <= 1;
     end else if (state_t == 2)begin
         num_veces <= 1;
         nunm_tiempo <= 1;
-    end else begin
-        num_veces <= 1;
+		  num_y_tiempo <= 1;
+    end else if (state_t == 8)begin
+			num_veces <= 3;
+			nunm_tiempo <= 1;
+			num_y_tiempo <= 3;
+	end else if (state_t == 3)begin
+			num_veces <= 1;
+			nunm_tiempo <= 2;
+			num_y_tiempo <= 1;	
+	 end else begin
+        num_veces <= 2;
         nunm_tiempo <= 1;
-        //prev_mic <= 1;
+        num_y_tiempo <= 3;
     end
 end
 
@@ -111,7 +124,7 @@ always @(posedge clk or negedge rst) begin
             SPEAKING: begin
                 case(next)
                 ON: begin
-                        next <= (counter == ((COUNT_MAX-1) / nunm_tiempo))? WAIT1 : ON;
+                        next <= (counter == ((COUNT_MAX-1) * num_y_tiempo / nunm_tiempo))? WAIT1 : ON;
                         buzzer <= 0;
                         counter <= counter + 1;
                     end
@@ -120,7 +133,7 @@ always @(posedge clk or negedge rst) begin
                     next <= OFF;
                 end
                 OFF: begin
-                        next <= (counter == ((COUNT_MAX-1) / nunm_tiempo))? WAIT2 : OFF;
+                        next <= (counter == ((COUNT_MAX-1) * num_y_tiempo / nunm_tiempo))? WAIT2 : OFF;
                         counter <= counter + 1;
                         buzzer <= 1;
                     end
