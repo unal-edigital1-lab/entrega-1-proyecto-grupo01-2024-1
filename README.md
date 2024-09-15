@@ -121,7 +121,7 @@ Se utilizará una pantalla LCD 16x2 para mostrar la mascota virtual y los puntaj
 
 ### 4.1.1 Modo Test
 
-El modo test se activa al presionar por 5 segundos el botón de test, posteriormente el usuario debe presionar un numero de veces determinado en un intervalo de tiempo de XXXXXXXXXXXX dependiendo el numero de veces que se presione el tamagotchi satará al estado correspondiente, siendo: NEUTRAL (1), TIRED (2), SLEEP (3), HUNGRY (4), SAD (5), PLAYING (6), BORED (7), DEAD (8). Ya cuando se salta a ese estado el tamagotchi funcionará de manera normal a partir del estado en el que se encuentre, es decir que junto al estado se cambiaran los valores de los indicadores de "hunger", "entertaiment" y "energy" a unos determinados según el estado al que se salte.
+El modo test se activa al presionar por 5 segundos el botón de test, posteriormente el usuario debe presionar un numero de veces determinado en un intervalo de tiempo de 5 segundos dependiendo el numero de veces que se presione el tamagotchi satará al estado correspondiente, siendo: NEUTRAL (1), TIRED (2), SLEEP (3), HUNGRY (4), SAD (5), PLAYING (6), BORED (7), DEAD (8). Ya cuando se salta a ese estado el tamagotchi funcionará de manera normal a partir del estado en el que se encuentre, es decir que junto al estado se cambiaran los valores de los indicadores de "hunger", "entertaiment" y "energy" a unos determinados según el estado al que se salte.
 
 ### 4.1.2 Modo Normal
 
@@ -177,7 +177,7 @@ Estos estados fluctuarán en base a los niveles de cada indicador de la mascota,
 **Temporizadores**
 
 Existen tres temporizadores los cuales controlan cada uno de los indicadores del Tamagotchi. Los temporizadores son los siguientes:
-  * **Ener**: Es el temporizador de energía, el cual indica que cada 40 segundos disminuye en 1 el nivel de energía o si está dormido, cada 40 segundos que esté dormido, aumenta el nivel de energía en 1.
+  * **Ener**: Es el temporizador de energía, el cual indica que cada 30 segundos disminuye en 1 el nivel de energía o si está dormido, cada 30 segundos que esté dormido, aumenta el nivel de energía en 1.
   
   * **Feed**: Es el temporizador de hambre, el cual indica que cada 10 segundos disminuye en 1 el nivel de alimentación.
 
@@ -185,14 +185,14 @@ Existen tres temporizadores los cuales controlan cada uno de los indicadores del
   
 **Interacciones**
 
-El usuario interactúa con el Tamagotchi mediante los botones "Feed", "Sleep", "Play", "Test" y "Reset" y mediante lo sensores de Audio, Giroscopio y Ultrasonido.
+El usuario interactúa con el Tamagotchi mediante los botones "Feed", "Sleep", "Play", "Test" y "Reset" y mediante lo sensores de Audio y Ultrasonido.
 
 * Con el botón "Feed" aumenta el indicador de alimentación en 1 punto de 5 posible.
-* Con el botón "Sleep" el Tamagotchi entra al estado dormir en donde cada 40 segundos aumenta en 1 el indicador de energía.
-* Con el una interacción sonora detectada por el micrófono el Tamagotchi sale del estado "SLEEP".
-* Con el botón "PLAY" on una interacción con el sensor ultrasonido el Tamagotchi entra en el estado de jugar en el cual revisa si se está moviendo el giroscopio para poder aumentar cada 20 segundos el nivel de entertainment.
+* Con el botón "Sleep" el Tamagotchi entra al estado dormir en donde cada 30 segundos aumenta en 1 el indicador de energía.
+* Con el una interacción sonorá detectada por el micrófono el Tamagotchi sale del estado "SLEEP".
+* Con el botón "PLAY" el Tamagotchi entra en el estado de jugar en el cual revisa si se está activado un switch para poder aumentar cada 20 segundos el nivel de entertainment.
 * Una pulsación del botón reset regresa el Tamagotchi al estado "IDLE" en donde todos los indicadores regresan a su nivel máximo de 5.
-* El botón test, hace que el Tamagotchi entre al modo test descrito anteriormente.
+* El botón test, hace que el Tamagotchi entre al modo test y pueda saltar al estado deseado como fue descrito anteriormente.
 
 **Sistema de Niveles o Puntos**
 
