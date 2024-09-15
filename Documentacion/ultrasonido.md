@@ -45,11 +45,18 @@ Imagne del diagrama de estados del ultrasonido:
 
 Código con la logica del cambio de estados de ka maquina de estas:
 
+![image](https://github.com/user-attachments/assets/0292c224-a0be-4bc1-9fd7-cfb2f8ebe80a)
 
-Código de las funciones dentro de ecada uno de los estados:
+
+Código de las funciones dentro de cada uno de los estados:
+
+![image](https://github.com/user-attachments/assets/f1c0a22e-a583-4e73-88a7-70399d404ebc)
 
 
-Bloque always en el que se implementa la logica para el output: 
+Bloque always en el que se implementa la lógica para el output: 
+
+![image](https://github.com/user-attachments/assets/02e7c6fb-2396-4473-83dd-562d17bf9e0d)
+
 
 ## Simulación
 Para la simulación se reduce el tiempo de espera para enviar el output "led" a 1 de 50000000 a 500.
