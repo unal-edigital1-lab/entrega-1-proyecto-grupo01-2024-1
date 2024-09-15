@@ -17,6 +17,7 @@ $$
 $$
 
 En el código implementado, la distancia se calcula utilizando la velocidad del sonido en cm/s, que es de aproximadamente 34300 cm/s (en lugar de 3400, que sería incorrecto). El pin ECHO proporciona el tiempo durante el cual está activo. Este tiempo se determina a partir del periodo de la frecuencia de la FPGA (50 MHz), multiplicado por el número de periodos que abarca el ECHO, de la siguiente manera:
+
 $$
 \text{ECHO} = 2 \times 10^{-8} \times \text{número de ciclos}
 $$
