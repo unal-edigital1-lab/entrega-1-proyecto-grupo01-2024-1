@@ -170,7 +170,7 @@ always @(posedge clk) begin
     end else begin
         counteat=0;
     end
-	if (counteat == 50000000) begin
+	if (counteat == 100000000) begin
         led = 1;
     end else begin
         led = 0;
