@@ -21,7 +21,7 @@ localparam DISTANCIA_MINIMA = 50; // Distancia mínima en centímetros (1 metro 
 reg [21:0] cuenta_echo;     // Contador para medir el tiempo de eco
 reg [21:0] max_echo;
 reg [9:0] count;
-reg [$clog2(50000000)-1:0] counteat;
+reg [$clog2(100000000)-1:0] counteat;
 reg act;
 reg boton;
 
@@ -170,7 +170,7 @@ always @(posedge clk) begin
     end else begin
         counteat=0;
     end
-	if (counteat == 50000000) begin
+	if (counteat == 100000000) begin
         led = 1;
     end else begin
         led = 0;
