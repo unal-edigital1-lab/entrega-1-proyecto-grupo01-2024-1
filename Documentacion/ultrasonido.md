@@ -13,7 +13,7 @@ VCC corresponde a la alimentación del sensor, que debe ser de 5V DC, mientras q
 El pin ECHO es una salida del sensor, es decir, una entrada para el dispositivo de control que se esté utilizando. A través de este pin se recibe la señal reflejada por el objeto. La distancia se calcula utilizando esta señal, mediante la siguiente ecuación:
 
 $$
-\text{distancia} = \frac{\text{Vel Sonido X}  \text{  ECHo}}{2}
+\text{distancia} = \frac{\text{Vel Sonido X}  \text{  ECHO}}{2}
 $$
 
 En el código implementado, la distancia se calcula utilizando la velocidad del sonido en cm/s, que es de aproximadamente 34300 cm/s (en lugar de 3400, que sería incorrecto). El pin ECHO proporciona el tiempo durante el cual está activo. Este tiempo se determina a partir del periodo de la frecuencia de la FPGA (50 MHz), multiplicado por el número de periodos que abarca el ECHO, de la siguiente manera:
