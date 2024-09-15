@@ -36,7 +36,20 @@ En la máquina de estados, en el estado denominado "OPERATION", se evalúa si la
 
 Finalmente, en el estado "WAIT_FOR_ECHO", se añade un contador llamado "max_echo" que mide los ciclos necesarios para detectar el eco del dispositivo HC-SR04. Dado que el rango máximo de detección es de 4 metros, se calcula el tiempo necesario para superar este rango, que es de 900,000 ciclos. Si el contador excede este valor, se reinicia el proceso y se regresa al estado "IDLE", ya que si el objeto está demasiado lejos, el eco no será detectado. Esto evita que el sensor se quede estancado en el proceso de medición.
 
-Para aclarar una parte del código que puede resultar confusa, la metodología para pasar del estado "IDLE" al estado "START" está condicionada a que un registro llamado "boton" sea igual a 1. En el código actual, se ha definido que este registro siempre será 1. Esto se hace para facilitar el desarrollo y en caso de que la especificación requiera que el sensor de ultrasonido solo se active al presionar un botón, el registro "boton" puede ser reemplazado por una entrada asociada a un botón físico. 
+Para aclarar una parte del código que puede resultar confusa, la metodología para pasar del estado "IDLE" al estado "START" está condicionada a que un registro llamado "boton" sea igual a 1. En el código actual, se ha definido que este registro siempre será 1. Esto se hace para facilitar el desarrollo y en caso de que la especificación requiera que el sensor de ultrasonido solo se active al presionar un botón, el registro "boton" puede ser reemplazado por una entrada asociada a un botón físico.
+
+### Estados
+
+Imagne del diagrama de estados del ultrasonido:
+![Estados_us](https://github.com/user-attachments/assets/c2b57297-ffc9-446e-bae3-a20b7d5e3a12)
+
+Código con la logica del cambio de estados de ka maquina de estas:
+
+
+Código de las funciones dentro de ecada uno de los estados:
+
+
+Bloque always en el que se implementa la logica para el output: 
 
 ## Simulación
 Para la simulación se reduce el tiempo de espera para enviar el output "led" a 1 de 50000000 a 500.
