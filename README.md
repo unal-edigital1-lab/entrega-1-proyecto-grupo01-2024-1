@@ -121,7 +121,7 @@ Se utilizará una pantalla LCD 16x2 para mostrar la mascota virtual y los puntaj
 
 ### 4.1.1 Modo Test
 
-El modo test se activa al presionar por 5 segundos el botón de test, posterior a esto cada vez que se pulse el botón de test, se hará una transición por todos los estados del Tamagotchi. Estos cambios se deberán ver reflejados en pantalla mediante las caras ilustradas y mediante los niveles mostrados.
+El modo test se activa al presionar por 5 segundos el botón de test, posteriormente el usuario debe presionar un numero de veces determinado en un intervalo de tiempo de XXXXXXXXXXXX dependiendo el numero de veces que se presione el tamagotchi satará al estado correspondiente, siendo: NEUTRAL (1), TIRED (2), SLEEP (3), HUNGRY (4), SAD (5), PLAYING (6), BORED (7), DEAD (8). Ya cuando se salta a ese estado el tamagotchi funcionará de manera normal a partir del estado en el que se encuentre, es decir que junto al estado se cambiaran los valores de los indicadores de "hunger", "entertaiment" y "energy" a unos determinados según el estado al que se salte.
 
 ### 4.1.2 Modo Normal
 
@@ -129,7 +129,7 @@ La funcionalidad regular del Tamagotchi es la siguiente:
 
 * Recién se enciende la FPGA y se carga la descripción de hardware el Tamagotchi entra a su estado inicial e ideal llamado "IDLE". En este estado, el Tamagotchi tiene todos sus indicadores al máximo, es decir "hunger = 5", "entertainment = 5" y "energy=5". Este estado inicial se puede visualizar en pantalla mediante una carita feliz. 
 
-* Posteriormente y con el avance del tiempo, los indicadores van  ir disminuyendo de a 1 punto de tal manera que cuando ya no están todos en 5 el Tamagotchi entra a un estado denominado "NEUTRAL". Este estado se presenta siempre que todos los niveles sean mayores a 2.
+* Posteriormente y con el avance del tiempo, los indicadores van  ir disminuyendo, el de "hunger" disminuirá una unidad cada 10 segundos, el de "entertaiment" se reducirá una unidad cada 20 segundos y el de "energy" se reducirá una unidad cada 30 segundos. Cuando ya no están todos en 5 el Tamagotchi entra a un estado denominado "NEUTRAL". Este estado se presenta siempre que todos los niveles sean mayores a 2.
 
 * Desde el estado anterior, el Tamagotchi puede cambiar a tres estados los cuales se dan cuando uno de los tres indicadores (hunger, entertainment o energy) se encuentra en un nivel menor o igual a 2. Los estados a los que puede entrar son: 
 
@@ -141,15 +141,15 @@ La funcionalidad regular del Tamagotchi es la siguiente:
 
 * Dado el caso en que mas de un nivel esté por debajo de 2 se entra a un estado denominado "SAD" en el cual el Tamagotchi muestra una cara triste e indica a el usuario que debe hacer algo para aumentar el nivel de los indicadores.
 
-* Si el Tamagotchi se encuentra en el estado "SAD" lo suficiente para que un indicador llegue a 0. Este pasa el estado denominado "DEATH" , en el cual el Tamagotchi muere y donde ya el usuario no puede interactuar con el mismo. La única manera para sacar al Tamagotchi de este estado es mediante la pulsación del botón de reset el cual regresa al Tamagotchi al estado de "IDLE".
+* Si el Tamagotchi se encuentra en el estado "SAD" lo suficiente para que un indicador llegue a 0. Este pasa el estado denominado "DEAD", en el cual el Tamagotchi muere y donde ya el usuario no puede interactuar con el mismo. La única manera para sacar al Tamagotchi de este estado es mediante la pulsación del botón de reset el cual regresa al Tamagotchi al estado de "IDLE".
 
 * Si en cualquiera de los estados se presiona el botón de "sleep" y además no está presionado el botón play y además el nivel de energía es diferente de 5, el Tamagotchi entra el estado "SLEEP". En este estado el Tamagotchi recupera con el avance del tiempo su indicador de "energy" lo cual lo puede ayudar a salir de los estados "SAD" o "TIRED" y que llegue a un estado "NEUTRAL" o incluso "IDLE" (solo si todos los indicadores están en 5.) Para salir del estado sleep hay tres opciones:
 
   * Se hace algún ruido lo suficiente mente alto para que el micrófono lo detecte y se despierte el Tamagotchi, se presiona el botón de "feed" para que el Tamagotchi se despierte a comer, o el si el Tamagotchi ya durmió lo suficiente y el nivel de "energy =5". Una vez despierto, el Tamagotchi entrará al estado correspondiente, dependiendo del nivel de sus tres indicadores.
 
-* Si en cualquiera de los estados se presiona el botón de "play" y además no está presionado el botón "sleep y además el nivel de entertainment es diferente de 5, el Tamagotchi entra el estado "PLAYING". En este estado el Tamagotchi recupera con el avance del tiempo su indicador de "entertainment" lo cual lo puede ayudar a salir de los estados "SAD" o "BORED" y que llegue a un estado "NEUTRAL" o incluso "IDLE" (solo si todos los indicadores están en 5.) Para salir del estado playing es necesario que se deje de mover el giroscopio ya que este sensor es el que indica posterior a presionado el botón de jugar, que el Tamagotchi está jugando. El Tamagotchi también sale del estado "PLAYING" si el nivel de entertainment llega a 5. 
+* Si en cualquiera de los estados se presiona el botón de "play" y además no está presionado el botón "sleep y además el nivel de entertainment es diferente de 5, el Tamagotchi entra al estado "PLAYING". En este estado el Tamagotchi recupera con el avance del tiempo su indicador de "entertainment" lo cual lo puede ayudar a salir de los estados "SAD" o "BORED" y que llegue a un estado "NEUTRAL" o incluso "IDLE" (solo si todos los indicadores están en 5) Para salir del estado playing se puede hacer presionando el botón de comer. El Tamagotchi también sale del estado "PLAYING" si el nivel de entertainment llega a 5. 
 
-Finalmente es importante recalcar que el nivel de "hunger" se controla con el botón "feed" el cual al presionarlo, le da una galleta al Tamagotchi y el nivel de alimentación sube. Esto puede ayudar a que el Tamagotchi salga del estado de "HUNGRY". Con esto se concluye la descripción del modo normal de operación del Tamagotchi.
+Finalmente es importante recalcar que el nivel de "hunger" se controla con el ultrasonido el cual al acercarle un objeto a 10cm durante 2 segundos, como si se le mostrara unas galletas al Tamagotchi y así el nivel de alimentación sube, es importante retirar y volver a mostrarle el objeto para que vuelva a subir el indicador, si no, solo subirá una unidad. Esto puede ayudar a que el Tamagotchi salga del estado de "HUNGRY". Con esto se concluye la descripción del modo normal de operación del Tamagotchi.
 
 ## 4.2 Estados y Transiciones
 
