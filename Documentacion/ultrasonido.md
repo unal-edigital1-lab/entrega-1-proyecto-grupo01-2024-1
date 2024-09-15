@@ -44,7 +44,7 @@ Para aclarar una parte del código que puede resultar confusa, la metodología p
 Imagne del diagrama de estados del ultrasonido:
 ![Estados_us](https://github.com/user-attachments/assets/c2b57297-ffc9-446e-bae3-a20b7d5e3a12)
 
-Código con la logica del cambio de estados de ka maquina de estas:
+Código con la logica del cambio de estados de la maquina de estas:
 
 ![image](https://github.com/user-attachments/assets/0292c224-a0be-4bc1-9fd7-cfb2f8ebe80a)
 

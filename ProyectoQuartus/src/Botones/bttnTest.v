@@ -96,7 +96,7 @@ always @(posedge clk) begin
 				pulse_counter <= 0;
         end
         COUNTING: begin
-				contBtnPress <= 0;
+			contBtnPress <= 0;
             flag_contmsegs <= 1'b1;
             if (!botonTest && prevBotonTest) begin
                 pulse_counter <= pulse_counter + 1;

@@ -32,7 +32,7 @@ module mic_TB;
         #1000 rst = 0;
         #1000 rst = 1;
 
-        #100 state_t = 8;
+        #100 state_t = 0;
         #100000 mic = 1;
         #1000 mic = 0;
 
@@ -42,7 +42,7 @@ module mic_TB;
         #50000 mic = 1;
         #100000 mic = 0;
 
-        #100state_t = 2;
+        #100state_t = 8;
         #20000 mic = 1;
         #10000 mic = 0;
     end
