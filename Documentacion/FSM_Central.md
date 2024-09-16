@@ -439,4 +439,13 @@ end
 
 endmodule
 ```
-Con lo anterior se resume la funcionalidad del código [FSM_Central.v](./ProyectoQuartus/src/UnidadDeControl/FSM_Central.v) parte por parte y de manera detallada.
+Con lo anterior se resume la funcionalidad del código [FSM_Central.v](/ProyectoQuartus/src/UnidadDeControl/FSM_Central.v)) parte por parte y de manera detallada. 
+
+**Testbench y depuración del código**
+
+
+Para probar que todas las funcionalidades descritas en [README.md](/README.md) se desarrolló un test bench. Aquí se depuró el código y se probaron diversas situaciones que podrían ocurrir en el ciclo de vide el tamagotchi. Actualmente el test bench: [FSM_Central_TB](/ProyectoQuartus/src/UnidadDeControl/FSM_Central_TB.v) contiene una prueba de funcionamient general la cual se muestra a continuación:
+
+![TB](/figs/Testbench_FSM.png)
+
+En test bench es posible observar como hunger, entertainment y energy disminuyen con el tiempo a diferentes velocidades, es posible observar como al entrar en modo jugar , entertainment sube. También es posible como es posible aumentar el nivel de alimentación con botonFeed. Por ultimo es posible ver como el tamagotchi transiciona entre estados hasta llegar al estado 8 el cual corresponde a muerto.
