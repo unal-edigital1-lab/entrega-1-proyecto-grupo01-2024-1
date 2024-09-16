@@ -170,7 +170,8 @@ Como se describió de manera detallada en el apartado anterior, el Tamagotchi te
 
 Estos estados fluctuarán en base a los niveles de cada indicador de la mascota, proporcionando una experiencia dinámica e interactiva para el usuario. Por cada estado se visualizará en la pantalla LCD 16x2 diversas expresiones de la mascota.
 
-![Caras](figs/caras_mascotas_2.png)
+![image](https://github.com/user-attachments/assets/151ad1c7-ee20-4f9f-8323-a36a114eaed3)
+
 
 ### 4.2.2 Transiciones 
 
