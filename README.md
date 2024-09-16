@@ -1,4 +1,4 @@
-# Entrega 1 del proyecto WP01 <!-- omit in toc -->
+# Entrega Final: Proyecto Electrónica Digital 1 <!-- omit in toc -->
 
 **INTEGRANTES**
 - Miguel Fabian Duarte Diaz
@@ -80,42 +80,54 @@ El siguiente diagrama de flujo proporciona una visión detallada de la funcional
 
 ## 3.3 Diagrama de Moore
 
-El siguiente diagrama de Moore es una representación gráfica de la lógica de estados del Tamagotchi. Este diagrama detalla cómo el estado del Tamagotchi cambia en respuesta a los indicadores de la mascota y las acciones del usuario. 
+El siguiente diagrama de Moore es una representación gráfica de la lógica de estados del Tamagotchi. Este diagrama detalla cómo el estado del Tamagotchi cambia en respuesta a los indicadores de la mascota y las acciones del usuario. Para conocer a detalle el módulo que controla estos cambios: [FSM_Central.md](/Documentacion/FSM_Central.md)
 
 ![DiagramaMoore](./figs/Diagrama_de_Moore_Tamagotchi.png)
 
 ## 3.4 Descripción de Componentes
 
 ### 3.4.1 Botones
-- documentación detallada: [mic-buttons.md](./Documentacion\mic-buttons.md)
+- documentación detallada: [mic-buttons.md](./Documentacion/mic-buttons.md)
  
 Se propone utilizar pulsadores como interfaz de interacción con los botones del Tamagotchi. Estos pulsadores estarán conectados a entradas del FPGA, permitiendo al sistema detectar las pulsaciones del usuario. Además se hará una descripción de hardware para mitigar el rebote mecánico de los botones mediante el módulo anti-rebote.
 
 
 ### 3.4.2  Sensor de Sonido y Buzzer
-- documentación detallada: [mic-buttons.md](./Documentacion\mic-buttons.md)
+- documentación detallada: [mic-buttons.md](./Documentacion/mic-buttons.md)
   
 Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se propone un módulo que gestione la interacción con estos componentes. Este módulo será responsable de:
 
 1. Lectura del sensor de sonido (micrófono): Leer la señal digital del sensor KY038 para detectar la presencia o ausencia de sonido.
 
 2. Control del buzzer: Generar una señal que permita "interactuar" con el Tamagotchi, la cual variará en frecuencia de acuerdo al estado de animo del mismo.
-![Mic](./figs/Mic.jpg)
+
+<div style="text-align: center;">
+    <span><img id="Fig_mic" src="./figs/Mic.jpg" width="200"/></span>
+</div>
 
 ### 3.4.3 Sensor Ultrasónico HC-SR04
 - documentación detallada: [ultrasonido.md](./Documentacion/ultrasonido.md)
   
 El HC-SR04 es un sensor de ultrasonido ampliamente utilizado para medir distancias. Funciona emitiendo un pulso de sonido ultrasonico y midiendo el tiempo que tarda en rebotar en un objeto y regresar al sensor.
 
-![HC-S04](./figs/HC-SR04.jpg)
 
-Toda la información del dispositivo respecto a su uso e implementación en el tamagotchi están en [ultrasonido.md](Documentacion/ultrasonido.md)
+<div style="text-align: center;">
+    <span><img id="Fig_mic" src="./figs/HC-SR04.jpg" width="200"/></span>
+</div>
+
+Toda la información del dispositivo respecto a su uso e implementación en el tamagotchi están en: [ultrasonido.md](./Documentacion/ultrasonido.md)
+
    
 ### 3.4.5 Pantalla LCD 16x2
 - documentación detallada: [lcd1602.md](.\Documentacion\lcd1602.md)
 
 Se utilizará una pantalla LCD 16x2 para mostrar la mascota virtual y los puntajes de las estadisticas. Para ello, se implementará un modulo de LCD controller que reciba el estado actual de la mascota y sus puntajes y se encargue de enviarle a la pantalla las señales correspondientes de rs, rw, enable y data para lograr la visualización deseada.
-![LCD](./figs/LCD16x2.jpg) 
+
+
+<div style="text-align: center;">
+    <span><img id="Fig_mic" src="./figs/LCD16x2.jpg" width="200"/></span>
+</div>
+
 
 
 #  4. Especificaciones Detalladas de Diseño 
@@ -173,7 +185,7 @@ Como se describió de manera detallada en el apartado anterior, el Tamagotchi te
 
 Estos estados fluctuarán en base a los niveles de cada indicador de la mascota, proporcionando una experiencia dinámica e interactiva para el usuario. Por cada estado se visualizará en la pantalla LCD 16x2 diversas expresiones de la mascota.
 
-![image](https://github.com/user-attachments/assets/151ad1c7-ee20-4f9f-8323-a36a114eaed3)
+![emociones](./figs/emociones.png)
 
 
 ### 4.2.2 Transiciones 
