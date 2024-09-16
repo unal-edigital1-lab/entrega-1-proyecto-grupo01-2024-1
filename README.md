@@ -66,7 +66,8 @@ De esta forma, el usuario podrá entender mejor las necesidades de su mascota vi
 #  3. Arquitectura del Sistema
 
 El siguiente esquema representa el diagrama de caja negra inicial del proyecto. 
-![DiagramadeCajaNegra](./figs/Diagrama_Caja_Negra.png)
+![image](https://github.com/user-attachments/assets/c3068f6b-6304-464e-a084-2c3531af8472)
+
 
 ## 3.1 Diagrama de Caja Negra
 
