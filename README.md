@@ -108,9 +108,7 @@ El HC-SR04 es un sensor de ultrasonido ampliamente utilizado para medir distanci
 
 ![HC-S04](./figs/HC-SR04.jpg)
 
-Toda la información del dispositivo respecto a su uso e implementación en el tamagotchi están en el siguiente enlace:
-
-https://github.com/unal-edigital1-lab/entrega-1-proyecto-grupo01-2024-1/blob/main/Documentacion/ultrasonido.md
+Toda la información del dispositivo respecto a su uso e implementación en el tamagotchi están en [ultrasonido.md](/Documentos/ultrasonido.md)
    
 ### 3.4.5 Pantalla LCD 16x2
 Se utilizará una pantalla LCD 16x2 para mostrar la mascota virtual y los puntajes de las estadisticas. Para ello, se implementará un modulo de LCD controller que reciba el estado actual de la mascota y sus puntajes y se encargue de enviarle a la pantalla las señales correspondientes de rs, rw, enable y data para lograr la visualización deseada.
