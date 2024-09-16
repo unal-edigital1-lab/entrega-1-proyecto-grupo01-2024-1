@@ -1,4 +1,4 @@
-`include "checker.v"
+//`include "checker.v"
 
 module task_manager #(parameter MAX_VALUE_STATISTICS = 5, NUM_FACES = 9)(
     input clk,            
