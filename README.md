@@ -53,12 +53,17 @@ Para integrar al Tamagotchi con el entorno real y enriquecer la experiencia de i
 
 ## 2.3 Sistema de Visualización
 
-Se empleará una pantalla **LCD 16x2** para la visualización del Tamagochi. En ella se mostrará lo siguiente:
+Se empleará una pantalla **LCD 16x2** para la visualización del Tamagotchi. En ella se mostrará lo siguiente:
  - Representación visual de la mascota y sus emociones mediante gestos/caras. 
 - Los valores numéricos junto con íconos de las estadísticas de la mascota virtual.  (1) Hunger, (2) Entertainment, y (3) Energy. 
 
 De esta forma, el usuario podrá entender mejor las necesidades de su mascota virtual y responder en consecuencia.
 
+**Display 7 Segmentos**
+* Se emplea además un display 7 segmentos para visualizar el número correspondiente (del 0 al 8) al estado en el que se encuentra el Tamagotchi. Cabe resaltar que el estado 9 no se muestra ya que es el estado test y además no tiene una cara asociada. Este display se usa en gran parte para depurar el código.
+
+**Cuatro Leds**
+* Se usan cuatro leds de la FPGA para indicar la cantidad completa de estados, (del 0 al 9) estos leds facilitan que el usuario pueda saber cuando se entra al modo test, ya que los cuatros leds representan el numero de cuatro bits correspondientes al estado en el que se encuentra.
 
 #  3. Arquitectura del Sistema
 
