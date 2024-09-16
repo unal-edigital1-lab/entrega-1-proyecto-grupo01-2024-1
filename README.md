@@ -216,4 +216,10 @@ El sistema de niveles o puntos se ilustra en la siguiente figura:
 
 ![Indicadores](./figs/Indicadores.png)
 
+## Video funcionamiento
+
+
+
+https://github.com/user-attachments/assets/e6920011-13c7-4a77-a9e0-9e271bab917c
+
 
