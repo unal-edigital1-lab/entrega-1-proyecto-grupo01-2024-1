@@ -47,17 +47,17 @@ Imagen del diagrama de estados del ultrasonido:
 
 Código con la logica del cambio de estados de la maquina de estas:
 
-![image1](figs/us2.png)
+![image1](../figs/us2.png)
 
 
 Código de las funciones dentro de cada uno de los estados:
 
-![image2](figs/us3.png)
+![image2](../figs/us3.png)
 
 
 Bloque always en el que se implementa la lógica para el output: 
 
-![image3](figs/us4.png)
+![image3](../figs/us4.png)
 
 
 ## Simulación
@@ -65,15 +65,15 @@ Para la simulación se reduce el tiempo de espera para enviar el output "led" a 
 
 En la primera imgaen se aprecia como empieza a aumentar el contador "counteat" ya que el contador que mide los ciclos no superó el valor definido que es de 73000.
 
-![image4](figs/us5.png)
+![image4](../figs/us5.png)
 
 Luego al llegar el contador "counteat" a 500 se envia un pulso que dura 1 ciclo al output "led" y a pesar que el contador sigue aumentando no se vuelve a enviar este pulso, esto se puede percibir en la siguiente imagen:
 
-![image5](figs/us6.png)
+![image5](../figs/us6.png)
 
 En la siguiente imagen se puede observar el comportamiento del sistema cuando se coloca un objeto a una distancia superior a 10 cm inmediatamente después de haberlo colocado a 10 cm. Inicialmente, el contador "counteat" sigue aumentando, ya que no ha recibido una medida diferente. Sin embargo, en el momento en que detecta un objeto que supera la distancia establecida, el contador "counteat" se detiene y el registro "act" cambia a 1. A continuación, se observa que el contador del eco se detiene justo cuando deja de recibir el eco. Todo esto queda reflejado en la imagen a continuación:
 
-![image6](figs/us7.png)
+![image6](../figs/us7.png)
 
 Con esta simulaación fue suficiente para determinar que el codigo funciona y que se puede implementar en el top general, al probarlo de manera experimental se obtuvieron resultados satisfactorios que se mostrarán en el video general del Tamagotchi.
 
