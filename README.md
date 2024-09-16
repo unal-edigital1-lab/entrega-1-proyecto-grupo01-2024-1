@@ -20,9 +20,6 @@
     - [3.4.1 Botones](#341-botones)
     - [3.4.2  Sensor de Sonido y Buzzer](#342--sensor-de-sonido-y-buzzer)
     - [3.4.3 Sensor Ultrasónico HC-SR04](#343-sensor-ultrasónico-hc-sr04)
-      - [Señales](#señales)
-      - [Especificaciones](#especificaciones)
-      - [Funcionamiento](#funcionamiento)
     - [3.4.5 Pantalla LCD 16x2](#345-pantalla-lcd-16x2)
 - [4. Especificaciones Detalladas de Diseño](#4-especificaciones-detalladas-de-diseño)
   - [4.1 Modos de Operación](#41-modos-de-operación)
@@ -90,11 +87,14 @@ El siguiente diagrama de Moore es una representación gráfica de la lógica de 
 ## 3.4 Descripción de Componentes
 
 ### 3.4.1 Botones
-
+- documentación detallada: [mic-buttons.md](./Documentacion\mic-buttons.md)
+ 
 Se propone utilizar pulsadores como interfaz de interacción con los botones del Tamagotchi. Estos pulsadores estarán conectados a entradas del FPGA, permitiendo al sistema detectar las pulsaciones del usuario. Además se hará una descripción de hardware para mitigar el rebote mecánico de los botones mediante el módulo anti-rebote.
 
 
 ### 3.4.2  Sensor de Sonido y Buzzer
+- documentación detallada: [mic-buttons.md](./Documentacion\mic-buttons.md)
+  
 Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se propone un módulo que gestione la interacción con estos componentes. Este módulo será responsable de:
 
 1. Lectura del sensor de sonido (micrófono): Leer la señal digital del sensor KY038 para detectar la presencia o ausencia de sonido.
@@ -103,7 +103,8 @@ Para integrar el sensor de sonido KY038 y el buzzer en el sistema Tamagotchi, se
 ![Mic](./figs/Mic.jpg)
 
 ### 3.4.3 Sensor Ultrasónico HC-SR04
-
+- documentación detallada: [ultrasonido.md](./Documentacion/ultrasonido.md)
+  
 El HC-SR04 es un sensor de ultrasonido ampliamente utilizado para medir distancias. Funciona emitiendo un pulso de sonido ultrasonico y midiendo el tiempo que tarda en rebotar en un objeto y regresar al sensor.
 
 ![HC-S04](./figs/HC-SR04.jpg)
@@ -111,6 +112,8 @@ El HC-SR04 es un sensor de ultrasonido ampliamente utilizado para medir distanci
 Toda la información del dispositivo respecto a su uso e implementación en el tamagotchi están en [ultrasonido.md](Documentacion/ultrasonido.md)
    
 ### 3.4.5 Pantalla LCD 16x2
+- documentación detallada: [lcd1602.md](.\Documentacion\lcd1602.md)
+
 Se utilizará una pantalla LCD 16x2 para mostrar la mascota virtual y los puntajes de las estadisticas. Para ello, se implementará un modulo de LCD controller que reciba el estado actual de la mascota y sus puntajes y se encargue de enviarle a la pantalla las señales correspondientes de rs, rw, enable y data para lograr la visualización deseada.
 ![LCD](./figs/LCD16x2.jpg) 
 
