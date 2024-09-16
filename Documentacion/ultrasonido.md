@@ -41,22 +41,22 @@ Para aclarar una parte del código que puede resultar confusa, la metodología p
 
 ### Estados
 
-Imagne del diagrama de estados del ultrasonido:
-![Estados_us](https://github.com/user-attachments/assets/c2b57297-ffc9-446e-bae3-a20b7d5e3a12)
+Imagen del diagrama de estados del ultrasonido:
+![Estados_us](figs/flujo.us.png)
 
 Código con la logica del cambio de estados de la maquina de estas:
 
-![image](https://github.com/user-attachments/assets/0292c224-a0be-4bc1-9fd7-cfb2f8ebe80a)
+![image](figs/us2.png)
 
 
 Código de las funciones dentro de cada uno de los estados:
 
-![image](https://github.com/user-attachments/assets/f1c0a22e-a583-4e73-88a7-70399d404ebc)
+![image](figs/us3.png)
 
 
 Bloque always en el que se implementa la lógica para el output: 
 
-![image](https://github.com/user-attachments/assets/02e7c6fb-2396-4473-83dd-562d17bf9e0d)
+![image](figs/us4.png)
 
 
 ## Simulación
@@ -64,15 +64,15 @@ Para la simulación se reduce el tiempo de espera para enviar el output "led" a 
 
 En la primera imgaen se aprecia como empieza a aumentar el contador "counteat" ya que el contador que mide los ciclos no superó el valor definido que es de 73000.
 
-![image](https://github.com/user-attachments/assets/7fa9163f-5188-4996-81e9-c802aba10177)
+![image](figs/us5.png)
 
 Luego al llegar el contador "counteat" a 500 se envia un pulso que dura 1 ciclo al output "led" y a pesar que el contador sigue aumentando no se vuelve a enviar este pulso, esto se puede percibir en la siguiente imagen:
 
-![image](https://github.com/user-attachments/assets/7400a6fb-5d02-401a-9d4e-496a6d98215f)
+![image](figs/us6.png)
 
 En la siguiente imagen se puede observar el comportamiento del sistema cuando se coloca un objeto a una distancia superior a 10 cm inmediatamente después de haberlo colocado a 10 cm. Inicialmente, el contador "counteat" sigue aumentando, ya que no ha recibido una medida diferente. Sin embargo, en el momento en que detecta un objeto que supera la distancia establecida, el contador "counteat" se detiene y el registro "act" cambia a 1. A continuación, se observa que el contador del eco se detiene justo cuando deja de recibir el eco. Todo esto queda reflejado en la imagen a continuación:
 
-![image](https://github.com/user-attachments/assets/7c63c096-99bf-4bc0-a525-6770e5bc5148)
+![image](figs/us7.png)
 
 Con esta simulaación fue suficiente para determinar que el codigo funciona y que se puede implementar en el top general, al probarlo de manera experimental se obtuvieron resultados satisfactorios que se mostrarán en el video general del Tamagotchi.
 
