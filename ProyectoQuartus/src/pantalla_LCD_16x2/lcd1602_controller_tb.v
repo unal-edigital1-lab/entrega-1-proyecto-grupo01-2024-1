@@ -1,5 +1,5 @@
-//`timescale 1ns / 1ps
-//`include "lcd1602_controller.v"
+`timescale 1ns / 1ps
+`include "lcd1602_controller.v"
 
 
 module LCD1602_CONTROLLER_tb;
@@ -62,7 +62,7 @@ module LCD1602_CONTROLLER_tb;
         // Wait for some time to observe the behavior
         #(2e4);
 
-        #(1e3) reset = 0;
+        #(1e3) reset = 1;
         #(10) begin face = 0; feed_value = 5; joy_value = 5; energy_value = 5; end
         #(1e3) reset = 1;
         #(6e4);

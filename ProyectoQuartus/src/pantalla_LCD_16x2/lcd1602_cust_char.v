@@ -68,8 +68,8 @@ initial begin
    data <= 'b0;
    rw <= 0;
    rs <= 0;
-   $readmemb({"/home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/ProyectoQuartus/src/pantalla_LCD_16x2/", path_file}, data_memory);
-   //$readmemb({"C:/Users/Maria Alejandra/Documents/ElectronicaDigital/TAMAGOCHI/QUARTUS/QuartusLCD/TXT/", path_file}, data_memory);
+   //$readmemb({"/home/samarinbe/Desktop/LabsDig1/entrega-1-proyecto-grupo01-2024-1/ProyectoQuartus/src/pantalla_LCD_16x2/", path_file}, data_memory);
+   $readmemb({"C:/Users/Maria Alejandra/Documents/ElectronicaDigital/TAMAGOCHI/QUARTUS/QuartusLCD/TXT/", path_file}, data_memory);
 
    // Direcciones de escritura de la CGRAM 
    cgram_addrs[0] = 8'h40;
@@ -156,16 +156,18 @@ always @(posedge clk_16ms) begin
             SET_CURSOR_AND_WRITE: begin
 				case(create_char_task)
 					SET_CURSOR: begin
+                        // se envia la dirección DDRAM de la LCD donde se quiere escribir el custom character
                         rs <= 0; data <= (cgram_addrs_counter > (lcd_column_size - 1 ))? initial_LCD_addrs + (cgram_addrs_counter%lcd_column_size) + 8'h40 : initial_LCD_addrs + (cgram_addrs_counter%lcd_column_size);
                         create_char_task <= WRITE_LCD; 
                     end
 					WRITE_LCD: begin
+                        // se escribe el custom character en la LCD
                         rs <= 1; data <=  8'h00 + cgram_addrs_counter;
                         if(cgram_addrs_counter == num_cgram_addrs-1)begin
-                            cgram_addrs_counter <= 'b0;
+                            cgram_addrs_counter <= 'b0; // reset counter
                             done_lcd_write <= 1'b1; // se terminó de pintar en la lcd el custom character
                         end else begin
-                            cgram_addrs_counter <= cgram_addrs_counter + 1;
+                            cgram_addrs_counter <= cgram_addrs_counter + 1; // se pasa al siguiente custom character
                         end
                         create_char_task <= SET_CURSOR; 
                     end

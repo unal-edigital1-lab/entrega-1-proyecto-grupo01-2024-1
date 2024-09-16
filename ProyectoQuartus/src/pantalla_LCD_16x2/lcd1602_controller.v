@@ -1,5 +1,5 @@
-//`include "lcd1602_cust_char.v"
-//`include "task_manager.v"
+`include "lcd1602_cust_char.v"
+`include "task_manager.v"
 
 module LCD1602_CONTROLLER #(parameter MAX_VALUE = 5, NUM_FACES = 9, COUNT_MAX = 800000)(
     input clk,   

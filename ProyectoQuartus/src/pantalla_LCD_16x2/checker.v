@@ -5,8 +5,8 @@ module checker #(parameter MAX_VALUE = 5, PERIOD_COUNT = 25000000, RESET_VALUE =
     output wire change
 );
 
-reg [$clog2(MAX_VALUE)-1:0] previus_value = 0;
-reg [$clog2(MAX_VALUE)-1:0] actual_value = 0;
+reg [$clog2(MAX_VALUE)-1:0] previus_value = RESET_VALUE;
+reg [$clog2(MAX_VALUE)-1:0] actual_value = RESET_VALUE;
 
 reg [$clog2(PERIOD_COUNT)-1:0] count = 0;
 reg change_detected = 0;
