@@ -119,7 +119,7 @@ Toda la información del dispositivo respecto a su uso e implementación en el t
 
    
 ### 3.4.5 Pantalla LCD 16x2
-- documentación detallada: [lcd1602.md](.\Documentacion\lcd1602.md)
+- documentación detallada: [lcd1602.md](./Documentacion/lcd1602.md)
 
 Se utilizará una pantalla LCD 16x2 para mostrar la mascota virtual y los puntajes de las estadisticas. Para ello, se implementará un modulo de LCD controller que reciba el estado actual de la mascota y sus puntajes y se encargue de enviarle a la pantalla las señales correspondientes de rs, rw, enable y data para lograr la visualización deseada.
 
