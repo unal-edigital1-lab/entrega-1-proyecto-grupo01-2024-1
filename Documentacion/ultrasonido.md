@@ -43,7 +43,7 @@ Para aclarar una parte del código que puede resultar confusa, la metodología p
 
 Imagen del diagrama de estados del ultrasonido:
 
-![Estados_us](figs/flujo.us.png)
+![Estados_us](../figs/flujo.us.png)
 
 Código con la logica del cambio de estados de la maquina de estas:
 
