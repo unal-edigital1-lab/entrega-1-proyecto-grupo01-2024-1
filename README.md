@@ -69,7 +69,7 @@ El siguiente esquema representa el diagrama de caja negra inicial del proyecto.
 ## 3.1 Diagrama de Caja Negra
 
 Este diagrama presenta la arquitectura del Tamagotchi. Dado que el desarrollo es un proceso iterativo, es probable que ajustemos este modelo para adaptarlo mejor a las necesidades emergentes y a los hallazgos obtenidos durante las etapas de pruebas e integración.
-![Diagramas (2)-CajaNegraArquitectura drawio](figs/diag.caja.neg.png)
+![Diagramas (2)-CajaNegraArquitectura drawio](figs/CajaNegraActualizada.png)
 
 
 ## 3.2 Diagrama de Flujo
